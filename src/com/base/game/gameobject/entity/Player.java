@@ -2,22 +2,28 @@ package com.base.game.gameobject.entity;
 
 import com.base.engine.Display;
 import com.base.engine.InputHandler;
-import org.lwjgl.opengl.GL11;
+import com.base.engine.Sprite;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+// TODO: extend GameObject
 public class Player {
-    private int xPos;
-    private int yPos;
+    private float xPos;
+    private float yPos;
     private int width;
     private int height;
+
+    private Sprite sprite;
 
     public Player(int xPos, int yPos, int width, int height) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
+
+        // TODO: should this be inherited from GameObject
+        sprite = new Sprite(0.0f, 0.0f, 1.0f, width, height);
     }
 
     public void update() {
@@ -43,11 +49,11 @@ public class Player {
     }
 
     public void render() {
-        glBegin(GL11.GL_QUADS);
-            glVertex2f(xPos, yPos);
-            glVertex2f(xPos + width, yPos);
-            glVertex2f(xPos + width,yPos + height);
-            glVertex2f(xPos,yPos + height);
-        glEnd();
+        glPushMatrix();
+        {
+            glTranslatef(xPos, yPos, 0);
+            sprite.render();
+        }
+        glPopMatrix();
     }
 }

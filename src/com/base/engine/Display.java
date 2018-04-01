@@ -1,15 +1,12 @@
 package com.base.engine;
 
-import com.base.game.Game;
-import org.lwjgl.*;
+import com.base.game.interfaces.Game;
+import com.base.game.interfaces.MainMenu;
+import com.base.game.interfaces.PauseMenu;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -147,7 +144,7 @@ public class Display {
         initGame();
 
         // Set the clear color
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -159,7 +156,7 @@ public class Display {
                     mainMenu.render();
                     break;
                 case GAME:
-                    glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+                    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
                     Game.game.update();
                     Game.game.render();

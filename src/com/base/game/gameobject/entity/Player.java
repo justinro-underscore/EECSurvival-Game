@@ -52,7 +52,13 @@ public class Player extends GameObject {
         glPushMatrix();
         {
             glTranslatef(xPos, yPos, 0);
+
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
             sprite.render(textureID);
+
+            glDisable(GL_BLEND);
         }
         glPopMatrix();
     }

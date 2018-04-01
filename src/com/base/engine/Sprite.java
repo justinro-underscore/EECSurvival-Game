@@ -33,23 +33,23 @@ public class Sprite {
 
         glBegin(GL11.GL_QUADS);
         {
-            glTexCoord2f(0, 0);
+            glTexCoord2f(1, 1);
             glVertex2f(0, 0);
 
-            glTexCoord2f(1, 0);
+            glTexCoord2f(0, 1);
             glVertex2f(width, 0);
 
-            glTexCoord2f(1, 1);
+            glTexCoord2f(0, 0);
             glVertex2f(width, height);
 
-            glTexCoord2f(0, 1);
+            glTexCoord2f(1, 0);
             glVertex2f(0, height);
         }
         glEnd();
     }
 
     private void renderRBG() {
-        glColor3f(r, g, b);
+        glColor4f(r, g, b, 0.0f);
 
         glBegin(GL11.GL_QUADS);
         {

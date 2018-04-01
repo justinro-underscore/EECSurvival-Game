@@ -10,8 +10,8 @@ public class Game {
     public static Game game;
 
     public Game() {
-        Sprite playerSprite = new Sprite(0.0f, 0.0f, 1.0f, 30, 30);
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, playerSprite);
+        Sprite playerSprite = new Sprite(0.0f, 0.0f, 1.0f, 50, 50);
+        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, playerSprite, "./res/bricks.jpg");
     }
 
     public void update() {

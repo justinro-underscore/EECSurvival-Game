@@ -1,16 +1,29 @@
 package com.base.game.gameobject.entity;
 
-import com.base.engine.Display;
-import com.base.engine.GameObject;
-import com.base.engine.InputHandler;
-import com.base.engine.Sprite;
+import com.base.engine.*;
+
+import java.io.IOException;
+import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Player extends GameObject {
-    public Player(int xPos, int yPos, Sprite sprite) {
+    private int textureID;
+
+    public Player(int xPos, int yPos, Sprite sprite, String fileName) {
         init(xPos, yPos, sprite);
+
+        if (!Objects.equals(fileName, "")) {
+            try {
+                textureID = TextureLoader.loadTexture(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            textureID = -1;
+        }
+
     }
 
     public void update() {
@@ -31,7 +44,7 @@ public class Player extends GameObject {
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -=5;
+            xPos -= 5;
         }
     }
 
@@ -39,7 +52,7 @@ public class Player extends GameObject {
         glPushMatrix();
         {
             glTranslatef(xPos, yPos, 0);
-            sprite.render();
+            sprite.render(textureID);
         }
         glPopMatrix();
     }

@@ -33,7 +33,7 @@ public abstract class GameObject
         glPushMatrix();
         {
             glTranslatef(xPos, yPos, 0);
-            sprite.render();
+            sprite.render(-1);
         }
         glPopMatrix();
     }

@@ -25,7 +25,6 @@ public class Display {
     private static int width;
     private static int height;
 
-    private Game game;
     private InputHandler inputHandler;
 
     public void run(int width, int height, String name) {
@@ -47,7 +46,7 @@ public class Display {
     }
 
     private void initGame() {
-        game = new Game();
+        Game.game = new Game();
         inputHandler = new InputHandler();
     }
 
@@ -129,8 +128,8 @@ public class Display {
         while ( !glfwWindowShouldClose(window) ) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-            game.update();
-            game.render();
+            Game.game.update();
+            Game.game.render();
 
             glfwSwapBuffers(window); // swap the color buffers
 

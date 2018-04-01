@@ -1,12 +1,10 @@
 package com.base.engine;
 
-import com.base.engine.Sprite;
-
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
-public class GameObject
+public abstract class GameObject
 {
     protected int xPos;
     protected int yPos;
@@ -14,6 +12,7 @@ public class GameObject
     protected int height;
 
     private Sprite sprite;
+    private boolean toRemove;
 
     public GameObject(int xPos, int yPos, int width, int height, Sprite sprite)
     {
@@ -23,6 +22,8 @@ public class GameObject
         this.height = height;
 
         this.sprite = sprite;
+
+        toRemove = false;
     }
 
     public void update() {}
@@ -35,5 +36,29 @@ public class GameObject
             sprite.render();
         }
         glPopMatrix();
+    }
+
+    public void remove() {
+        toRemove = true;
+    }
+
+    public boolean isRemoved() {
+        return toRemove;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getX() {
+        return xPos;
+    }
+
+    public int getY() {
+        return yPos;
     }
 }

@@ -4,6 +4,7 @@ import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.engine.Sprite;
 import com.base.game.gameobject.entity.Player;
+import com.base.game.gameobject.entity.Boss;
 
 import java.util.ArrayList;
 
@@ -19,9 +20,12 @@ public class Game {
         toRemove = new ArrayList<>();
 
         Sprite playerSprite = new Sprite(0.0f, 0.0f, 1.0f, 30, 30);
-        Player player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, playerSprite, 5, 5, 5);
+        Sprite bossSprite = new Sprite(1.0f, 0.0f, 0.0f, 70, 70);
+        Player player = new Player(Display.getWidth() / 2 - 15, Display.getHeight() / 2 - 30, playerSprite, 5, 5, 5);
+        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, 5, 5, 5);
 
         addObj(player);
+        addObj(boss);
     }
 
     public void update() {

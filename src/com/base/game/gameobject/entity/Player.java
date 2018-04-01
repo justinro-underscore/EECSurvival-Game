@@ -52,7 +52,7 @@ public class Player extends Character {
             int proHeight = 5;
 
             Sprite spr = new Sprite(1.0f, 0.0f, 0.0f, proWidth, proHeight);
-            StandardProjectile pro = new StandardProjectile(xPos + (width / 2) + (proWidth / 2), yPos + height, spr, new GameVector(0, 1), 5, 8);
+            StandardProjectile pro = new StandardProjectile(xPos + (width / 2) - (proWidth / 2), yPos + height, spr, new GameVector(0, 1), 5, 8);
 
             Game.game.addObj(pro);
             timeSinceLastFire = 25;

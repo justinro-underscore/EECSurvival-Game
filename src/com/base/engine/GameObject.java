@@ -11,15 +11,15 @@ public abstract class GameObject
     protected int width;
     protected int height;
 
-    private Sprite sprite;
-    private boolean toRemove;
+    protected Sprite sprite;
+    protected boolean toRemove;
 
-    public GameObject(int xPos, int yPos, int width, int height, Sprite sprite)
+    protected void init(int xPos, int yPos, Sprite sprite)
     {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
+        this.width = sprite.getWidth();
+        this.height = sprite.getHeight();
 
         this.sprite = sprite;
 

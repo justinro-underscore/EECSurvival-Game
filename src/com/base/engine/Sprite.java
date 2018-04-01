@@ -30,4 +30,12 @@ public class Sprite {
             glVertex2f(0, height);
         glEnd();
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }

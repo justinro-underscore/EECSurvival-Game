@@ -8,23 +8,9 @@ import com.base.engine.Sprite;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-//TODO: extend GO
-public class Player {
-    private float xPos;
-    private float yPos;
-    private int width;
-    private int height;
-
-    private Sprite sprite;
-
-    public Player(int xPos, int yPos, int width, int height) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.width = width;
-        this.height = height;
-
-        // TODO: should this be inherited from GameObject
-        sprite = new Sprite(0.0f, 0.0f, 1.0f, width, height);
+public class Player extends GameObject {
+    public Player(int xPos, int yPos, Sprite sprite) {
+        init(xPos, yPos, sprite);
     }
 
     public void update() {

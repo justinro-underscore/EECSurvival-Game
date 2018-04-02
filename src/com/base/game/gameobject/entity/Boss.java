@@ -45,7 +45,7 @@ public class Boss extends Character {
             wallOfFireAbility(5,5,6);
         }
         if(timeSinceLastFire % 125 == 0 && timeSinceLastFire != 0){
-            wallOfFireAbility(5,5,4);
+            targetPlayerAbility(5,5,4);
         }
         if(timeSinceLastFire % 73 == 0) {
             if(Math.random() * 2 > 1){
@@ -58,7 +58,15 @@ public class Boss extends Character {
         Sprite spr = new Sprite(0.0f, 1.0f, 0.0f, proWidth, proHeight);
 
         for (int i = 1; i <= numberOfPros; i++) {
-            projectiles.add(new StandardProjectile(xPos + (width / 2)- (proWidth / 2), yPos - proHeight, spr, new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 2));
+            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, spr, new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 2));
+        }
+    }
+
+    public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
+        Sprite spr = new Sprite(0.0f, 1.0f, 0.0f, proWidth, proHeight);
+
+        for (int i = 1; i <= numberOfPros; i++) {
+            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, spr, new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 2));
         }
     }
 
@@ -69,6 +77,8 @@ public class Boss extends Character {
             projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, spr, new Vector2f(0, -1), 5, 2));
         }
     }
+
+
 
     public void render() {
         glPushMatrix();

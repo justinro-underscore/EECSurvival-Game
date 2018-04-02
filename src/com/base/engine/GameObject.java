@@ -55,10 +55,10 @@ public abstract class GameObject
     }
 
     public float getX() {
-        return xPos;
+        return xPos + (width/2.0f);
     }
 
     public float getY() {
-        return yPos;
+        return yPos + (height/2.0f);
     }
 }

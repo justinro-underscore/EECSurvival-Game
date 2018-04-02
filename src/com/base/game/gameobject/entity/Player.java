@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Player extends Character {
     private int timeSinceLastFire;
 
-    public Player(int xPos, int yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
+    public Player(float xPos, float yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, health, attackDamage, attackSpeed);
 
         timeSinceLastFire = 0;

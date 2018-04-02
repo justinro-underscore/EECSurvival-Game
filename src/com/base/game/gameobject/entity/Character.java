@@ -9,7 +9,7 @@ public class Character extends GameObject
     protected int attackDamage;
     protected int attackSpeed; // In milliseconds
 
-    protected Character(int xPos, int yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
+    protected Character(float xPos, float yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
         init(xPos, yPos, sprite);
 
         this.health = health;

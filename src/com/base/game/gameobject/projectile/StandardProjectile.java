@@ -5,7 +5,7 @@ import com.base.engine.GameVector;
 
 public class StandardProjectile extends Projectile
 {
-    public StandardProjectile(int xPos, int yPos, Sprite sprite, GameVector shootAngle, int damage, int speed)
+    public StandardProjectile(float xPos, float yPos, Sprite sprite, GameVector shootAngle, int damage, float speed)
     {
         super(xPos, yPos, sprite, shootAngle, damage, speed);
     }

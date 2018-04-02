@@ -6,15 +6,15 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 
 public abstract class GameObject
 {
-    protected int xPos;
-    protected int yPos;
+    protected float xPos;
+    protected float yPos;
     protected int width;
     protected int height;
 
     protected Sprite sprite;
     protected boolean toRemove;
 
-    protected void init(int xPos, int yPos, Sprite sprite)
+    protected void init(float xPos, float yPos, Sprite sprite)
     {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -54,11 +54,11 @@ public abstract class GameObject
         return width;
     }
 
-    public int getX() {
+    public float getX() {
         return xPos;
     }
 
-    public int getY() {
+    public float getY() {
         return yPos;
     }
 }

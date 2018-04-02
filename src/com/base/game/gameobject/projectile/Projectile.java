@@ -10,9 +10,9 @@ public class Projectile extends GameObject
 {
     protected GameVector shootAngle;
     protected int damage;
-    protected int speed;
+    protected float speed;
 
-    protected Projectile(int xPos, int yPos, Sprite sprite, GameVector shootAngle, int damage, int speed)
+    protected Projectile(float xPos, float yPos, Sprite sprite, GameVector shootAngle, int damage, float speed)
     {
         init(xPos, yPos, sprite);
         this.shootAngle = shootAngle;
@@ -24,19 +24,19 @@ public class Projectile extends GameObject
     @Override
     public void update()
     {
-        int xChange;
-        int yChange;
+        float xChange;
+        float yChange;
         if(shootAngle.x < 0){
-            xChange = (int) (Math.ceil((double)shootAngle.x) * speed);
+            xChange = (float) (Math.ceil((double)shootAngle.x) * speed);
         }
         else{
-            xChange = (int) (Math.floor((double)shootAngle.x) * speed);
+            xChange = (float) (Math.floor((double)shootAngle.x) * speed);
         }
         if(shootAngle.y < 0){
-            yChange = (int) (Math.ceil((double)shootAngle.y) * speed);
+            yChange = (float) (Math.ceil((double)shootAngle.y) * speed);
         }
         else{
-            yChange = (int) (Math.floor((double)shootAngle.y) * speed);
+            yChange = (float) (Math.floor((double)shootAngle.y) * speed);
         }
 
         if(((double) shootAngle.x <= 0 && xChange + xPos + width >= 0) || ((double) shootAngle.x > 0 && xChange + xPos <= Display.getWidth()))

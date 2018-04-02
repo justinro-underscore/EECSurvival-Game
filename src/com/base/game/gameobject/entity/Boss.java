@@ -12,7 +12,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Boss extends Character {
     private int timeSinceLastFire;
 
-    public Boss(int xPos, int yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
+    public Boss(float xPos, float yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, health, attackDamage, attackSpeed);
 
         timeSinceLastFire = 200;
@@ -20,7 +20,7 @@ public class Boss extends Character {
 
     public void update() {
         attack();
-        int xChange = 2;
+        float xChange = 2;
         if(timeSinceLastFire < 150 && timeSinceLastFire >= 50){
             xPos += xChange;
         }

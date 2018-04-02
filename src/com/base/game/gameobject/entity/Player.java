@@ -1,17 +1,31 @@
 package com.base.game.gameobject.entity;
 
 import com.base.engine.*;
-import com.base.game.Game;
+import com.base.game.interfaces.Game;
 import com.base.game.gameobject.projectile.StandardProjectile;
+
+import java.io.IOException;
+import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Player extends Character {
+    private int textureID;
     private int timeSinceLastFire;
 
-    public Player(float xPos, float yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
+    public Player(int xPos, int yPos, Sprite sprite, String fileName, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, health, attackDamage, attackSpeed);
+
+        if (!Objects.equals(fileName, "")) {
+            try {
+                textureID = TextureLoader.loadTexture(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            textureID = -1;
+        }
 
         timeSinceLastFire = 0;
     }
@@ -52,7 +66,7 @@ public class Player extends Character {
             int proHeight = 5;
 
             Sprite spr = new Sprite(1.0f, 0.0f, 0.0f, proWidth, proHeight);
-            StandardProjectile pro = new StandardProjectile(xPos + (width / 2) - (proWidth / 2), yPos + height, spr, new GameVector(0, 1), 5, 8);
+            StandardProjectile pro = new StandardProjectile(xPos + (width / 2) - (proWidth / 2), yPos + height, spr, new Vector2f(0, 1), 5, 8);
 
             Game.game.addObj(pro);
             timeSinceLastFire = 25;
@@ -63,7 +77,13 @@ public class Player extends Character {
         glPushMatrix();
         {
             glTranslatef(xPos, yPos, 0);
-            sprite.render();
+
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+            sprite.render(textureID);
+
+            glDisable(GL_BLEND);
         }
         glPopMatrix();
     }

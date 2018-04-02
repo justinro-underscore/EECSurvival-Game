@@ -1,7 +1,8 @@
 package com.base.engine;
 
-import com.base.game.Game;
-import org.lwjgl.*;
+import com.base.game.interfaces.Game;
+import com.base.game.interfaces.MainMenu;
+import com.base.game.interfaces.PauseMenu;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
@@ -22,7 +23,6 @@ public class Display {
     private long window;
 
     private MainMenu mainMenu;
-
     private PauseMenu pauseMenu;
 
     private static String title;
@@ -42,7 +42,6 @@ public class Display {
         Display.width = width;
         Display.height = height;
 
-        initGame();
         init();
         gameLoop();
 
@@ -134,13 +133,18 @@ public class Display {
         // bindings available for use.
         GL.createCapabilities();
 
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_DEPTH_TEST);
+
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0, width, 0, height, 1, -1);
         glMatrixMode(GL_MODELVIEW);
 
+        initGame();
+
         // Set the clear color
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -152,6 +156,8 @@ public class Display {
                     mainMenu.render();
                     break;
                 case GAME:
+                    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
                     Game.game.update();
                     Game.game.render();
                     break;

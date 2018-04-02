@@ -20,14 +20,44 @@ public class Sprite {
         this.height = height;
     }
 
-    public void render() {
-        glColor3f(r, g, b);
+    public void render(int textureID) {
+        if (textureID != -1) {
+            renderTex(textureID);
+        } else {
+            renderRBG();
+        }
+    }
+
+    private void renderTex(int textureID) {
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
         glBegin(GL11.GL_QUADS);
+        {
+            glTexCoord2f(1, 1);
+            glVertex2f(0, 0);
+
+            glTexCoord2f(0, 1);
+            glVertex2f(width, 0);
+
+            glTexCoord2f(0, 0);
+            glVertex2f(width, height);
+
+            glTexCoord2f(1, 0);
+            glVertex2f(0, height);
+        }
+        glEnd();
+    }
+
+    private void renderRBG() {
+        glColor4f(r, g, b, 0.0f);
+
+        glBegin(GL11.GL_QUADS);
+        {
             glVertex2f(0, 0);
             glVertex2f(width, 0);
             glVertex2f(width, height);
             glVertex2f(0, height);
+        }
         glEnd();
     }
 

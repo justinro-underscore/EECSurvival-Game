@@ -1,4 +1,4 @@
-package com.base.game;
+package com.base.game.interfaces;
 
 import com.base.engine.Display;
 import com.base.engine.GameObject;
@@ -19,9 +19,10 @@ public class Game {
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
 
-        Sprite playerSprite = new Sprite(0.0f, 0.0f, 1.0f, 30, 30);
+        Sprite playerSprite = new Sprite(0.0f, 0.0f, 1.0f, 41, 82);
+        Player player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, playerSprite, "./res/player.png", 5, 5, 5);
+
         Sprite bossSprite = new Sprite(1.0f, 0.0f, 0.0f, 70, 70);
-        Player player = new Player(Display.getWidth() / 2 - 15, Display.getHeight() / 2 - 30, playerSprite, 5, 5, 5);
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, 5, 5, 5);
 
         addObj(player);

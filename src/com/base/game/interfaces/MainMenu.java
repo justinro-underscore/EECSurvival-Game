@@ -1,4 +1,4 @@
-package com.base.engine;
+package com.base.game.interfaces;
 
 import com.base.engine.Display;
 import com.base.engine.GameObject;
@@ -9,9 +9,9 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public class PauseMenu {
+public class MainMenu {
     public void render() {
-        glColor3f(0.0f, 1.0f, 0.0f);
+        glColor3f(1.0f, 0.0f, 0.0f);
 
         glBegin(GL11.GL_QUADS);
             glVertex2f(0, 0);
@@ -21,4 +21,3 @@ public class PauseMenu {
         glEnd();
     }
 }
-

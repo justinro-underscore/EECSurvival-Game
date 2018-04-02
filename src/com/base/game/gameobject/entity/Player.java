@@ -14,7 +14,7 @@ public class Player extends Character {
     private int textureID;
     private int timeSinceLastFire;
 
-    public Player(int xPos, int yPos, Sprite sprite, String fileName, int health, int attackDamage, int attackSpeed) {
+    public Player(float xPos, float yPos, Sprite sprite, String fileName, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, health, attackDamage, attackSpeed);
 
         if (!Objects.equals(fileName, "")) {

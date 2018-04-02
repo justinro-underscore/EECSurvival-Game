@@ -17,13 +17,10 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class TextureLoader {
     public static int loadTexture(String fileName) throws IOException {
-        int width = 0;
-        int height = 0;
-
         BufferedImage image = ImageIO.read(new File(fileName));
 
-        width = image.getWidth();
-        height = image.getHeight();
+        int width = image.getWidth();
+        int height = image.getHeight();
 
         int[] pixels = new int[width * height];
         image.getRGB(0, 0, width, height, pixels, 0, width);

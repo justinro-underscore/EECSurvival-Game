@@ -19,6 +19,10 @@ public class Vector2f
         return x * vector.getX() + y * vector.getY();
     }
 
+    public float angle(Vector2f vector) {
+        return (float) Math.acos(dot(vector)/(length() * vector.length()));
+    }
+
     public Vector2f normalize() {
         float length = length();
         return new Vector2f(x / length, y / length);
@@ -29,6 +33,14 @@ public class Vector2f
         float cosAngle = (float)Math.cos(-angle);
 
         return new Vector2f(x * cosAngle - y * sinAngle, x * sinAngle + y * cosAngle);
+    }
+
+    public Vector2f translate(float x, float y) {
+        return new Vector2f(this.x + x, this.y + y);
+    }
+
+    public Vector2f negate() {
+        return new Vector2f(-x, -y);
     }
 
     public Vector2f add(Vector2f vector) {

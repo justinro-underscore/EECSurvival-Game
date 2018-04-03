@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Boss extends Character {
-    private float movSpeed;
-
     private Delay wallAttackDelay;
     private Delay targetAttackDelay;
     private Delay burstAttackDelay;
+
+    private float movSpeed;
 
     private ArrayList<StandardProjectile> projectiles;
 

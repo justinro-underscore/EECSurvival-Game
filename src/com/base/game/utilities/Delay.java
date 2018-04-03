@@ -28,7 +28,7 @@ public class Delay {
     public void start() {
         hasStarted = true;
         startTime = Time.getTime();
-        endTime = duration * 1000000 + startTime;
+        endTime = duration + startTime;
     }
 
     public void stop() {
@@ -39,6 +39,11 @@ public class Delay {
         hasStarted = true;
         endTime = 0;
         startTime = 0;
+    }
+
+    public void restart(int time_ms) {
+        duration = time_ms;
+        restart();
     }
 
     public long getCurrTime() {

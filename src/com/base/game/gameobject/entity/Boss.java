@@ -10,23 +10,24 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Boss extends Character {
-    private int timeSinceLastFire;
     private Delay wallAttackDelay;
     private Delay targetAttackDelay;
     private Delay burstAttackDelay;
+
+    private float movSpeed;
 
     private ArrayList<StandardProjectile> projectiles;
 
     public Boss(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
 
+        movSpeed = -2;
+
         projectiles = new ArrayList<>();
-        timeSinceLastFire = 200;
 
         wallAttackDelay = new Delay(3000);
         targetAttackDelay = new Delay(800);
         burstAttackDelay = new Delay(1200);
-
 
         wallAttackDelay.start();
         targetAttackDelay.start();
@@ -41,17 +42,9 @@ public class Boss extends Character {
         }
         projectiles.clear();
 
-        float xChange = 2;
-        if(timeSinceLastFire < 150 && timeSinceLastFire >= 50){
-            xPos += xChange;
-        }
-        else{
-            xPos -= xChange;
-        }
-        if(timeSinceLastFire > 0)
-            timeSinceLastFire--;
-        else
-            timeSinceLastFire = 200;
+        xPos += movSpeed;
+        if (Math.abs(getX() - Display.getWidth() / 2.0f) >= Display.getWidth() / 4.0f)
+            movSpeed = -movSpeed;
     }
 
     public void attack() {
@@ -92,8 +85,6 @@ public class Boss extends Character {
             projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, spr, "", new Vector2f(0, -1), 5, 2));
         }
     }
-
-
 
     public void render() {
         glPushMatrix();

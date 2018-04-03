@@ -1,4 +1,4 @@
-package com.base.game.interfaces;
+package com.base.game;
 
 import com.base.engine.Display;
 import com.base.engine.GameObject;

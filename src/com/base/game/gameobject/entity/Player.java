@@ -1,8 +1,9 @@
 package com.base.game.gameobject.entity;
 
 import com.base.engine.*;
-import com.base.game.interfaces.Game;
+import com.base.game.Game;
 import com.base.game.gameobject.projectile.StandardProjectile;
+import com.base.game.utilities.Delay;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -12,47 +13,46 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Player extends Character {
     private int textureID;
-    private int timeSinceLastFire;
+    private Delay attackDelay;
 
     public Player(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
 
-        timeSinceLastFire = 0;
+
+        attackDelay = new Delay(1000);
+        attackDelay.restart();
     }
 
     public void update() {
         checkCharacterCollision();
         checkDeath();
 
-        if(timeSinceLastFire > 0)
-            timeSinceLastFire--;
         getInput();
     }
 
     public void getInput() {
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-            yPos += 3;
+            yPos += 4f;
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-            yPos -= 3;
+            yPos -= 4f;
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-            xPos += 3;
+            xPos += 4f;
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -= 3;
+            xPos -= 4f;
         }
 
-        if(InputHandler.isKeyDown(GLFW_KEY_SPACE)) {
+        if(InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver()) {
             createProjectile();
         }
     }
 
     private void createProjectile() {
-        if(timeSinceLastFire == 0) {
             int proWidth = 5;
             int proHeight = 5;
 
@@ -60,8 +60,7 @@ public class Player extends Character {
             StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, spr, "", new Vector2f(0, 1), 5, 8);
 
             Game.game.addObj(pro);
-            timeSinceLastFire = 25;
-        }
+            attackDelay.start();
     }
 
     protected void checkCharacterCollisionSpecific(GameObject obj)

@@ -52,7 +52,7 @@ public class Boss extends Character {
             wallAttackDelay.start();
         }
         if(targetAttackDelay.isOver()){
-            targetPlayerAbility(5,5,4);
+            targetPlayerAbility(5,5,1);
             targetAttackDelay.start();
         }
         if(burstAttackDelay.isOver()) {

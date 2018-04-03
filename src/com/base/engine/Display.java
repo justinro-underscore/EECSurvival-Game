@@ -1,8 +1,9 @@
 package com.base.engine;
 
-import com.base.game.interfaces.Game;
+import com.base.game.Game;
 import com.base.game.interfaces.MainMenu;
 import com.base.game.interfaces.PauseMenu;
+import com.base.game.utilities.Time;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
@@ -42,6 +43,7 @@ public class Display {
         Display.width = width;
         Display.height = height;
 
+        Time.init();
         init();
         gameLoop();
 
@@ -149,6 +151,8 @@ public class Display {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while ( !glfwWindowShouldClose(window) ) {
+            Time.update();
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
             switch (state) {

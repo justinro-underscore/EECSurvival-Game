@@ -18,7 +18,6 @@ public class Player extends Character {
     public Player(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
 
-
         attackDelay = new Delay(500);
         attackDelay.restart();
     }
@@ -26,6 +25,11 @@ public class Player extends Character {
     public void update() {
         checkCharacterCollision();
         checkDeath();
+
+        if(health <= 0)
+        {
+            System.out.println("YOU'RE DEAD");
+        }
 
         getInput();
     }

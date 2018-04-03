@@ -28,6 +28,7 @@ public class Delay {
     public void start() {
         hasStarted = true;
         startTime = Time.getTime();
+
         endTime = duration + startTime;
     }
 

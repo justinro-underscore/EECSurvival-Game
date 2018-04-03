@@ -16,6 +16,8 @@ public class Boss extends Character {
 
     private float movSpeed;
 
+    private int timeSinceLastFire;
+    private Delay attackDelay;
     private ArrayList<StandardProjectile> projectiles;
 
     public Boss(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
@@ -32,6 +34,10 @@ public class Boss extends Character {
         wallAttackDelay.start();
         targetAttackDelay.start();
         burstAttackDelay.start();
+
+        timeSinceLastFire = 200;
+        attackDelay = new Delay(5000);
+        attackDelay.restart();
     }
 
     public void update() {

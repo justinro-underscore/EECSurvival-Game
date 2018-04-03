@@ -11,7 +11,10 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Boss extends Character {
     private int timeSinceLastFire;
-    private Delay attackDelay;
+    private Delay wallAttackDelay;
+    private Delay targetAttackDelay;
+    private Delay burstAttackDelay;
+
     private ArrayList<StandardProjectile> projectiles;
 
     public Boss(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
@@ -19,13 +22,19 @@ public class Boss extends Character {
 
         projectiles = new ArrayList<>();
         timeSinceLastFire = 200;
-        attackDelay = new Delay(5000);
-        attackDelay.restart();
+
+        wallAttackDelay = new Delay(3000);
+        targetAttackDelay = new Delay(800);
+        burstAttackDelay = new Delay(1200);
+
+
+        wallAttackDelay.start();
+        targetAttackDelay.start();
+        burstAttackDelay.start();
     }
 
     public void update() {
-        if (attackDelay.isOver())
-            attack();
+        attack();
 
         for (int i = 0; i < projectiles.size(); i++){
             Game.game.addObj(projectiles.get(i));
@@ -46,19 +55,20 @@ public class Boss extends Character {
     }
 
     public void attack() {
-//        if(timeSinceLastFire == 0){
+        if(wallAttackDelay.isOver()){
             wallOfFireAbility(5,5,6);
-//        }
-        if(timeSinceLastFire % 125 == 0 && timeSinceLastFire != 0){
-            targetPlayerAbility(5,5,4);
+            wallAttackDelay.start();
         }
-        if(timeSinceLastFire % 73 == 0) {
+        if(targetAttackDelay.isOver()){
+            targetPlayerAbility(5,5,4);
+            targetAttackDelay.start();
+        }
+        if(burstAttackDelay.isOver()) {
             if(Math.random() * 2 > 1){
                 shootAbility(5,5,7);
             }
+            burstAttackDelay.start();
         }
-
-        attackDelay.start();
     }
 
     public void shootAbility(int proWidth, int proHeight, int numberOfPros) {

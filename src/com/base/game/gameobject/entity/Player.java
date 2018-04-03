@@ -19,7 +19,7 @@ public class Player extends Character {
         super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
 
 
-        attackDelay = new Delay(1000);
+        attackDelay = new Delay(500);
         attackDelay.restart();
     }
 

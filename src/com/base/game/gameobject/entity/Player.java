@@ -29,7 +29,7 @@ public class Player extends Character {
         }
 
 
-        attackDelay = new Delay(1000);
+        attackDelay = new Delay(500);
         attackDelay.restart();
     }
 

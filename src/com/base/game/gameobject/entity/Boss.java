@@ -1,8 +1,9 @@
 package com.base.game.gameobject.entity;
 
 import com.base.engine.*;
-import com.base.game.interfaces.Game;
+import com.base.game.Game;
 import com.base.game.gameobject.projectile.StandardProjectile;
+import com.base.game.utilities.Delay;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Boss extends Character {
     private int timeSinceLastFire;
+    private Delay attackDelay;
     private ArrayList<StandardProjectile> projectiles;
 
     public Boss(float xPos, float yPos, Sprite sprite, int health, int attackDamage, int attackSpeed) {
@@ -17,10 +19,13 @@ public class Boss extends Character {
 
         projectiles = new ArrayList<>();
         timeSinceLastFire = 200;
+        attackDelay = new Delay(5000);
+        attackDelay.restart();
     }
 
     public void update() {
-        attack();
+        if (attackDelay.isOver())
+            attack();
 
         for (int i = 0; i < projectiles.size(); i++){
             Game.game.addObj(projectiles.get(i));
@@ -41,9 +46,9 @@ public class Boss extends Character {
     }
 
     public void attack() {
-        if(timeSinceLastFire == 0){
+//        if(timeSinceLastFire == 0){
             wallOfFireAbility(5,5,6);
-        }
+//        }
         if(timeSinceLastFire % 125 == 0 && timeSinceLastFire != 0){
             targetPlayerAbility(5,5,4);
         }
@@ -52,6 +57,8 @@ public class Boss extends Character {
                 shootAbility(5,5,7);
             }
         }
+
+        attackDelay.start();
     }
 
     public void shootAbility(int proWidth, int proHeight, int numberOfPros) {

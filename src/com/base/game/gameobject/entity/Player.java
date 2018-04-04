@@ -18,7 +18,6 @@ public class Player extends Character {
     public Player(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
         super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
 
-
         attackDelay = new Delay(500);
         attackDelay.restart();
     }
@@ -65,5 +64,21 @@ public class Player extends Character {
 
             Game.game.addObj(pro);
             attackDelay.start();
+    }
+
+    public void render() {
+        glPushMatrix();
+        {
+            glTranslatef(xPos, yPos, 0);
+
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+            sprite.render(textureID);
+
+            glDisable(GL_BLEND);
+        }
+
+        glPopMatrix();
     }
 }

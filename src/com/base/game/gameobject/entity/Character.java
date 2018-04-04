@@ -4,7 +4,7 @@ import com.base.engine.Physics;
 import com.base.engine.Sprite;
 import com.base.engine.GameObject;
 import com.base.game.gameobject.projectile.Projectile;
-import com.base.game.interfaces.Game;
+import com.base.game.Game;
 
 import java.util.ArrayList;
 

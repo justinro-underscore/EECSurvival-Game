@@ -66,8 +66,10 @@ public class MainMenu extends Interface {
 
     public void update() {
         Vector2f mousePos = InputHandler.getMousePos();
-        if (startButton.contains(mousePos.x, mousePos.y) && InputHandler.isMouseDown()) {
+        if (startButton.contains(mousePos.x, mousePos.y)) {
             startButtonTextureID = startButtonTextureID_press;
+        } else {
+            startButtonTextureID = startButtonTextureID_release;
         }
 
         if (InputHandler.isMouseReleased() && startButtonTextureID == startButtonTextureID_press) {
@@ -75,8 +77,10 @@ public class MainMenu extends Interface {
             Display.start();
         }
 
-        if (quitButton.contains(mousePos.x, mousePos.y) && InputHandler.isMouseDown()) {
+        if (quitButton.contains(mousePos.x, mousePos.y)) {
             quitButtonTextureID = quitButtonTextureID_press;
+        } else {
+            quitButtonTextureID = quitButtonTextureID_release;
         }
 
         if (InputHandler.isMouseReleased() && quitButtonTextureID == quitButtonTextureID_press) {

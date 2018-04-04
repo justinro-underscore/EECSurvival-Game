@@ -33,4 +33,9 @@ public class Projectile extends GameObject
                 remove();
         }
     }
+
+    public int getDamage()
+    {
+        return damage;
+    }
 }

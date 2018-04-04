@@ -31,6 +31,13 @@ public class Player extends Character {
     }
 
     public void update() {
+        checkCharacterCollision();
+
+        if(health <= 0)
+        {
+            System.out.println("YOU'RE DEAD");
+        }
+
         getInput();
 
         if(timeSinceLastFire > 0)

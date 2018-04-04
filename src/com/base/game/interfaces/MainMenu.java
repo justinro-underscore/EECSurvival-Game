@@ -30,8 +30,8 @@ public class MainMenu extends Interface {
     public void init(String fileName) {
         super.init(fileName);
 
-        startButton = new Rectangle(Display.getWidth()/2 - 450,Display.getHeight()/2 - 40,400,80);
-        quitButton = new Rectangle(Display.getWidth()/2 + 50,Display.getHeight()/2 - 40,400,80);
+        startButton = new Rectangle(Display.getWidth()/2 - 200,Display.getHeight()/2 + 100,400,80);
+        quitButton = new Rectangle(Display.getWidth()/2 - 200,Display.getHeight()/2 - 100,400,80);
 
         generateButtons();
         startButtonTextureID = startButtonTextureID_release;
@@ -72,7 +72,7 @@ public class MainMenu extends Interface {
             startButtonTextureID = startButtonTextureID_release;
         }
 
-        if (InputHandler.isMouseReleased() && startButtonTextureID == startButtonTextureID_press) {
+        if (InputHandler.isMouseDown() && startButtonTextureID == startButtonTextureID_press) {
             startButtonTextureID = startButtonTextureID_release;
             Display.start();
         }
@@ -83,7 +83,7 @@ public class MainMenu extends Interface {
             quitButtonTextureID = quitButtonTextureID_release;
         }
 
-        if (InputHandler.isMouseReleased() && quitButtonTextureID == quitButtonTextureID_press) {
+        if (InputHandler.isMouseDown() && quitButtonTextureID == quitButtonTextureID_press) {
             quitButtonTextureID = quitButtonTextureID_release;
             Display.quit();
         }

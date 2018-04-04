@@ -38,18 +38,19 @@ public class InputHandler {
         if (button != GLFW_MOUSE_BUTTON_1)
             return;
 
+        isMouseReleased = false;
+        isMousePressed = false;
+
         if (action == GLFW_PRESS) {
             isMousePressed = true;
-            isMouseReleased = false;
         }else if (action == GLFW_RELEASE) {
-            isMousePressed = false;
             isMouseReleased = true;
         }
     }
 
     public void invokeMouseMovement(long window, double xPos, double yPos) {
         mouseXPos = xPos;
-        mouseYPos = yPos;
+        mouseYPos = Math.abs(yPos- Display.getHeight());
     }
 
     public static boolean isMouseDown() {

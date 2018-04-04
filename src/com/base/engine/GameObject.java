@@ -1,8 +1,8 @@
 package com.base.engine;
 
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glTranslatef;
+import java.io.IOException;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public abstract class GameObject
 {
@@ -12,9 +12,10 @@ public abstract class GameObject
     protected int height;
 
     protected Sprite sprite;
+    protected int textureID;
     protected boolean toRemove;
 
-    protected void init(float xPos, float yPos, Sprite sprite)
+    protected void init(float xPos, float yPos, Sprite sprite, String imgPath)
     {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -22,6 +23,13 @@ public abstract class GameObject
         this.height = sprite.getHeight();
 
         this.sprite = sprite;
+        if (!imgPath.equals(""))
+        {
+            try { textureID = TextureLoader.loadTexture(imgPath); }
+            catch (IOException e) { e.printStackTrace(); }
+        }
+        else
+            textureID = -1;
 
         toRemove = false;
     }
@@ -33,7 +41,16 @@ public abstract class GameObject
         glPushMatrix();
         {
             glTranslatef(xPos, yPos, 0);
-            sprite.render(-1);
+            if(textureID != -1) {
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+                sprite.render(textureID);
+
+                glDisable(GL_BLEND);
+            }
+            else
+                sprite.render(textureID);
         }
         glPopMatrix();
     }

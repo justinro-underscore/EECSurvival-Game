@@ -32,7 +32,7 @@ public class Game {
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, playerSprite, "./res/player.png", 100, 5, 5);
 
         Sprite bossSprite = new Sprite(1.0f, 0.0f, 0.0f, 70, 70);
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, 400, 5, 5);
+        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, "", 400, 5, 5);
 
         addObj(player);
         addObj(boss);

@@ -14,18 +14,8 @@ public class Player extends Character {
     private int textureID;
     private int timeSinceLastFire;
 
-    public Player(float xPos, float yPos, Sprite sprite, String fileName, int health, int attackDamage, int attackSpeed) {
-        super(xPos, yPos, sprite, health, attackDamage, attackSpeed);
-
-        if (!Objects.equals(fileName, "")) {
-            try {
-                textureID = TextureLoader.loadTexture(fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            textureID = -1;
-        }
+    public Player(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
+        super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
 
         timeSinceLastFire = 0;
     }
@@ -37,8 +27,6 @@ public class Player extends Character {
         {
             System.out.println("YOU'RE DEAD");
         }
-
-        getInput();
 
         if(timeSinceLastFire > 0)
             timeSinceLastFire--;
@@ -73,25 +61,10 @@ public class Player extends Character {
             int proHeight = 5;
 
             Sprite spr = new Sprite(1.0f, 0.0f, 0.0f, proWidth, proHeight);
-            StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, spr, new Vector2f(0, 1), 5, 8);
+            StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, spr, "", new Vector2f(0, 1), 5, 8);
 
             Game.game.addObj(pro);
             timeSinceLastFire = 25;
         }
-    }
-
-    public void render() {
-        glPushMatrix();
-        {
-            glTranslatef(xPos, yPos, 0);
-
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-            sprite.render(textureID);
-
-            glDisable(GL_BLEND);
-        }
-        glPopMatrix();
     }
 }

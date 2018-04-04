@@ -11,9 +11,9 @@ public class Projectile extends GameObject
     protected int damage;
     protected float speed;
 
-    protected Projectile(float xPos, float yPos, Sprite sprite, Vector2f shootAngle, int damage, float speed)
+    protected Projectile(float xPos, float yPos, Sprite sprite, String imgPath, Vector2f shootAngle, int damage, float speed)
     {
-        init(xPos, yPos, sprite);
+        init(xPos, yPos, sprite, imgPath);
         this.shootAngle = shootAngle.normalize();
         this.damage = damage;
         this.speed = speed;

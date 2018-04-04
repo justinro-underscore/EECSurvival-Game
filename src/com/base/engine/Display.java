@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  */
 public class Display {
     // The window handle
-    private long window;
+    private static long window;
 
     private MainMenu mainMenu;
     private PauseMenu pauseMenu;
@@ -57,8 +57,11 @@ public class Display {
     private void initGame() {
         Game.game = new Game();
         inputHandler = new InputHandler();
+
         mainMenu = new MainMenu();
+        mainMenu.init("./res/parchment.png");
         pauseMenu = new PauseMenu();
+        pauseMenu.init("./res/bricks.jpg");
     }
 
     private void init() {
@@ -84,17 +87,22 @@ public class Display {
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            //Start the game after clicking enter
-            if ( key == GLFW_KEY_ENTER && action == GLFW_RELEASE && state == State.MAIN_MENU )
-                state = State.GAME;
             //Pause the game after clicking escape while playing the game
-            else if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME )
+            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME )
                 state = State.PAUSE_MENU;
             //Resume the game after clicking escape to resume the game
             else if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.PAUSE_MENU )
-                state = State.GAME;
+                start();
 
-            inputHandler.invoke(window, key, scancode, action, mods);
+            inputHandler.invokeKey(window, key, scancode, action, mods);
+        });
+
+        glfwSetCursorPosCallback(window, (long window, double xPos, double yPos) -> {
+            inputHandler.invokeMouseMovement(window, xPos, yPos);
+        });
+
+        glfwSetMouseButtonCallback(window, (long window, int button, int action, int mods) -> {
+            inputHandler.invokeMouseButton(window, button, action, mods);
         });
 
         // Get the thread stack and push a new frame
@@ -153,6 +161,7 @@ public class Display {
 
             switch (state) {
                 case MAIN_MENU:
+                    mainMenu.update();
                     mainMenu.render();
                     break;
                 case GAME:
@@ -162,6 +171,7 @@ public class Display {
                     Game.game.render();
                     break;
                 case PAUSE_MENU:
+                    pauseMenu.update();
                     pauseMenu.render();
                     break;
             }
@@ -172,6 +182,14 @@ public class Display {
             // invoked during this call.
             glfwPollEvents();
         }
+    }
+
+    public static void start() {
+        state = State.GAME;
+    }
+
+    public static void quit() {
+        glfwSetWindowShouldClose(window, true);
     }
 
     public static int getHeight() {

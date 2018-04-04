@@ -31,6 +31,10 @@ public class Vector2f
         return new Vector2f(x * cosAngle - y * sinAngle, x * sinAngle + y * cosAngle);
     }
 
+    public Vector2f translate(float x, float y) {
+        return new Vector2f(this.x + x, this.y + y);
+    }
+
     public Vector2f add(Vector2f vector) {
         return new Vector2f(x + vector.getX(), y + vector.getY());
     }

@@ -8,7 +8,7 @@ import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class UI extends GameObject
+public class UI extends Interface // TODO Add all UI functionality
 {
     private Rectangle healthBar;
     private int healthBarWidth;

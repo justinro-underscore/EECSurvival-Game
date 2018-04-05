@@ -35,9 +35,9 @@ public class Game {
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
 
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 100, 5, 5);
+        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 100, 5);
 
-        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, 70, 70, "", 400, 5, 5);
+        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, 70, 70, "", 2f,400, 5);
 
         addObj(player);
         addObj(boss);

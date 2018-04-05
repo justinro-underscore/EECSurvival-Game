@@ -7,33 +7,46 @@ import com.base.game.utilities.Util;
 
 public abstract class Projectile extends GameObject
 {
-    protected Vector2f shootAngle;
-    protected int damage;
-    protected float speed;
+    protected Vector2f shootAngle; // The angle of movement of the projectile
+    protected int damage; // Damage to be done
+    protected float speed; // Speed of the projectile
 
+    /**
+     * Creates a projectile object
+     * @param xPos x-coordinate of the sprite
+     * @param yPos y-coordinate of the sprite
+     * @param width width
+     * @param height height
+     * @param imgPath file path to the image representing the sprite
+     * @param shootAngle the initial angle of the projectile
+     * @param damage damage dealt to the character
+     * @param speed speed of the projectile
+     */
     protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed)
     {
-        init(xPos, yPos, width, height, imgPath);
+        init(xPos, yPos, width, height, imgPath); // Call super class's initialization
         this.shootAngle = shootAngle.normalize();
         this.damage = damage;
         this.speed = speed;
     }
 
-
-    @Override
+    /**
+     * Updates the projectile object every frame
+     */
     public void update()
     {
-        float xChange = shootAngle.x * speed;
-        float yChange = shootAngle.y * speed;
+        xPos += shootAngle.x * speed; // Move in x direction
+        yPos += shootAngle.y * speed; // Move in y direction
 
-        xPos += xChange;
-        yPos += yChange;
-
-        if (Util.offScreen(getX(), getY(), width, height)) {
-                remove();
+        if (Util.offScreen(getX(), getY(), width, height)) { // If projectile goes offscreen...
+            remove(); // Remove the projectile
         }
     }
 
+    /**
+     * Returns the damage dealt
+     * @return the amount of damage
+     */
     public int getDamage()
     {
         return damage;

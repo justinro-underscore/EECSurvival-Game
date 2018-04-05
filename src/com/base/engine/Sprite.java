@@ -7,49 +7,64 @@ import java.io.IOException;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Sprite {
-    private float a; // Alpha value - Only works with texture
+    private float a; // Alpha value - deals with transparency (Only works with images)
 
     private int width;
     private int height;
-    private int textureID;
+    private int textureID; // The ID associated with the sprite's image (texture)
 
+    /**
+     * Creates a sprite from parameters
+     * @param width width of the sprite
+     * @param height height of the sprite
+     * @param imgPath file path to the image representing the sprite
+     */
     public Sprite(int width, int height, String imgPath) {
-        a = 1.0f;
+        a = 1.0f; // Initial value is fully opaque
         this.width = width;
         this.height = height;
 
-        if (!imgPath.equals(""))
+        if (!imgPath.equals("")) // If there is no imgPath, don't create a textureID
         {
-            try { textureID = TextureLoader.loadTexture(imgPath); }
+            try { textureID = TextureLoader.loadTexture(imgPath); } // Load the image
             catch (IOException e) { e.printStackTrace(); }
         }
         else
             textureID = -1;
     }
 
+    /**
+     * Renders the sprite as an image on screen
+     * @param xPos x-coordinate of the sprite
+     * @param yPos y-coordinate of the sprite TODO IS IT CENTERED?
+     */
     public void render(float xPos, float yPos) {
-        glPushMatrix();
+        glPushMatrix(); // Create a new image matrix
         {
-            glTranslatef(xPos, yPos, 0);
-            if(textureID != -1) {
+            glTranslatef(xPos, yPos, 0); // Translate so it is easier to create the image at a coordinate
+            if(textureID != -1) { // If the sprite uses an image...
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-                renderTex(textureID);
+                renderTex(textureID); // Render the image
 
                 glDisable(GL_BLEND);
             }
             else
-                renderRBG();
+                renderRBG(); // If no image is specified, create a standard white rectangle
         }
         glPopMatrix();
     }
 
+    /**
+     * Renders the sprite to the screen WITH AN IMAGE
+     * @param textureID The ID of the image being loaded
+     */
     private void renderTex(int textureID) {
-        glColor4f(1, 1, 1, a);
+        glColor4f(1, 1, 1, a); // This is so we can change the opacity of the sprite
         glBindTexture(GL_TEXTURE_2D, textureID);
 
-        glBegin(GL11.GL_QUADS);
+        glBegin(GL11.GL_QUADS); // Create the sprite
         {
             glTexCoord2f(1, 0);
             glVertex2f(width , height);
@@ -66,10 +81,13 @@ public class Sprite {
         glEnd();
     }
 
+    /**
+     * Renders the sprite to the screen WITHOUT AN IMAGE
+     */
     private void renderRBG() {
-        glColor4f(1, 1, 1, a);
+        glColor4f(1, 1, 1, a); // Can change this directly if you want different default color
 
-        glBegin(GL11.GL_QUADS);
+        glBegin(GL11.GL_QUADS); // Create the sprite
         {
             glVertex2f(0, 0);
             glVertex2f(width, 0);
@@ -79,15 +97,32 @@ public class Sprite {
         glEnd();
     }
 
+    /**
+     * Get the sprite's width
+     * @return width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Get the sprite's height
+     * @return height
+     */
     public int getHeight() {
         return height;
     }
 
-    public void setAlpha(float a) {
-        this.a = a;
+    /**
+     * Sets the sprite's alpha value
+     * @param a the desired alpha value
+     * @return whether or not the set worked
+     */
+    public boolean setAlpha(float a) {
+        if(a >= 0.0f && a <= 1.0f) {
+            this.a = a;
+            return true;
+        }
+        return false;
     }
 }

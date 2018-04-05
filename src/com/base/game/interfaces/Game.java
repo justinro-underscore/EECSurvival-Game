@@ -1,14 +1,12 @@
 package com.base.game.interfaces;
 
-import com.base.engine.Display;
-import com.base.engine.GameObject;
-import com.base.engine.Physics;
-import com.base.engine.Sprite;
+import com.base.engine.*;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -119,5 +117,18 @@ public class Game {
     {
         gameOver = true;
         System.out.println("You lose");
+    }
+
+    public void executeCheat()
+    {
+        int texture = -1;
+        try { texture = TextureLoader.loadTexture("./res/harry1.jpg"); }
+        catch (IOException e) { e.printStackTrace(); }
+        for(GameObject o : gameObjects)
+        {
+            o.setTextureID(texture);
+            try { texture = TextureLoader.loadTexture("./res/harry1.jpg"); }
+            catch (IOException e) { e.printStackTrace(); }
+        }
     }
 }

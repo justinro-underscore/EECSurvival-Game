@@ -36,4 +36,13 @@ public class InputHandler extends GLFWKeyCallback {
     public static boolean isKeyDown(int keycode) {
         return keys[keycode];
     }
+
+    public static boolean isAnyKeyDown(int except) {
+        for(int i = 0; i < keys.length; i++)
+        {
+            if(i != except && keys[i])
+                return true;
+        }
+        return false;
+    }
 }

@@ -15,6 +15,8 @@ public abstract class Character extends GameObject
     protected int attackSpeed; // In milliseconds
     protected boolean isDead;
 
+    protected String projectileImg;
+
     protected Character(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
         init(xPos, yPos, sprite, imgPath);
 
@@ -22,6 +24,7 @@ public abstract class Character extends GameObject
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
         isDead = false;
+        projectileImg = "";
     }
 
     protected void checkCharacterCollision()
@@ -54,6 +57,11 @@ public abstract class Character extends GameObject
     public int getHealth()
     {
         return health;
+    }
+
+    public void setTextureID(int textureID) {
+        this.textureID = textureID;
+        projectileImg = "./res/harry1.jpg";
     }
 
     abstract protected void checkCharacterCollisionSpecific(GameObject obj);

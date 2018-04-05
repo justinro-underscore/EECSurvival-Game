@@ -78,4 +78,8 @@ public abstract class GameObject
     public float getY() {
         return yPos + (height/2.0f);
     }
+
+    public void setTextureID(int textureID) {
+        this.textureID = textureID;
+    }
 }

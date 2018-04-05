@@ -19,7 +19,6 @@ public abstract class Projectile extends GameObject
         this.speed = speed;
     }
 
-
     @Override
     public void update()
     {

@@ -26,14 +26,13 @@ public class TextureLoader {
         image.getRGB(0, 0, width, height, pixels, 0, width);
 
         ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4);
-        for(int j = 0; j < height; j++){
-            for(int i = 0; i < width; i++){
-                int pixel = pixels[j * image.getWidth() + i];
+
+        for(int i = 0; i < width * height; i++){
+                int pixel = pixels[i];
                 buffer.put((byte) ((pixel >> 16) & 0xFF));   // Red component
                 buffer.put((byte) ((pixel >> 8 ) & 0xFF));   // Green component
                 buffer.put((byte) ((pixel      ) & 0xFF));   // Blue component
                 buffer.put((byte) ((pixel >> 24) & 0xFF));   // Alpha component
-            }
         }
 
         buffer.flip();

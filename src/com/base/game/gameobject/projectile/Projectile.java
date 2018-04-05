@@ -1,9 +1,9 @@
 package com.base.game.gameobject.projectile;
 
-import com.base.engine.Display;
 import com.base.engine.Sprite;
 import com.base.engine.Vector2f;
 import com.base.engine.GameObject;
+import com.base.game.utilities.Util;
 
 public abstract class Projectile extends GameObject
 {
@@ -29,7 +29,7 @@ public abstract class Projectile extends GameObject
         xPos += xChange;
         yPos += yChange;
 
-        if (xPos <= 0 || xPos >= Display.getWidth()|| yPos <= 0 || yPos >= Display.getHeight()) {
+        if (Util.offScreen(getX(), getY(), width, height)) {
                 remove();
         }
     }

@@ -6,6 +6,7 @@ import com.base.engine.Physics;
 import com.base.engine.Sprite;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.interfaces.UI;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;

@@ -1,7 +1,7 @@
 package com.base.game.interfaces;
 
 import com.base.engine.GameObject;
-import com.base.game.interfaces.Game;
+import com.base.game.Game;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;

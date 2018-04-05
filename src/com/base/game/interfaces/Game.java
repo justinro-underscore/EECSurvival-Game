@@ -22,6 +22,10 @@ public class Game {
     private ArrayList<GameObject> toRemove;
 
     private Player player;
+    private Boss boss;
+    private UI ui;
+
+    private boolean gameOver;
 
     public Game() {
         gameObjects = new ArrayList<>();
@@ -32,37 +36,46 @@ public class Game {
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, playerSprite, "./res/player.png", 100, 5, 5);
 
         Sprite bossSprite = new Sprite(1.0f, 0.0f, 0.0f, 70, 70);
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, "", 400, 5, 5);
+        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, "", 400, 5, 5);
 
         addObj(player);
         addObj(boss);
+
+        ui = new UI(100);
+
+        gameOver = false;
     }
 
     public void update() {
-        for (GameObject object : gameObjects) {
-            if (!object.isRemoved())
-                object.update();
-            else
-                toRemove.add(object);
-        }
-
-        if(!toAdd.isEmpty())
-        {
-            while(!toAdd.isEmpty())
-                gameObjects.add(toAdd.remove(0));
-        }
-
-        if (!toRemove.isEmpty()) {
-            for (GameObject object : toRemove) {
-                gameObjects.remove(object);
+        if(!gameOver) {
+            for (GameObject object : gameObjects) {
+                if (!object.isRemoved())
+                    object.update();
+                else
+                    toRemove.add(object);
+            }
+            if (ui != null) {
+                ui.update();
             }
 
-            toRemove.clear();
+            if (!toAdd.isEmpty()) {
+                while (!toAdd.isEmpty())
+                    gameObjects.add(toAdd.remove(0));
+            }
+
+            if (!toRemove.isEmpty()) {
+                for (GameObject object : toRemove) {
+                    gameObjects.remove(object);
+                }
+
+                toRemove.clear();
+            }
         }
     }
 
     public void render() {
         gameObjects.forEach(GameObject::render);
+        if (ui != null) { ui.render(); }
     }
 
     public void addObj(GameObject obj) {
@@ -75,6 +88,11 @@ public class Game {
 
     public float getPlayerY() {
         return player.getY();
+    }
+
+    public int getHealth(boolean isPlayer)
+    {
+        return (isPlayer ? player.getHealth() : boss.getHealth());
     }
 
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range)
@@ -95,5 +113,11 @@ public class Game {
                 closeObj.add(o);
         }
         return closeObj;
+    }
+
+    public void gameOver()
+    {
+        gameOver = true;
+        System.out.println("You lose");
     }
 }

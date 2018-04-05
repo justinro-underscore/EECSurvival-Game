@@ -5,7 +5,7 @@ import com.base.engine.Sprite;
 import com.base.engine.Vector2f;
 import com.base.engine.GameObject;
 
-public class Projectile extends GameObject
+public abstract class Projectile extends GameObject
 {
     protected Vector2f shootAngle;
     protected int damage;

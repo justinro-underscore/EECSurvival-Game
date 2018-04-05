@@ -22,11 +22,7 @@ public class Player extends Character {
 
     public void update() {
         checkCharacterCollision();
-
-        if(health <= 0)
-        {
-            System.out.println("YOU'RE DEAD");
-        }
+        checkDeath();
 
         if(timeSinceLastFire > 0)
             timeSinceLastFire--;
@@ -65,6 +61,24 @@ public class Player extends Character {
 
             Game.game.addObj(pro);
             timeSinceLastFire = 25;
+        }
+    }
+
+    protected void checkCharacterCollisionSpecific(GameObject obj)
+    {
+        if(obj instanceof Boss)
+        {
+            health --;
+            if(health < 0)
+                health = 0;
+        }
+    }
+
+    protected void checkDeath()
+    {
+        if(isDead)
+        {
+            Game.game.gameOver();
         }
     }
 }

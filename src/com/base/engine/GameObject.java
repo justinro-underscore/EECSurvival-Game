@@ -11,18 +11,17 @@ public abstract class GameObject
     protected int width;
     protected int height;
 
-    protected Sprite sprite;
     protected int textureID;
+    protected Sprite sprite;
     protected boolean toRemove;
 
-    protected void init(float xPos, float yPos, Sprite sprite, String imgPath)
+    protected void init(float xPos, float yPos, int width, int height, String imgPath)
     {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = sprite.getWidth();
-        this.height = sprite.getHeight();
+        this.width = width;
+        this.height = height;
 
-        this.sprite = sprite;
         if (!imgPath.equals(""))
         {
             try { textureID = TextureLoader.loadTexture(imgPath); }
@@ -30,29 +29,15 @@ public abstract class GameObject
         }
         else
             textureID = -1;
+        sprite = new Sprite(width, height, imgPath);
 
         toRemove = false;
     }
 
-    public void update() {}
+    abstract public void update();
 
-    public void render()
-    {
-        glPushMatrix();
-        {
-            glTranslatef(xPos, yPos, 0);
-            if(textureID != -1) {
-                glEnable(GL_BLEND);
-                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-                sprite.render(textureID);
-
-                glDisable(GL_BLEND);
-            }
-            else
-                sprite.render(textureID);
-        }
-        glPopMatrix();
+    public void render() {
+        sprite.render(xPos, yPos);
     }
 
     public void remove() {

@@ -18,8 +18,8 @@ public class Boss extends Character {
 
     private ArrayList<StandardProjectile> projectiles;
 
-    public Boss(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
-        super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
+    public Boss(float xPos, float yPos, int width, int height, String imgPath, int health, int attackDamage, int attackSpeed) {
+        super(xPos, yPos, width, height, imgPath, health, attackDamage, attackSpeed);
 
         movSpeed = -2;
 
@@ -65,34 +65,19 @@ public class Boss extends Character {
     }
 
     public void shootAbility(int proWidth, int proHeight, int numberOfPros) {
-        Sprite spr = new Sprite(0.0f, 1.0f, 0.0f, proWidth, proHeight);
-
         for (int i = 1; i <= numberOfPros; i++) {
-            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, spr, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 2));
+            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 2));
         }
     }
 
     public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
-        Sprite spr = new Sprite(0.0f, 1.0f, 0.0f, proWidth, proHeight);
-
-        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, spr, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 2));
+        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 2));
     }
 
     public void wallOfFireAbility(int proWidth, int proHeight, int numberOfPros) {
-        Sprite spr = new Sprite(0.0f, 1.0f, 0.0f, proWidth, proHeight);
-
         for (int i = 1; i <= numberOfPros; i++){
-            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, spr, "", new Vector2f(0, -1), 5, 2));
+            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "", new Vector2f(0, -1), 5, 2));
         }
-    }
-
-    public void render() {
-        glPushMatrix();
-        {
-            glTranslatef(xPos, yPos, 0);
-            sprite.render(-1);
-        }
-        glPopMatrix();
     }
 
     protected void checkCharacterCollisionSpecific(GameObject obj)

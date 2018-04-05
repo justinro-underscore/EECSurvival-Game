@@ -15,8 +15,8 @@ public abstract class Character extends GameObject
     protected int attackSpeed; // In milliseconds
     protected boolean isDead;
 
-    protected Character(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
-        init(xPos, yPos, sprite, imgPath);
+    protected Character(float xPos, float yPos, int width, int height, String imgPath, int health, int attackDamage, int attackSpeed) {
+        init(xPos, yPos, width, height, imgPath);
 
         this.health = health;
         this.attackDamage = attackDamage;

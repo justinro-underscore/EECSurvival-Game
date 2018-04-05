@@ -15,8 +15,12 @@ public class Player extends Character {
     private int textureID;
     private Delay attackDelay;
 
-    public Player(float xPos, float yPos, Sprite sprite, String imgPath, int health, int attackDamage, int attackSpeed) {
-        super(xPos, yPos, sprite, imgPath, health, attackDamage, attackSpeed);
+    private float speed;
+
+    public Player(float xPos, float yPos, int width, int height, String imgPath, int health, int attackDamage, int attackSpeed) {
+        super(xPos, yPos, width, height, imgPath, health, attackDamage, attackSpeed);
+
+        speed = 4f;
 
         attackDelay = new Delay(500);
         attackDelay.restart();
@@ -26,29 +30,24 @@ public class Player extends Character {
         checkCharacterCollision();
         checkDeath();
 
-        if(health <= 0)
-        {
-            System.out.println("YOU'RE DEAD");
-        }
-
         getInput();
     }
 
     public void getInput() {
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-            yPos += 4f;
+            yPos += speed;
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-            yPos -= 4f;
+            yPos -= speed;
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-            xPos += 4f;
+            xPos += speed;
         }
 
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -= 4f;
+            xPos -= speed;
         }
 
         if(InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver()) {
@@ -57,29 +56,26 @@ public class Player extends Character {
     }
 
     private void createProjectile() {
-            int proWidth = 5;
-            int proHeight = 5;
+        int proWidth = 5;
+        int proHeight = 5;
 
-            Sprite spr = new Sprite(1.0f, 0.0f, 0.0f, proWidth, proHeight);
-            StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, spr, "", new Vector2f(0, 1), 5, 8);
+        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", new Vector2f(0, 1), 5, 8);
 
-            Game.game.addObj(pro);
-            attackDelay.start();
+        Game.game.addObj(pro);
+        attackDelay.start();
     }
 
     protected void checkCharacterCollisionSpecific(GameObject obj)
     {
         if(obj instanceof Boss)
         {
-            health --;
-            if(health < 0)
-                health = 0;
+            loseHealth(1);
         }
     }
 
     protected void checkDeath() {
         if (isDead) {
-            Game.game.gameOver();
+            Game.game.levelOver(true);
         }
     }
 }

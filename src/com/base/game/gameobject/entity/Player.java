@@ -77,10 +77,8 @@ public class Player extends Character {
         }
     }
 
-    protected void checkDeath()
-    {
-        if(isDead)
-        {
+    protected void checkDeath() {
+        if (isDead) {
             Game.game.gameOver();
         }
     }

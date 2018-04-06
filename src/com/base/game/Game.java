@@ -5,6 +5,7 @@ import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.interfaces.UI;
 import com.base.game.utilities.Delay;
+import com.base.game.utilities.LevelTransition;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -25,31 +26,25 @@ public class Game {
 
     private boolean levelOver;
     private boolean gameOver;
-    private Delay thinkTime;
-    private Sprite blackScreen;
-    private Sprite gameOverScreen;
-    private float endScreenTransparency;
+    private LevelTransition lvlTransition;
 
     public Game() {
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
 
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 100, 5);
+        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 20, 5);
 
-        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, 70, 70, "", 2f,400, 5);
+        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
 
         addObj(player);
         addObj(boss);
 
-        ui = new UI(100);
+        ui = new UI(player.getHealth(), boss.getHealth());
 
         levelOver = false;
         gameOver = false;
-        thinkTime = new Delay(500);
-        blackScreen = new Sprite(Display.getWidth(), Display.getHeight(), "./res/black.png");
-        gameOverScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "./res/GameOver.png");
-        endScreenTransparency = 0;
+        lvlTransition = new LevelTransition();
     }
 
     public void update() {
@@ -84,20 +79,10 @@ public class Game {
         if (ui != null) { ui.render(); }
         if(levelOver)
         {
-            if (thinkTime.isOver()) {
-                if (endScreenTransparency < 1)
-                    endScreenTransparency += 0.005;
-
-                if(endScreenTransparency < 0.75f)
-                    blackScreen.setAlpha(endScreenTransparency);
-                else
-                    blackScreen.setAlpha(0.75f);
-                blackScreen.render(0, 0);
-
-                if (gameOver)
-                    gameOver();
-                else
-                    nextLevel();
+            if(lvlTransition != null && lvlTransition.render(gameOver))
+            {
+                lvlTransition = null;
+                levelOver = false;
             }
         }
     }
@@ -125,12 +110,14 @@ public class Game {
         float p1 = object.getX() - (object.getWidth()/2f) - range;
         float p2 = object.getY() - (object.getHeight()/2f) - range;
         Rectangle field = new Rectangle((int)p1, (int)p2, (int)(object.getWidth() + 2 * range), (int)(object.getHeight() + 2 * range));
-//        glBegin(GL11.GL_QUADS);
-//            glVertex2f(field.x, field.y);
-//            glVertex2f(field.x + field.width, field.y);
-//            glVertex2f(field.x + field.width, field.y + field.height);
-//            glVertex2f(field.x, field.y + field.height);
-//        glEnd();
+        /*
+        glBegin(GL11.GL_QUADS);
+            glVertex2f(field.x, field.y);
+            glVertex2f(field.x + field.width, field.y);
+            glVertex2f(field.x + field.width, field.y + field.height);
+            glVertex2f(field.x, field.y + field.height);
+        glEnd();
+        */
         for(GameObject o : gameObjects)
         {
             if(!o.equals(object) && Physics.checkCollision(field, o))
@@ -142,21 +129,23 @@ public class Game {
     public void levelOver(boolean lose)
     {
         levelOver = true;
-        if(lose)
+        gameOver = lose;
+        lvlTransition.init();
+    }
+
+    public void endLevel()
+    {
+        boolean done = false;
+        while(!done)
         {
-            gameOver = true;
-            thinkTime.start();
+            try {
+                gameObjects.remove(1); // Get rid of everything besides the player
+            }
+            catch(IndexOutOfBoundsException e) {
+                done = true;
+            }
         }
-    }
-
-    private void gameOver()
-    {
-        gameOverScreen.setAlpha(endScreenTransparency);
-        gameOverScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
-    }
-
-    private void nextLevel()
-    {
-        // Go to next level
+        ui = null;
+        // TODO Create door
     }
 }

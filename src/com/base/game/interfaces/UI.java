@@ -1,5 +1,6 @@
 package com.base.game.interfaces;
 
+import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.game.Game;
 import org.lwjgl.opengl.GL11;
@@ -10,38 +11,51 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class UI extends Interface // TODO Add all UI functionality
 {
-    private Rectangle healthBar;
-    private int healthBarWidth;
+    private Rectangle playerHealthBar;
+    private float playerHealthFactor;
+    private Rectangle bossHealthBar;
+    private float bossHealthFactor;
+    private final int PLAYER_HEALTH_BAR_WIDTH = Display.getWidth() / 2 - 20;
+    private final int BOSS_HEALTH_BAR_WIDTH = Display.getWidth() - 40;
 
-    public UI(int health)
+    public UI(int playerHealth, int bossHealth)
     {
-        healthBar = new Rectangle(10, 10, health * 5, 20);
-        healthBarWidth = health * 5;
+        playerHealthBar = new Rectangle(10, 10, PLAYER_HEALTH_BAR_WIDTH, 20);
+        playerHealthFactor = (float)PLAYER_HEALTH_BAR_WIDTH / playerHealth;
+        bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
+        bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossHealth;
     }
 
     public void update()
     {
-        healthBar.width = Game.game.getHealth(true) * 5;
+        playerHealthBar.width = (int)(Game.game.getHealth(true) * playerHealthFactor);
+        bossHealthBar.width = (int)(Game.game.getHealth(false) * bossHealthFactor);
     }
 
     public void render()
     {
+        showPlayerHealth();
+        showBossHealth();
+    }
+
+    private void showPlayerHealth()
+    {
         // Health remaining
         glColor4f(1, 0, 0, 0.0f);
         glBegin(GL11.GL_QUADS);
-        glVertex2f(healthBar.x, healthBar.y);
-        glVertex2f(healthBar.x + healthBar.width, healthBar.y);
-        glVertex2f(healthBar.x + healthBar.width, healthBar.y + healthBar.height);
-        glVertex2f(healthBar.x, healthBar.y + healthBar.height);
+            glVertex2f(playerHealthBar.x, playerHealthBar.y);
+            glVertex2f(playerHealthBar.x + playerHealthBar.width, playerHealthBar.y);
+            glVertex2f(playerHealthBar.x + playerHealthBar.width, playerHealthBar.y + playerHealthBar.height);
+            glVertex2f(playerHealthBar.x, playerHealthBar.y + playerHealthBar.height);
         glEnd();
 
         // Health taken
         glColor4f(0, 0, 0, 0.0f);
         glBegin(GL11.GL_QUADS);
-            glVertex2f(healthBar.x + healthBar.width, healthBar.y);
-            glVertex2f(healthBar.x + healthBarWidth, healthBar.y);
-            glVertex2f(healthBar.x + healthBarWidth, healthBar.y + healthBar.height);
-            glVertex2f(healthBar.x + healthBar.width, healthBar.y + healthBar.height);
+            glVertex2f(playerHealthBar.x + playerHealthBar.width, playerHealthBar.y);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH, playerHealthBar.y);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH, playerHealthBar.y + playerHealthBar.height);
+            glVertex2f(playerHealthBar.x + playerHealthBar.width, playerHealthBar.y + playerHealthBar.height);
         glEnd();
 
         // Health bar outline
@@ -49,10 +63,43 @@ public class UI extends Interface // TODO Add all UI functionality
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glColor4f(0, 0, 1, 0.0f);
         glBegin(GL11.GL_QUADS);
-            glVertex2f(healthBar.x - 2, healthBar.y - 2);
-            glVertex2f(healthBar.x + healthBarWidth + 2, healthBar.y - 2);
-            glVertex2f(healthBar.x + healthBarWidth + 2, healthBar.y + healthBar.height + 2);
-            glVertex2f(healthBar.x - 2, healthBar.y + healthBar.height + 2);
+            glVertex2f(playerHealthBar.x - 2, playerHealthBar.y - 2);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 2, playerHealthBar.y - 2);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 2, playerHealthBar.y + playerHealthBar.height + 2);
+            glVertex2f(playerHealthBar.x - 2, playerHealthBar.y + playerHealthBar.height + 2);
+        glEnd();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+    private void showBossHealth()
+    {
+        // Health remaining
+        glColor4f(1, 0, 0, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f(bossHealthBar.x, bossHealthBar.y);
+            glVertex2f(bossHealthBar.x + bossHealthBar.width, bossHealthBar.y);
+            glVertex2f(bossHealthBar.x + bossHealthBar.width, bossHealthBar.y + bossHealthBar.height);
+            glVertex2f(bossHealthBar.x, bossHealthBar.y + bossHealthBar.height);
+        glEnd();
+
+        // Health taken
+        glColor4f(0, 0, 0, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f(bossHealthBar.x + bossHealthBar.width, bossHealthBar.y);
+            glVertex2f(bossHealthBar.x + BOSS_HEALTH_BAR_WIDTH, bossHealthBar.y);
+            glVertex2f(bossHealthBar.x + BOSS_HEALTH_BAR_WIDTH, bossHealthBar.y + bossHealthBar.height);
+            glVertex2f(bossHealthBar.x + bossHealthBar.width, bossHealthBar.y + bossHealthBar.height);
+        glEnd();
+
+        // Health bar outline
+        glLineWidth(5);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glColor4f(0, 0, 1, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f(bossHealthBar.x - 2, bossHealthBar.y - 2);
+            glVertex2f(bossHealthBar.x + BOSS_HEALTH_BAR_WIDTH + 2, bossHealthBar.y - 2);
+            glVertex2f(bossHealthBar.x + BOSS_HEALTH_BAR_WIDTH + 2, bossHealthBar.y + bossHealthBar.height + 2);
+            glVertex2f(bossHealthBar.x - 2, bossHealthBar.y + bossHealthBar.height + 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

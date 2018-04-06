@@ -46,6 +46,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * Updates the boss object every frame
      */
     public void update() {
+        checkCharacterCollision();
+        checkDeath();
+
         attack(); // Runs its attack pattern
 
         for (int i = 0; i < projectiles.size(); i++){
@@ -128,7 +131,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     {
         if(isDead)
         {
-            // You win!
+            Game.game.levelOver(false); // Level has been won!
         }
     }
 }

@@ -3,6 +3,7 @@ package com.base.game.gameobject.entity;
 import com.base.engine.Physics;
 import com.base.engine.Sprite;
 import com.base.engine.GameObject;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.Game;
 
@@ -50,6 +51,11 @@ public abstract class Character extends GameObject
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
                 }
+                if(obj instanceof ConsumableItem) // If the object is a consumable item...
+                {
+                    gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
+                    obj.remove(); // Delete the consumable
+                }
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions
             }
         }
@@ -67,6 +73,16 @@ public abstract class Character extends GameObject
             health = 0;
             isDead = true; // You dead, son
         }
+    }
+
+    /**
+     * Add a specified amount to the character's heath
+     * @param healthGain amount of health to gain
+     */
+    protected void gainHealth(int healthGain)
+    {
+        health += healthGain;
+        //TODO: add checking for max health
     }
 
     /**

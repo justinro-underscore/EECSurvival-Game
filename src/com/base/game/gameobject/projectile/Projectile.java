@@ -38,7 +38,7 @@ public abstract class Projectile extends GameObject
         xPos += shootAngle.x * speed; // Move in x direction
         yPos += shootAngle.y * speed; // Move in y direction
 
-        if (Util.offScreen(getX(), getY(), width, height)) { // If projectile goes offscreen...
+        if (Util.offScreen(this, width, height)) { // If projectile goes offscreen...
             remove(); // Remove the projectile
         }
     }

@@ -3,6 +3,7 @@ package com.base.game;
 import com.base.engine.*;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.interfaces.UI;
 import com.base.game.levels.Level;
 import com.base.game.levels.LevelTransition;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class Game {
     public static Game game;
+
     private ArrayList<Level> levels;
     private int currLevel;
 
@@ -21,7 +23,7 @@ public class Game {
         levels = new ArrayList();
 
         Level level1 = new Level("./res/bricks.jpg", null);
-
+      
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
         Level level2 = new Level("./res/bricks.jpg", boss);
 

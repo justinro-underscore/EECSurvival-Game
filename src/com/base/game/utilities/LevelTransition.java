@@ -3,6 +3,7 @@ package com.base.game.utilities;
 import com.base.engine.Display;
 import com.base.engine.Sprite;
 import com.base.game.Game;
+import com.base.game.gameobject.button.GameButton;
 
 public class LevelTransition
 {
@@ -16,6 +17,7 @@ public class LevelTransition
     private Sprite gameOverScreen;
     private Sprite whiteScreen;
     private float endScreenTransparency; // The transparency of the screens
+    private GameButton quitButton;
 
     /**
      * Creates a Level Transition Object to handle level transitions
@@ -84,13 +86,16 @@ public class LevelTransition
             if (endScreenTransparency < 1)
                 endScreenTransparency += 0.005;
 
-            if (endScreenTransparency >= 0.994 && endScreenTransparency < 1)
+            if (endScreenTransparency >= 0.994 && endScreenTransparency < 1) {
                 blackFadeOutTime.start(); // Happens here so that it only starts it once, right before Next Level screen gets fully opaque
+                if(gameOver) {
+                    quitButton = new GameButton((float) (Display.getWidth() / 2 - 200), 50f, 400, 80,
+                            "./res/quit_release.png", "./res/quit_press.png", () -> Display.quit());
+                }
+            }
 
             if (gameOver || endScreenTransparency < 0.85f) // If gameOver, go to full black, if not go to 85% opaque
                 blackScreen.setAlpha(endScreenTransparency);
-            else
-                blackScreen.setAlpha(0.85f);
             blackScreen.render(0, 0);
 
             if(!gameOver) { // If not gameOver, show level complete. If yes, show game over
@@ -100,6 +105,10 @@ public class LevelTransition
             else {
                 gameOverScreen.setAlpha(endScreenTransparency);
                 gameOverScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
+                if(endScreenTransparency >= 1) {
+                    quitButton.update();
+                    quitButton.render();
+                }
             }
         }
     }
@@ -118,8 +127,6 @@ public class LevelTransition
 
         if (endScreenTransparency < 0.85f)
             blackScreen.setAlpha(endScreenTransparency);
-        else
-            blackScreen.setAlpha(0.85f);
         blackScreen.render(0, 0);
 
         nextLevelScreen.setAlpha(endScreenTransparency);

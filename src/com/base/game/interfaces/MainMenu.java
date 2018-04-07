@@ -16,6 +16,9 @@ public class MainMenu extends Interface {
     // TODO: implement button delay of 10ms
 
     @Override
+    /**
+     * Initialize the main menu screen
+     */
     public void init(String fileName) {
         super.init(fileName);
 
@@ -25,12 +28,18 @@ public class MainMenu extends Interface {
                 "./res/quit_release.png", "./res/quit_press.png", () -> Display.quit());
     }
 
+    /**
+     * Perform actions based off of the user clicking the buttons
+     */
     public void update() {
         startButton.update();
         quitButton.update();
     }
 
     @Override
+    /**
+     * Render the main menu
+     */
     public void render() {
         super.render();
 

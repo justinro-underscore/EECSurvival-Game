@@ -18,6 +18,11 @@ public class UI extends Interface // TODO Add all UI functionality
     private final int PLAYER_HEALTH_BAR_WIDTH = Display.getWidth() / 2 - 20;
     private final int BOSS_HEALTH_BAR_WIDTH = Display.getWidth() - 40;
 
+    /**
+     * Create the user interface
+     * @param playerHealth the player's health
+     * @param bossHealth the boss's health
+     */
     public UI(int playerHealth, int bossHealth)
     {
         playerHealthBar = new Rectangle(10, 10, PLAYER_HEALTH_BAR_WIDTH, 20);
@@ -26,18 +31,27 @@ public class UI extends Interface // TODO Add all UI functionality
         bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossHealth;
     }
 
+    /**
+     * Update the player and boss health based off of damage and consumable input
+     */
     public void update()
     {
         playerHealthBar.width = (int)(Game.game.getHealth(true) * playerHealthFactor);
         bossHealthBar.width = (int)(Game.game.getHealth(false) * bossHealthFactor);
     }
 
+    /**
+     * Render the health bars
+     */
     public void render()
     {
         showPlayerHealth();
         showBossHealth();
     }
 
+    /**
+     * Display the player health
+     */
     private void showPlayerHealth()
     {
         // Health remaining
@@ -71,6 +85,9 @@ public class UI extends Interface // TODO Add all UI functionality
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
+    /**
+     * Display the boss health
+     */
     private void showBossHealth()
     {
         // Health remaining

@@ -16,6 +16,12 @@ import static org.lwjgl.opengl.GL11.*;
  * By theagentd
  */
 public class TextureLoader {
+    /**
+     * Generate a texture ID that corresponds to the image taken in
+     * @param fileName the file to the image
+     * @return texture ID that openGL has binded to that image
+     * @throws IOException
+     */
     public static int loadTexture(String fileName) throws IOException {
         BufferedImage image = ImageIO.read(new File(fileName));
 

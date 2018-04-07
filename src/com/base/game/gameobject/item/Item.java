@@ -22,6 +22,9 @@ public abstract class Item extends GameObject
         despawnDelay = new Delay(despawnTime);
     }
 
+    /**
+     * Increment the despawn timer
+     */
     public void update(){
         if(!despawnDelay.isStarted()){
             despawnDelay.start();

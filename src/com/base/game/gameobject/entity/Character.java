@@ -75,6 +75,10 @@ public abstract class Character extends GameObject
         }
     }
 
+    /**
+     * Add a specified amount to the character's heath
+     * @param healthGain amount of health to gain
+     */
     protected void gainHealth(int healthGain)
     {
         health += healthGain;

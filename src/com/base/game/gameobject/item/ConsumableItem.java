@@ -20,6 +20,10 @@ public class ConsumableItem extends Item
         this.addedHealth = addedHealth;
     }
 
+    /**
+     * Get the amount of health the consumable item will add to the character
+     * @return the health that the consumable item contains
+     */
     public int getAddedHealth(){
         return this.addedHealth;
     }

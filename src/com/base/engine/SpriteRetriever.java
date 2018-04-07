@@ -11,7 +11,12 @@ import javax.imageio.ImageIO;
 public class SpriteRetriever {
 
     private static BufferedImage spriteSheet;
-    private static final int TILE_SIZE = 32;
+    private static int TILE_SIZE;
+
+    public SpriteRetriever(int TILE_SIZE)
+    {
+        this.TILE_SIZE = TILE_SIZE;
+    }
 
     public static BufferedImage loadSprite(String file) {
 

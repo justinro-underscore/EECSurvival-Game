@@ -1,14 +1,17 @@
 package com.base.engine;
 
+import java.awt.image.BufferedImage;
+
 public abstract class GameObject
 {
     protected float xPos; // x-coordinate (middle of render)
     protected float yPos; // y-coordinate (middle of render)
     protected int width;
     protected int height;
-    protected int textureID;
+    protected String imgPath;
 
     protected Render render;
+    protected SpriteRetriever retriever = new SpriteRetriever(32);
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
@@ -18,15 +21,18 @@ public abstract class GameObject
      * @param yPos y-coordinate
      * @param width width of the render
      * @param height height of the render
-     * @param textureID integer value corresponding to what we are going to render
+     * @param imgPath large png we need to chop up
      */
-    protected void init(float xPos, float yPos, int width, int height, int textureID)
+    protected void init(float xPos, float yPos, int width, int height, String imgPath)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
-        this.textureID = textureID;
+        this.imgPath = imgPath;
+
+        //turns the large image into a buffered image
+        BufferedImage spriteSheet = retriever.loadSprite(imgPath);
 
         render = new Render(); // Creates the render
 

@@ -1,9 +1,10 @@
-package com.base.game.utilities;
+package com.base.game.levels;
 
 import com.base.engine.Display;
 import com.base.engine.Sprite;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
+import com.base.game.utilities.Delay;
 
 public class LevelTransition
 {

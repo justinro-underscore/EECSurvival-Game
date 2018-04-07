@@ -10,6 +10,7 @@ public abstract class GameObject
     protected int height;
     protected String imgPath;
 
+    protected TextureLoader loader;
     protected Render render;
     protected SpriteRetriever retriever = new SpriteRetriever(32);//TODO MAKE THIS VARIABLE (standardize sprite sheet cell size orrrrr add a variable to each objects initialization)
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
@@ -41,8 +42,9 @@ public abstract class GameObject
          * @param someY the y coordinate of a cell
          * @param spriteSheet the big ole sprite sheet
          */
-        retriever.getSprite(someX, someY,spriteSheet);
-        
+        //BufferedImage subimage;
+        //subimage = retriever.getSprite(someX, someY,spriteSheet);
+        //someID = loader.loadTexture(subimage); 
 
         render = new Render(); // Creates the render
 

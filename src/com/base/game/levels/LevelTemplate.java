@@ -28,6 +28,10 @@ public abstract class LevelTemplate {
     private boolean gameOver;
     private LevelTransition lvlTransition;
 
+    /**
+     * Template for each level. Defaults to createing a player and a consumable
+     * @param backgroundPath the file path for the background image
+     */
     public void init(String backgroundPath) {
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
@@ -46,6 +50,9 @@ public abstract class LevelTemplate {
         lvlTransition = new LevelTransition();
     }
 
+    /**
+     * The big kahuna update method, where all of the other updates are called
+     */
     public void update() {
         if (levelOver) {
             return;
@@ -72,6 +79,9 @@ public abstract class LevelTemplate {
         }
     }
 
+    /**
+     * Render the level and everything else on the screen
+     */
     public void render() {
         background.render(0 ,0);
 
@@ -89,18 +99,36 @@ public abstract class LevelTemplate {
         }
     }
 
+    /**
+     * Add objects to the game
+     * @param obj the object to be added
+     */
     public void addObj(GameObject obj) {
         toAdd.add(obj);
     }
 
+    /**
+     * Get the main player's x-position
+     * @return the player's x-position
+     */
     public float getPlayerX() {
         return player.getX();
     }
 
+    /**
+     * Get the main player's y-position
+     * @return the player's y-position
+     */
     public float getPlayerY() {
         return player.getY();
     }
 
+    /**
+     * Get the objects around another object
+     * @param object the object we are looking around
+     * @param range the range around the current object we look for for other objects
+     * @return return the objects that are close to the parameter object
+     */
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range)
     {
         ArrayList<GameObject> closeObj = new ArrayList<>();
@@ -116,6 +144,10 @@ public abstract class LevelTemplate {
         return closeObj;
     }
 
+    /**
+     * End the level
+     * @param lose true if the player lost the level
+     */
     public void levelOver(boolean lose)
     {
         levelOver = true;
@@ -123,6 +155,9 @@ public abstract class LevelTemplate {
         lvlTransition.init();
     }
 
+    /**
+     * End the level
+     */
     public void endLevel()
     {
         boolean done = false;
@@ -139,6 +174,9 @@ public abstract class LevelTemplate {
         createDoor();
     }
 
+    /**
+     * Create a door to the next level
+     */
     public void createDoor() {
         Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 41, 84, "./res/player.png");
 

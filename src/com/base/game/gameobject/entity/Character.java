@@ -51,7 +51,7 @@ public abstract class Character extends GameObject
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
                 }
-                if(obj instanceof ConsumableItem) // If the object is a projectile...
+                if(obj instanceof ConsumableItem) // If the object is a consumable item...
                 {
                     gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
                     obj.remove(); // Delete the consumable

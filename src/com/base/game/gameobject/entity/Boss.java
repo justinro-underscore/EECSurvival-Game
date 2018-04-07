@@ -19,11 +19,11 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
 
     /**
      * Creates a new boss
-     * @param xPos x-coordinate of the sprite
-     * @param yPos y-coordinate of the sprite
+     * @param xPos x-coordinate of the render
+     * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the sprite
+     * @param imgPath file path to the image representing the render
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals

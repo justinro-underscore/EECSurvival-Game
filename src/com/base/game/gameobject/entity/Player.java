@@ -5,6 +5,7 @@ import com.base.game.Game;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.utilities.Delay;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -14,13 +15,25 @@ import static org.lwjgl.opengl.GL11.*;
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
 
+    // Images for each animation
+    private int[] walk = {1};//need to load this with a list of textureID's for walking
+    private int[] standing = {1};//need to load this with one textureID of idle
+
+    // These are animation states
+    private Animation walking = new Animation(walk, 10);
+    private Animation idle = new Animation(standing, 10);
+
+    // This is the actual animation
+    private Animation animation = idle;
+
+
     /**
      * Creates a player object (should only be done once)
-     * @param xPos x-coordinate of the sprite
-     * @param yPos y-coordinate of the sprite
+     * @param xPos x-coordinate of the render
+     * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the sprite
+     * @param imgPath file path to the image representing the render
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
@@ -108,3 +121,7 @@ public class Player extends Character {
         }
     }
 }
+
+/*
+
+ */

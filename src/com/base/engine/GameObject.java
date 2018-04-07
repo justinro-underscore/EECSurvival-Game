@@ -1,17 +1,14 @@
 package com.base.engine;
 
-import java.io.IOException;
-
-import static org.lwjgl.opengl.GL11.*;
-
 public abstract class GameObject
 {
-    protected float xPos; // x-coordinate (middle of sprite)
-    protected float yPos; // y-coordinate (middle of sprite)
+    protected float xPos; // x-coordinate (middle of render)
+    protected float yPos; // y-coordinate (middle of render)
     protected int width;
     protected int height;
+    protected int textureID;
 
-    protected Sprite sprite;
+    protected Render render;
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
@@ -19,18 +16,19 @@ public abstract class GameObject
      * Initializes the GameObject
      * @param xPos x-coordinate
      * @param yPos y-coordinate
-     * @param width width of the sprite
-     * @param height height of the sprite
-     * @param imgPath file path to the image representing the sprite
+     * @param width width of the render
+     * @param height height of the render
+     * @param textureID integer value corresponding to what we are going to render
      */
-    protected void init(float xPos, float yPos, int width, int height, String imgPath)
+    protected void init(float xPos, float yPos, int width, int height, int textureID)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
+        this.textureID = textureID;
 
-        sprite = new Sprite(width, height, imgPath); // Creates the sprite
+        render = new Render(); // Creates the render
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }
@@ -41,10 +39,10 @@ public abstract class GameObject
     abstract public void update();
 
     /**
-     * Renders the GameObject's sprite
+     * Renders the GameObject's render
      */
     public void render() {
-        sprite.render(xPos, yPos);
+        render.render(height, width, xPos, yPos, textureID);
     }
 
     /**
@@ -63,7 +61,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's height
+     * Gets the render's height
      * @return height
      */
     public int getHeight() {
@@ -71,7 +69,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's width
+     * Gets the render's width
      * @return width
      */
     public int getWidth() {
@@ -79,7 +77,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's x-position (anchored from center of sprite)
+     * Gets the render's x-position (anchored from center of render)
      * @return xPos
      */
     public float getX() {
@@ -87,18 +85,12 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's y-position (anchored from center of sprite)
+     * Gets the render's y-position (anchored from center of render)
      * @return yPos
      */
     public float getY() {
         return yPos + (height/2.0f);
     }
 
-    /**
-     * Resets the texture of the sprite
-     * @param imgPath file path to the new texture
-     */
-    public void setTexture(String imgPath) {
-        sprite.setTexture(imgPath);
-    }
+
 }

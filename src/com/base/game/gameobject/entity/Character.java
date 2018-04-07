@@ -1,7 +1,6 @@
 package com.base.game.gameobject.entity;
 
 import com.base.engine.Physics;
-import com.base.engine.Sprite;
 import com.base.engine.GameObject;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.Game;
@@ -17,11 +16,11 @@ public abstract class Character extends GameObject
 
     /**
      * Abstract constructor for Character
-     * @param xPos x-coordinate of the sprite
-     * @param yPos y-coordinate of the sprite
+     * @param xPos x-coordinate of the render
+     * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the sprite
+     * @param imgPath file path to the image representing the render
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals

@@ -1,6 +1,5 @@
 package com.base.game.gameobject.projectile;
 
-import com.base.engine.Sprite;
 import com.base.engine.Vector2f;
 import com.base.engine.GameObject;
 import com.base.game.utilities.Util;
@@ -13,11 +12,11 @@ public abstract class Projectile extends GameObject
 
     /**
      * Creates a projectile object
-     * @param xPos x-coordinate of the sprite
-     * @param yPos y-coordinate of the sprite
+     * @param xPos x-coordinate of the render
+     * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the sprite
+     * @param imgPath file path to the image representing the render
      * @param shootAngle the initial angle of the projectile
      * @param damage damage dealt to the character
      * @param speed speed of the projectile

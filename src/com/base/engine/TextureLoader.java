@@ -15,9 +15,11 @@ import static org.lwjgl.opengl.GL11.*;
  * Excerpt from http://www.java-gaming.org/index.php?PHPSESSID=h31a7ct4qqlgrl1fij7857dcv5&topic=25516.0
  * By theagentd
  */
+
+//takes a buffered image and returns an integer that is a textureID
 public class TextureLoader {
-    public static int loadTexture(String fileName) throws IOException {
-        BufferedImage image = ImageIO.read(new File(fileName));
+
+    public static int loadTexture(BufferedImage image) throws IOException {
 
         int width = image.getWidth();
         int height = image.getHeight();

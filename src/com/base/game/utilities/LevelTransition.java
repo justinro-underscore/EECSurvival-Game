@@ -1,7 +1,7 @@
 package com.base.game.utilities;
 
 import com.base.engine.Display;
-import com.base.engine.Sprite;
+import com.base.engine.Render;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
 
@@ -12,10 +12,10 @@ public class LevelTransition
     private Delay whiteFadeInTime; // Time between black fade out and white fade in
     private Delay whiteFadeOutTime; // Time between white fade in and white fade out
     private boolean blackFade; // Whether or not the screen is fading to black
-    private Sprite blackScreen;
-    private Sprite nextLevelScreen;
-    private Sprite gameOverScreen;
-    private Sprite whiteScreen;
+    private Render blackScreen;
+    private Render nextLevelScreen;
+    private Render gameOverScreen;
+    private Render whiteScreen;
     private float endScreenTransparency; // The transparency of the screens
     private GameButton quitButton;
 
@@ -29,10 +29,10 @@ public class LevelTransition
         whiteFadeInTime = new Delay(500);
         whiteFadeOutTime = new Delay(750);
         blackFade = true; // Start on black fade
-        blackScreen = new Sprite(Display.getWidth(), Display.getHeight(), "./res/black.png");
-        nextLevelScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "./res/nextLevel.png");
-        gameOverScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "./res/gameOver.png");
-        whiteScreen = new Sprite(Display.getWidth(), Display.getHeight(), "./res/white.png");
+        blackScreen = new Render(Display.getWidth(), Display.getHeight(), "./res/black.png");
+        nextLevelScreen = new Render(Display.getWidth() / 2, Display.getHeight() / 2, "./res/nextLevel.png");
+        gameOverScreen = new Render(Display.getWidth() / 2, Display.getHeight() / 2, "./res/gameOver.png");
+        whiteScreen = new Render(Display.getWidth(), Display.getHeight(), "./res/white.png");
         endScreenTransparency = 0;
     }
 

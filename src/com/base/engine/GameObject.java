@@ -11,7 +11,7 @@ public abstract class GameObject
     protected String imgPath;
 
     protected Render render;
-    protected SpriteRetriever retriever = new SpriteRetriever(32);
+    protected SpriteRetriever retriever = new SpriteRetriever(32);//TODO MAKE THIS VARIABLE (standardize sprite sheet cell size orrrrr add a variable to each objects initialization)
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
@@ -33,6 +33,16 @@ public abstract class GameObject
 
         //turns the large image into a buffered image
         BufferedImage spriteSheet = retriever.loadSprite(imgPath);
+
+        //Now we need to CUT 'ER UP
+        /**
+         * Creates a subimage from a spriteSheet
+         * @param someX the x coordinate of a cell
+         * @param someY the y coordinate of a cell
+         * @param spriteSheet the big ole sprite sheet
+         */
+        retriever.getSprite(someX, someY,spriteSheet);
+        
 
         render = new Render(); // Creates the render
 

@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 public class SpriteRetriever {
 
-    private static BufferedImage spriteSheet;
+    //private static BufferedImage spriteSheet;
     private static int TILE_SIZE;
 
     public SpriteRetriever(int TILE_SIZE)
@@ -31,7 +31,8 @@ public class SpriteRetriever {
         return sprite;
     }
 
-    public static BufferedImage getSprite(int xGrid, int yGrid) {
+    //Takes in a sprite sheet and the coordinates of one cell on the sheet and creates a subimage
+    public static BufferedImage getSprite(int xGrid, int yGrid, BufferedImage spriteSheet) {
 
         if (spriteSheet == null) {
             spriteSheet = loadSprite("testSpriteSheet");

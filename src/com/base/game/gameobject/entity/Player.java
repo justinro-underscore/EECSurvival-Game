@@ -2,6 +2,7 @@ package com.base.game.gameobject.entity;
 
 import com.base.engine.*;
 import com.base.game.Game;
+import com.base.game.gameobject.object.Door;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.utilities.Delay;
 
@@ -95,6 +96,10 @@ public class Player extends Character {
         if(obj instanceof Boss) // If the player touches the boss...
         {
             loseHealth(1); // Continually lose one hitpoint
+        }
+
+        if (obj instanceof Door) {
+            Game.game.nextLevel();
         }
     }
 

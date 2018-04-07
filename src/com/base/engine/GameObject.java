@@ -93,4 +93,12 @@ public abstract class GameObject
     public float getY() {
         return yPos + (height/2.0f);
     }
+
+    /**
+     * Resets the texture of the sprite
+     * @param imgPath file path to the new texture
+     */
+    public void setTexture(String imgPath) {
+        sprite.setTexture(imgPath);
+    }
 }

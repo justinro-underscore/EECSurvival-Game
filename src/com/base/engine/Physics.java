@@ -27,6 +27,19 @@ public class Physics {
 
         return field.intersects(r);
     }
+
+    /**
+     * Check if a point is within a GameObject
+     * @param obj The GameObject to check
+     * @param x The x value of the point
+     * @param y The y value of the point
+     * @return whether or not the point is in the GameObject
+     */
+    public static boolean checkCollision(GameObject obj, int x, int y) {
+        Rectangle r = new Rectangle((int) (obj.getX() - (obj.getWidth()/2.0f)), (int) (obj.getY()  - (obj.getHeight()/2.0f)), obj.getWidth(), obj.getHeight());
+
+        return r.contains(x, y);
+    }
 }
 
 

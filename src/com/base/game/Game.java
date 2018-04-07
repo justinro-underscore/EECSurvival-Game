@@ -3,6 +3,7 @@ package com.base.game;
 import com.base.engine.*;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.interfaces.UI;
 import com.base.game.utilities.Delay;
 import com.base.game.utilities.LevelTransition;
@@ -22,6 +23,7 @@ public class Game {
 
     private Player player;
     private Boss boss;
+    private ConsumableItem consumableItem;
     private UI ui;
 
     private boolean levelOver;
@@ -37,8 +39,11 @@ public class Game {
 
         boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
 
+        consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
+
         addObj(player);
         addObj(boss);
+        addObj(consumableItem);
 
         ui = new UI(player.getHealth(), boss.getHealth());
 

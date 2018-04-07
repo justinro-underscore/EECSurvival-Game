@@ -1,7 +1,5 @@
 package com.base.game.levels;
 
-import com.base.engine.Display;
-import com.base.engine.Sprite;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.interfaces.UI;
 

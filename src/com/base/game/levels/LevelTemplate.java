@@ -4,8 +4,8 @@ import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.engine.Physics;
 import com.base.engine.Sprite;
-import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.entity.Player;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.object.Door;
 import com.base.game.interfaces.UI;
 
@@ -18,6 +18,8 @@ public abstract class LevelTemplate {
     private ArrayList<GameObject> gameObjects;
     private ArrayList<GameObject> toAdd;
     private ArrayList<GameObject> toRemove;
+
+    private ConsumableItem consumableItem;
 
     protected Player player;
     protected UI ui;
@@ -34,8 +36,10 @@ public abstract class LevelTemplate {
         background = new Sprite(Display.getWidth(), Display.getHeight(), backgroundPath);
 
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 20, 5);
+        consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
 
         addObj(player);
+        addObj(consumableItem);
 
         levelOver = false;
         gameOver = false;

@@ -3,16 +3,26 @@ package com.base.game.levels;
 import com.base.engine.Display;
 import com.base.engine.Sprite;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.interfaces.UI;
 
 public class Level extends LevelTemplate {
-    public Level(String filePath) {
+    private Boss boss;
+
+    public Level(String filePath, Boss boss) {
         init(filePath);
+
+        if (boss != null) {
+            this.boss = boss;
+
+            ui = new UI(player.getHealth(), boss.getHealth());
+            addObj(boss);
+        } else {
+            createDoor();
+        }
     }
 
-//    public void init() {
-//        Sprite bossSprite = new Sprite(1.0f, 0.0f, 0.0f, 70, 70);
-//        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 70, bossSprite, "", 400, 5, 5);
-//
-//        addObj(boss);
-//    }
+    public int getHealth(boolean isPlayer)
+    {
+        return (isPlayer ? player.getHealth() : boss.getHealth());
+    }
 }

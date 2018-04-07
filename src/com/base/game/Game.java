@@ -20,8 +20,13 @@ public class Game {
         currLevel = 0;
         levels = new ArrayList();
 
-        Level level1 = new Level("./res/bricks.jpg");
+        Level level1 = new Level("./res/bricks.jpg", null);
+
+        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
+        Level level2 = new Level("./res/bricks.jpg", boss);
+
         levels.add(level1);
+        levels.add(level2);
     }
 
     private Level getCurrLevel() {
@@ -63,5 +68,10 @@ public class Game {
     public int getHealth(boolean isPlayer)
     {
         return getCurrLevel().getHealth(isPlayer);
+    }
+
+    public void nextLevel() {
+        if (currLevel < levels.size() - 1)
+            currLevel++;
     }
 }

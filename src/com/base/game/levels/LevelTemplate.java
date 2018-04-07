@@ -6,6 +6,7 @@ import com.base.engine.Physics;
 import com.base.engine.Sprite;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.entity.Player;
+import com.base.game.gameobject.object.Door;
 import com.base.game.interfaces.UI;
 
 import java.awt.*;
@@ -18,9 +19,8 @@ public abstract class LevelTemplate {
     private ArrayList<GameObject> toAdd;
     private ArrayList<GameObject> toRemove;
 
-    private Player player;
-    private Boss boss;
-    private UI ui;
+    protected Player player;
+    protected UI ui;
 
     private boolean levelOver;
     private boolean gameOver;
@@ -35,12 +35,7 @@ public abstract class LevelTemplate {
 
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 20, 5);
 
-        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
-
         addObj(player);
-        addObj(boss);
-
-        ui = new UI(player.getHealth(), boss.getHealth());
 
         levelOver = false;
         gameOver = false;
@@ -102,11 +97,6 @@ public abstract class LevelTemplate {
         return player.getY();
     }
 
-    public int getHealth(boolean isPlayer)
-    {
-        return (isPlayer ? player.getHealth() : boss.getHealth());
-    }
-
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range)
     {
         ArrayList<GameObject> closeObj = new ArrayList<>();
@@ -142,7 +132,13 @@ public abstract class LevelTemplate {
             }
         }
         ui = null;
-        // TODO Create door
+        createDoor();
+    }
+
+    public void createDoor() {
+        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 41, 84, "./res/player.png");
+
+        addObj(door);
     }
 
 }

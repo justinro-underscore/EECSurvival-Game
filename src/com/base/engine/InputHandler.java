@@ -18,6 +18,14 @@ public class InputHandler {
     private static double mouseXPos = 0;
     private static double mouseYPos = 0;
 
+    /**
+     * Invoked every time a key is pressed
+     * @param window window that detected the key
+     * @param key key that was pressed
+     * @param scancode scan code of key
+     * @param action type of key action (ie. pressed, released)
+     * @param mods mods
+     */
     public void invokeKey(long window, int key, int scancode, int action, int mods) {
         if (key == -1) {
             return;
@@ -34,6 +42,13 @@ public class InputHandler {
         return keys[keycode];
     }
 
+    /**
+     * Invoked every time a mouse button is pressed
+     * @param window window that detected the mouse button
+     * @param button button that was pressed
+     * @param action type of action (ie. pressed, released)
+     * @param mods mods
+     */
     public void invokeMouseButton(long window, int button, int action, int mods) {
         if (button != GLFW_MOUSE_BUTTON_1)
             return;
@@ -48,19 +63,37 @@ public class InputHandler {
         }
     }
 
+    /**
+     * Invoked every time the mouse is moved
+     * @param window window that detected mouse movement
+     * @param xPos xPos of mouse (0,0 starts at top left corner of screen)
+     * @param yPos yPos of mouse (0,0 starts at top left corner of screen)
+     */
     public void invokeMouseMovement(long window, double xPos, double yPos) {
         mouseXPos = xPos;
         mouseYPos = Math.abs(yPos- Display.getHeight());
     }
 
+    /**
+     * Checks if mouse is pressed
+     * @return bool if mouse is pressed
+     */
     public static boolean isMouseDown() {
         return isMousePressed;
     }
 
+    /**
+     * Checks if mouse is released
+     * @return bool if mouse is released
+     */
     public static boolean isMouseReleased() {
         return isMouseReleased;
     }
 
+    /**
+     * Returns current mouse position
+     * @return vector2f of mouse position (0,0 is shifted to same as glfw - (0,0) is at bottom left corner)
+     */
     public static Vector2f getMousePos() {
         return new Vector2f((float) mouseXPos, (float) mouseYPos);
     }

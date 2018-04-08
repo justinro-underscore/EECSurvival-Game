@@ -68,8 +68,23 @@ public class Player extends Character {
         }
 
         // Shoot
-        if(InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver()) {
+        if(InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver() && !InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT) ) {
             attack();
+        }
+        if(InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT) )
+        {
+            if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
+                yPos += speed*1.2;
+            }
+            else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
+                yPos -= speed*1.2;
+            }
+            else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
+                xPos += speed*1.2;
+            }
+            else if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
+                xPos -= speed*1.2;
+            }
         }
     }
 

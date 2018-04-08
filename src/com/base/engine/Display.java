@@ -93,7 +93,11 @@ public class Display {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will not be resizable
 
         // Create the window
-        window = glfwCreateWindow(width, height, title, NULL, NULL);
+        GLFWVidMode mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        width = mode.width();
+        height = mode.height();
+
+        window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 

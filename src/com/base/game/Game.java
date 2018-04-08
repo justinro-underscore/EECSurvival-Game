@@ -41,7 +41,7 @@ public class Game {
         }
         EmptyLevel level1 = new EmptyLevel("./res/bricks.jpg");
       
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
+        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
         BossLevel level2 = new BossLevel("./res/bricks.jpg", boss);
 
         levels.add(level1);

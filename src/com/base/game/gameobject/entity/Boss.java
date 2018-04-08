@@ -66,16 +66,16 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void attack() {
         if(wallAttackDelay.isOver()){ // Wall attack
-            wallOfFireAbility(5,5,6);
+            wallOfFireAbility(15,15,8);
             wallAttackDelay.start();
         }
         if(targetAttackDelay.isOver()){ // Target attack
-            targetPlayerAbility(5,5,1);
+            targetPlayerAbility(15,15,5);
             targetAttackDelay.start();
         }
         if(burstAttackDelay.isOver()) { // Burst attack
             if(Math.random() * 2 > 1){
-                shootAbility(5,5,7);
+                shootAbility(10,10,10);
             }
             burstAttackDelay.start();
         }
@@ -89,7 +89,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void shootAbility(int proWidth, int proHeight, int numberOfPros) {
         for (int i = 1; i <= numberOfPros; i++) {
-            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 2));
+            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 5));
         }
     }
 
@@ -100,7 +100,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param numberOfPros Number of projectiles being made
      */
     public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
-        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 2));
+        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5));
     }
 
     /**
@@ -111,7 +111,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void wallOfFireAbility(int proWidth, int proHeight, int numberOfPros) {
         for (int i = 1; i <= numberOfPros; i++){
-            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "", new Vector2f(0, -1), 5, 2));
+            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "", new Vector2f(0, -1), 5, 5));
         }
     }
 

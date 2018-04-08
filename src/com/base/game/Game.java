@@ -10,7 +10,10 @@ import com.base.game.levels.EmptyLevel;
 import com.base.game.levels.Level;
 import com.base.game.levels.LevelTransition;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,15 @@ public class Game {
         currLevel = 0;
         levels = new ArrayList();
 
+        try {
+            Clip bSound = AudioSystem.getClip();
+            File audio = new File("./res/audio/Fighting_is_not_an_option.wav");
+            bSound.open(AudioSystem.getAudioInputStream(audio.toURI().toURL()));
+            bSound.start();
+            bSound.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         EmptyLevel level1 = new EmptyLevel("./res/bricks.jpg");
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);

@@ -44,7 +44,7 @@ public abstract class GameObject
          */
         //BufferedImage subimage;
         //subimage = retriever.getSprite(someX, someY,spriteSheet);
-        //someID = loader.loadTexture(subimage); 
+        //someID = loader.loadTexture(subimage);
 
         render = new Render(); // Creates the render
 

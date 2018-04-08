@@ -15,12 +15,14 @@ import java.util.ArrayList;
 public abstract class Level {
     private Sprite background;
 
+    //List of Game Objects
     private ArrayList<GameObject> gameObjects;
     private ArrayList<GameObject> toAdd;
     private ArrayList<GameObject> toRemove;
 
     private ConsumableItem consumableItem;
 
+    //The Player
     protected Player player;
     protected UI ui;
 
@@ -28,16 +30,22 @@ public abstract class Level {
     private boolean gameOver;
     private LevelTransition lvlTransition;
 
+    /**
+     * Passes the background path with inheritance
+     * @param backgroundPath Takes in the path that is available to the user
+     */
     public void init(String backgroundPath) {
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
-
+        //Creates a background
         background = new Sprite(Display.getWidth(), Display.getHeight(), backgroundPath);
 
+        //Creates the player and consumable item
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 20, 5);
         consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
 
+        //Renders the two objects
         addObj(player);
         addObj(consumableItem);
 
@@ -46,6 +54,9 @@ public abstract class Level {
         lvlTransition = new LevelTransition();
     }
 
+    /**
+     * Updates the frames of the level
+     */
     public void update() {
         if (levelOver) {
             return;
@@ -72,6 +83,9 @@ public abstract class Level {
         }
     }
 
+    /**
+     * Renders the objects in the level
+     */
     public void render() {
         background.render(0 ,0);
 
@@ -89,23 +103,33 @@ public abstract class Level {
         }
     }
 
+    //Adds am object to the game
     public void addObj(GameObject obj) {
         toAdd.add(obj);
     }
 
+    //Returns the players current health
     public int getHealth(boolean isPlayer)
     {
         return player.getHealth();
     }
 
+    //Gets the player's x position
     public float getPlayerX() {
         return player.getX();
     }
 
+    //Gets the player's Y position
     public float getPlayerY() {
         return player.getY();
     }
 
+
+    /**
+     * Collision Detection
+     * @param object The object that is being detected
+     * @param range range from objects
+     */
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range)
     {
         ArrayList<GameObject> closeObj = new ArrayList<>();
@@ -121,6 +145,10 @@ public abstract class Level {
         return closeObj;
     }
 
+    /**
+     * Checks if the level is over
+     * @param lose boolean value that checks if the level is over
+     */
     public void levelOver(boolean lose)
     {
         levelOver = true;
@@ -128,6 +156,9 @@ public abstract class Level {
         lvlTransition.init();
     }
 
+    /**
+     * Checks if its the end of the level
+     */
     public void endLevel()
     {
         boolean done = false;
@@ -144,6 +175,9 @@ public abstract class Level {
         createDoor();
     }
 
+    /**
+     * Creates a door at the end after defeating the boss.
+     */
     public void createDoor() {
         Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "./res/door.png");
 

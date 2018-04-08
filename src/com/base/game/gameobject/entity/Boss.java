@@ -33,10 +33,12 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
 
         projectiles = new ArrayList<>(); // Initalizes the list
 
+        //Delay between attacks from the Boss
         wallAttackDelay = new Delay(3000);
         targetAttackDelay = new Delay(800);
         burstAttackDelay = new Delay(1200);
 
+        //Initiates the Attacks from the boss
         wallAttackDelay.start();
         targetAttackDelay.start();
         burstAttackDelay.start();
@@ -46,6 +48,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * Updates the boss object every frame
      */
     public void update() {
+        //Constantly checking the collision of bullets and whether the boss is killed in that instance.
         checkCharacterCollision();
         checkDeath();
 

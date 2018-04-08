@@ -41,6 +41,7 @@ public class MainMenu extends Interface {
      * Render the main menu
      */
     public void render() {
+        //calls the inherited render function
         super.render();
 
         startButton.render();

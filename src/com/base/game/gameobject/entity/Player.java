@@ -67,17 +67,20 @@ public class Player extends Character {
             xPos -= speed;
         }
 
-        // Shoot
+        // Shoot *Can't shoot while sprinting
         if(InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver() && !InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT) ) {
             attack();
         }
+
+        //Sprint Functionality
         if(InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT) )
         {
+            //Detects the input from the user for spring direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-                yPos += speed*1.2;
+                yPos += speed*1.1;
             }
             else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-                yPos -= speed*1.2;
+                yPos -= speed*1.1;
             }
             else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
                 xPos += speed*1.2;

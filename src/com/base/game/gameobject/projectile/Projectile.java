@@ -35,6 +35,7 @@ public abstract class Projectile extends GameObject
      */
     public void update()
     {
+        //Updates
         xPos += shootAngle.x * speed; // Move in x direction
         yPos += shootAngle.y * speed; // Move in y direction
 

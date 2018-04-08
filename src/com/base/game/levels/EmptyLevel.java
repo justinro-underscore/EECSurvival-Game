@@ -6,6 +6,11 @@ import com.base.game.interfaces.UI;
 public class EmptyLevel extends Level {
     private Boss boss;
 
+    /**
+     * Empty Level Creator
+     * @param filePath takes in a file path for the empty level
+
+     */
     public EmptyLevel(String filePath) {
         init(filePath);
         createDoor();

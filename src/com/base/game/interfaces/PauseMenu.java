@@ -22,8 +22,10 @@ public class PauseMenu extends Interface {
     public void init(String fileName) {
         super.init(fileName);
 
+        //Start Button
         startButton = new GameButton((float)(Display.getWidth()/2 - 450), (float)(Display.getHeight()/2 - 40), 400, 80,
                 "./res/start_release.png", "./res/start_press.png", () -> Display.start());
+        //Quit Button
         quitButton = new GameButton((float)(Display.getWidth()/2 + 50), (float)(Display.getHeight()/2 - 40), 400, 80,
                 "./res/quit_release.png", "./res/quit_press.png", () -> Display.quit());
     }

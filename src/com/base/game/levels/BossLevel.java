@@ -22,6 +22,9 @@ public class BossLevel extends Level {
     }
 
     @Override
+    /**
+     * get the health of the passed in player
+     */
     public int getHealth(boolean isPlayer)
     {
         return (isPlayer ? player.getHealth() : boss.getHealth());

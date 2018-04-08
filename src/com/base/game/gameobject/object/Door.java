@@ -15,6 +15,8 @@ public class Door extends GameObject {
         init(xPos, yPos, width, height, imgPath);
     }
 
-    //Empty Update, because doors don't move.
+    /**
+     * Empty update
+     */
     public void update() {}
 }

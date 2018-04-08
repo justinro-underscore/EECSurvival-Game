@@ -34,6 +34,13 @@ public class InputHandler {
         return keys[keycode];
     }
 
+    /**
+     * is mouse button down
+     * @param window specified window
+     * @param button specified button
+     * @param action specified action
+     * @param mods the mods
+     */
     public void invokeMouseButton(long window, int button, int action, int mods) {
         if (button != GLFW_MOUSE_BUTTON_1)
             return;
@@ -48,19 +55,37 @@ public class InputHandler {
         }
     }
 
+    /**
+     * invoke mouse movement
+     * @param window the window
+     * @param xPos the x position
+     * @param yPos the y position
+     */
     public void invokeMouseMovement(long window, double xPos, double yPos) {
         mouseXPos = xPos;
         mouseYPos = Math.abs(yPos- Display.getHeight());
     }
 
+    /**
+     * is the mouse down
+     * @return true if the mouse is down
+     */
     public static boolean isMouseDown() {
         return isMousePressed;
     }
 
+    /**
+     * is the mouse released
+     * @return if the the mouse is released
+     */
     public static boolean isMouseReleased() {
         return isMouseReleased;
     }
 
+    /**
+     * get the mouse position
+     * @return the mouse position
+     */
     public static Vector2f getMousePos() {
         return new Vector2f((float) mouseXPos, (float) mouseYPos);
     }

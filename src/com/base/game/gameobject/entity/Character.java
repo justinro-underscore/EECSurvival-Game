@@ -15,7 +15,6 @@ public abstract class Character extends GameObject
     protected int health; // Health of the Character
     protected int attackDamage; // How much damage the character deals
     protected boolean isDead; // Whether or not the character is dead
-    protected int maxHealth;
 
     /**
      * Abstract constructor for Character
@@ -35,7 +34,6 @@ public abstract class Character extends GameObject
         this.health = health;
         this.attackDamage = attackDamage;
         isDead = false; // Character should not start out dead
-        maxHealth = health;
     }
 
     /**
@@ -55,9 +53,7 @@ public abstract class Character extends GameObject
                 }
                 if(obj instanceof ConsumableItem) // If the object is a consumable item...
                 {
-                    if(health + ((ConsumableItem) obj).getAddedHealth() < maxHealth){
-                        gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
-                    }
+                    gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
                     obj.remove(); // Delete the consumable
                 }
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions

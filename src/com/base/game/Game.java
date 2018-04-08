@@ -39,10 +39,10 @@ public class Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EmptyLevel level1 = new EmptyLevel("./res/bricks.jpg");
+        EmptyLevel level1 = new EmptyLevel("./res/levelBack.png");
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        BossLevel level2 = new BossLevel("./res/bricks.jpg", boss);
+        BossLevel level2 = new BossLevel("./res/bossBack.png", boss);
 
         levels.add(level1);
         levels.add(level2);

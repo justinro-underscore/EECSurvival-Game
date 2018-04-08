@@ -43,7 +43,7 @@ public abstract class Level {
 
         //Creates the player and consumable item
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 20, 5);
-        consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 10000, 5);
+        consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
 
         //Renders the two objects
         addObj(player);

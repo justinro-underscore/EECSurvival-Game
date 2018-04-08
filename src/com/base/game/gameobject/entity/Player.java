@@ -23,8 +23,7 @@ public class Player extends Character {
     private Animation walking = new Animation(walk, 10);
     private Animation idle = new Animation(standing, 10);
 
-    // This is the actual animation
-    private Animation animation = idle;
+
 
 
     /**

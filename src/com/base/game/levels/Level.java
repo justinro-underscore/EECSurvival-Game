@@ -145,7 +145,7 @@ public abstract class Level {
     }
 
     public void createDoor() {
-        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 41, 84, "./res/player.png");
+        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "./res/door.png");
 
         addObj(door);
     }

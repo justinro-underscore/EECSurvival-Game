@@ -5,6 +5,8 @@ import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.interfaces.UI;
+import com.base.game.levels.BossLevel;
+import com.base.game.levels.EmptyLevel;
 import com.base.game.levels.Level;
 import com.base.game.levels.LevelTransition;
 
@@ -25,10 +27,10 @@ public class Game {
         currLevel = 0;
         levels = new ArrayList();
 
-        Level level1 = new Level("./res/bricks.jpg", null);
+        EmptyLevel level1 = new EmptyLevel("./res/bricks.jpg");
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
-        Level level2 = new Level("./res/bricks.jpg", boss);
+        BossLevel level2 = new BossLevel("./res/bricks.jpg", boss);
 
         levels.add(level1);
         levels.add(level2);

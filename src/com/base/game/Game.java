@@ -130,6 +130,16 @@ public class Game {
     }
 
     /**
+     * Executes the cheat code
+     * Can be changed to create different cheats
+     */
+    public void executeCheat()
+    {
+        if(currLevel == 1) // Only works if you are on the second level
+            ((BossLevel)levels.get(1)).killBoss();
+    }
+
+    /**
      * Increment the level
      */
     public void nextLevel() {

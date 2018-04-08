@@ -34,6 +34,35 @@ public class InputHandler {
         return keys[keycode];
     }
 
+    /**
+     * Checks to see if there is any key being pressed at the moment
+     * @return true if any key is down, false if there is nothing being pressed
+     */
+    public static boolean isAnyKeyDown()
+    {
+        for(boolean key : keys)
+        {
+            if(key) // If one key is down...
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks to see if there is any key being pressed at the moment (ignoring one keycode)
+     * @param keycodeIgnore The keycode to be ignored
+     * @return true if any key is down, false if there is nothing being pressed
+     */
+    public static boolean isAnyKeyDown(int keycodeIgnore)
+    {
+        for(int i = 0; i < keys.length; i++)
+        {
+            if(keys[i] && (i != keycodeIgnore))
+                return true;
+        }
+        return false;
+    }
+
     public void invokeMouseButton(long window, int button, int action, int mods) {
         if (button != GLFW_MOUSE_BUTTON_1)
             return;

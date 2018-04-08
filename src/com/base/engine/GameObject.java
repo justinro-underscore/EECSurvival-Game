@@ -33,15 +33,9 @@ public abstract class GameObject
         this.imgPath = imgPath;
 
         //turns the large image into a buffered image
-        BufferedImage spriteSheet = retriever.loadSprite(imgPath);
+        //BufferedImage spriteSheet = retriever.loadSprite(imgPath);
 
         //Now we need to CUT 'ER UP
-        /**
-         * Creates a subimage from a spriteSheet
-         * @param someX the x coordinate of a cell
-         * @param someY the y coordinate of a cell
-         * @param spriteSheet the big ole sprite sheet
-         */
         //BufferedImage subimage;
         //subimage = retriever.getSprite(someX, someY,spriteSheet);
         //someID = loader.loadTexture(subimage);

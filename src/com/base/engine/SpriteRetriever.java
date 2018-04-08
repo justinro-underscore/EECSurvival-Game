@@ -31,6 +31,13 @@ public class SpriteRetriever {
         return sprite;
     }
 
+    /**
+     * Creates a subimage from a spriteSheet
+     * @param xGrid the x coordinate of a cell
+     * @param yGrid the y coordinate of a cell
+     * @param spriteSheet the big ole sprite sheet
+     * @return hands back a subimage of the sprite sheet cell
+     */
     //Takes in a sprite sheet and the coordinates of one cell on the sheet and creates a subimage
     public static BufferedImage getSprite(int xGrid, int yGrid, BufferedImage spriteSheet) {
 

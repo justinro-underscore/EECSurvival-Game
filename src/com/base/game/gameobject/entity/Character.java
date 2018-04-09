@@ -55,7 +55,7 @@ public abstract class Character extends GameObject
                 }
                 if(obj instanceof ConsumableItem) // If the object is a consumable item...
                 {
-                    if(health + ((ConsumableItem) obj).getAddedHealth() < maxHealth){
+                    if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
                         gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
                     }
                     obj.remove(); // Delete the consumable

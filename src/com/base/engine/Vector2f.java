@@ -5,16 +5,30 @@ public class Vector2f
     public float x;
     public float y;
 
+    /**
+     * create a vector
+     * @param x the x length
+     * @param y the y length
+     */
     public Vector2f(float x, float y)
     {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * get the length of the vector
+     * @return the length of the vector
+     */
     public float length() {
         return (float)Math.sqrt(x * x + y * y);
     }
 
+    /**
+     * get the dot product
+     * @param vector the passed in vector
+     * @return the dot product
+     */
     public float dot(Vector2f vector) {
         return x * vector.getX() + y * vector.getY();
     }
@@ -23,6 +37,10 @@ public class Vector2f
         return (float) Math.acos(dot(vector)/(length() * vector.length()));
     }
 
+    /**
+     * normalize the vector
+     * @return the normalized vector
+     */
     public Vector2f normalize() {
         float length = length();
         return new Vector2f(x / length, y / length);
@@ -83,14 +101,26 @@ public class Vector2f
         return x == vector.getX() && y == vector.getY();
     }
 
+    /**
+     * stringify a vector
+     * @return the stringfied vector
+     */
     public String toString() {
         return "<" + x + ", " + y + ">";
     }
 
+    /**
+     * get x position
+     * @return the x position
+     */
     public float getX() {
         return x;
     }
 
+    /**
+     * get y position
+     * @return the y position
+     */
     public float getY() {
         return y;
     }

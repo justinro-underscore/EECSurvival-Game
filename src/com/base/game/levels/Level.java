@@ -103,23 +103,36 @@ public abstract class Level {
         }
     }
 
-    //Adds am object to the game
+    /**
+     * Adds am object to the game
+     * @param obj the object to add
+     */
     public void addObj(GameObject obj) {
         toAdd.add(obj);
     }
 
-    //Returns the players current health
+    /**
+     * Returns the players current health
+     * @param isPlayer the player
+     * @return the player's health
+     */
     public int getHealth(boolean isPlayer)
     {
         return player.getHealth();
     }
 
-    //Gets the player's x position
+    /**
+     * Gets the player's x position
+     * @return the x position
+     */
     public float getPlayerX() {
         return player.getX();
     }
 
-    //Gets the player's Y position
+    /**
+     * Gets the player's y position
+     * @return the y position
+     */
     public float getPlayerY() {
         return player.getY();
     }

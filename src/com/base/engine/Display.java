@@ -38,6 +38,12 @@ public class Display {
 
     private InputHandler inputHandler;
 
+    /**
+     * run the display
+     * @param width the width of the screen
+     * @param height the height of the screen
+     * @param name of the game
+     */
     public void run(int width, int height, String name) {
         Display.title = name;
         Display.width = width;
@@ -56,6 +62,9 @@ public class Display {
         glfwSetErrorCallback(null).free();
     }
 
+    /**
+     * initialize the game
+     */
     private void initGame() {
         Game.game = new Game();
         inputHandler = new InputHandler();
@@ -66,6 +75,9 @@ public class Display {
         pauseMenu.init("./res/bricks.jpg");
     }
 
+    /**
+     * initialize everything
+     */
     private void init() {
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
@@ -139,6 +151,9 @@ public class Display {
         glfwShowWindow(window);
     }
 
+    /**
+     * The generic game loop
+     */
     private void gameLoop() {
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
@@ -192,18 +207,32 @@ public class Display {
         }
     }
 
+    /**
+     * start the game
+     */
     public static void start() {
         state = State.GAME;
     }
 
+    /**
+     * quit the game
+     */
     public static void quit() {
         glfwSetWindowShouldClose(window, true);
     }
 
+    /**
+     * get the height of the screen
+     * @return the height of the screen
+     */
     public static int getHeight() {
         return height;
     }
 
+    /**
+     * get the width of the screen
+     * @return width of the screen
+     */
     public static int getWidth() {
         return width;
     }

@@ -16,3 +16,6 @@ EECSurvival is a simple 2-d game. Taking some inspiration from bullet hell games
 
 ### Controls
 You can move the character around using the wasd keys, and you can shoot by pressing the space bar. To move to the next level you just need to run into the door sprite. 
+
+### Downloading
+We have ported this over to be easily runnable from a jar. You can download it *Insert some website or something here*

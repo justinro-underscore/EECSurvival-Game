@@ -142,6 +142,7 @@ public abstract class Level {
      * Collision Detection
      * @param object The object that is being detected
      * @param range range from objects
+     * @return the close objects surrounding the passed in object
      */
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range)
     {

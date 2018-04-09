@@ -71,7 +71,7 @@
          This stuff is crazy complicated and we all sympathize with Noah and Harry
       o Prototype for levels (Varun, completed)
       o Update Gantt chart (Varun, in progess)
-#### Meeting 7, LEEP2 Floor 2 Study Cubby, 4/8/2018 11:15am-3:30pm
+#### Meeting 7, LEEP2 Floor 2 Study Cubby, 4/8/2018 11:15am-7:30pm
     • Get down to business!
     • Decide to push off animations and advanced sprite rendering to finish on time 
     • TASKS TO DO: 

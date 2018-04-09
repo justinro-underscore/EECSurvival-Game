@@ -39,13 +39,16 @@ public class Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        EmptyLevel level1 = new EmptyLevel("./res/levelBack.png");
+        EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
         BossLevel level2 = new BossLevel("./res/bossBack.png", boss);
 
+        EmptyLevel endGame = new EmptyLevel("./res/thankYouForWatching.png", false);
+
         levels.add(level1);
         levels.add(level2);
+        levels.add(endGame);
     }
 
     /**

@@ -51,7 +51,10 @@ public class Display {
 
         Time.init();
         init();
+        Audio.init();
         gameLoop();
+
+        Audio.cleanUp();
 
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(window);

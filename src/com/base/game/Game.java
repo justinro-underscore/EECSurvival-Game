@@ -30,6 +30,9 @@ public class Game {
         currLevel = 0;
         levels = new ArrayList();
 
+        int startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
+        Audio.playBuffer(startMusic);
+
         EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);

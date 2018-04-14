@@ -30,15 +30,6 @@ public class Game {
         currLevel = 0;
         levels = new ArrayList();
 
-        try {
-            Clip bSound = AudioSystem.getClip();
-            File audio = new File("./res/audio/Fighting_is_not_an_option.wav");
-            bSound.open(AudioSystem.getAudioInputStream(audio.toURI().toURL()));
-            bSound.start();
-            bSound.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);

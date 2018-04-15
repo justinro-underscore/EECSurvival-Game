@@ -30,10 +30,10 @@ public class LevelTransition
         whiteFadeInTime = new Delay(500);
         whiteFadeOutTime = new Delay(750);
         blackFade = true; // Start on black fade
-        blackScreen = new Sprite(Display.getWidth(), Display.getHeight(), "./res/black.png");
-        nextLevelScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "./res/nextLevel.png");
-        gameOverScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "./res/gameOver.png");
-        whiteScreen = new Sprite(Display.getWidth(), Display.getHeight(), "./res/white.png");
+        blackScreen = new Sprite(Display.getWidth(), Display.getHeight(), "res/assets/black.png");
+        nextLevelScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "res/assets/nextLevel.png");
+        gameOverScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "res/assets/gameOver.png");
+        whiteScreen = new Sprite(Display.getWidth(), Display.getHeight(), "res/assets/white.png");
         endScreenTransparency = 0;
     }
 
@@ -91,7 +91,7 @@ public class LevelTransition
                 blackFadeOutTime.start(); // Happens here so that it only starts it once, right before Next Level screen gets fully opaque
                 if(gameOver) {
                     quitButton = new GameButton((float) (Display.getWidth() / 2 - 200), 50f, 400, 80,
-                            "./res/quit_release.png", "./res/quit_press.png", () -> Display.quit());
+                            "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
                 }
             }
 

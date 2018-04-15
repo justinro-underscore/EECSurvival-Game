@@ -15,6 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
     private int konami;
+    private int fireSfx;
 
     /**
      * Creates a player object (should only be done once)
@@ -29,6 +30,8 @@ public class Player extends Character {
      */
     public Player(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
         super(xPos, yPos, width, height, imgPath, speed, health, attackDamage); // Call Character superclass's constructor
+
+        fireSfx = Audio.loadSound("res/audio/fire.ogg");
 
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
@@ -155,7 +158,11 @@ public class Player extends Character {
         int proWidth = 5; // Projectile width
         int proHeight = 5; // Projectile height
 
-        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", new Vector2f(0, 1), 5, 8); // Create the projectile
+        Vector2f proDir = new Vector2f(0, 1);
+
+        Audio.playBuffer(fireSfx);
+        Audio.setBufferGain(fireSfx, 1.5f);
+        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8); // Create the projectile
 
         Game.game.addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire

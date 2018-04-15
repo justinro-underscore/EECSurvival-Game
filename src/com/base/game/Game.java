@@ -20,6 +20,9 @@ import java.util.List;
 public class Game {
     public static Game game;
 
+    private boolean startedAudio;
+    private static int startMusic;
+
     private ArrayList<Level> levels;
     private int currLevel;
 
@@ -28,17 +31,13 @@ public class Game {
      */
     public Game() {
         currLevel = 0;
+        startedAudio = false;
+
+        startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
+//        Audio.loopBuffer(startMusic);
+
         levels = new ArrayList();
 
-        try {
-            Clip bSound = AudioSystem.getClip();
-            File audio = new File("./res/audio/Fighting_is_not_an_option.wav");
-            bSound.open(AudioSystem.getAudioInputStream(audio.toURI().toURL()));
-            bSound.start();
-            bSound.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
@@ -49,6 +48,21 @@ public class Game {
         levels.add(level1);
         levels.add(level2);
         levels.add(endGame);
+    }
+
+    public void startAudio() {
+        Audio.playBuffer(startMusic);
+        Audio.loopBuffer(startMusic);
+
+        startedAudio = true;
+    }
+
+    public static void pause() {
+        Audio.pauseBuffer(startMusic);
+    }
+
+    public static void resume() {
+        Audio.resumeBuffer(startMusic);
     }
 
     /**
@@ -63,6 +77,10 @@ public class Game {
      * Update the game
      */
     public void update() {
+        if (!startedAudio) {
+            startAudio();
+        }
+
         levels.get(currLevel).update();
     }
 

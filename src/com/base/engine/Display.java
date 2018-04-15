@@ -51,7 +51,10 @@ public class Display {
 
         Time.init();
         init();
+        Audio.init();
         gameLoop();
+
+        Audio.cleanUp();
 
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(window);
@@ -106,11 +109,15 @@ public class Display {
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             //Pause the game after clicking escape while playing the game
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME )
+            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME ) {
                 state = State.PAUSE_MENU;
+                Game.pause();
+            }
             //Resume the game after clicking escape to resume the game
-            else if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.PAUSE_MENU )
+            else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.PAUSE_MENU) {
+                Game.resume();
                 start();
+            }
 
             inputHandler.invokeKey(window, key, scancode, action, mods);
         });
@@ -188,8 +195,6 @@ public class Display {
                     mainMenu.render();
                     break;
                 case GAME:
-                    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
                     Game.game.update();
                     Game.game.render();
                     break;

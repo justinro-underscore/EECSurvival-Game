@@ -111,11 +111,11 @@ public class Display {
             //Pause the game after clicking escape while playing the game
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME ) {
                 state = State.PAUSE_MENU;
-                Audio.pauseAll();
+                Game.pause();
             }
             //Resume the game after clicking escape to resume the game
             else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.PAUSE_MENU) {
-                Audio.resumeAll();
+                Game.resume();
                 start();
             }
 

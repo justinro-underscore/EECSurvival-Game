@@ -90,7 +90,7 @@ public class Audio {
     }
 
     public static void resumeBuffer(int bufferPointer) {
-        alSourcePlay(bufferPointer);
+        alSourcePlay(sources.get(bufferPointer));
     }
 
     public static void pauseAll() {
@@ -99,6 +99,14 @@ public class Audio {
 
     public static void resumeAll() {
         alSourcePlayv(objectArrayToIntArray(sources.values().toArray()));
+    }
+
+    public static void stopBuffer(int bufferPointer) {
+        alSourceStop(sources.get(bufferPointer));
+    }
+
+    public static void stopAll() {
+        alSourceStopv(objectArrayToIntArray(sources.values().toArray()));
     }
 
     public static void cleanUp() {

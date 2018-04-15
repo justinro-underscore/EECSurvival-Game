@@ -21,6 +21,7 @@ public class Game {
     public static Game game;
 
     private boolean startedAudio;
+    private static int startMusic;
 
     private ArrayList<Level> levels;
     private int currLevel;
@@ -31,6 +32,9 @@ public class Game {
     public Game() {
         currLevel = 0;
         startedAudio = false;
+
+        startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
+
         levels = new ArrayList();
 
         EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
@@ -46,10 +50,17 @@ public class Game {
     }
 
     public void startAudio() {
-        int startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
         Audio.playBuffer(startMusic);
 
         startedAudio = true;
+    }
+
+    public static void pause() {
+        Audio.pauseBuffer(startMusic);
+    }
+
+    public static void resume() {
+        Audio.resumeBuffer(startMusic);
     }
 
     /**

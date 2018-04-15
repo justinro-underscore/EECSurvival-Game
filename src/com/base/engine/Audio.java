@@ -121,6 +121,18 @@ public class Audio {
         alSourcef(sources.get(bufferPointer), AL_PITCH, bufferPitch);
     }
 
+    public static void setBufferVelocity(int bufferPointer, Vector2f velocity) {
+        alSource3f(sources.get(bufferPointer), AL_VELOCITY, velocity.x, velocity.y, 0);
+    }
+
+    public static void setBufferPos(int bufferPointer, Vector2f pos) {
+        alSource3f(sources.get(bufferPointer), AL_POSITION, pos.x, pos.y, 0);
+    }
+
+    public static void setBufferDirection(int bufferPointer, Vector2f dir) {
+        alSource3f(sources.get(bufferPointer), AL_DIRECTION, dir.x, dir.y, 0);
+    }
+
     public static void cleanUp() {
         alDeleteBuffers(objectArrayToIntArray(buffers.toArray()));
         alDeleteSources(objectArrayToIntArray(sources.values().toArray()));

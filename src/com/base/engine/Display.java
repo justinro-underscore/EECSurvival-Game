@@ -73,9 +73,9 @@ public class Display {
         inputHandler = new InputHandler();
 
         mainMenu = new MainMenu();
-        mainMenu.init("./res/parchment.png");
+        mainMenu.init("res/assets/parchment.png");
         pauseMenu = new PauseMenu();
-        pauseMenu.init("./res/bricks.jpg");
+        pauseMenu.init("res/assets/bricks.jpg");
     }
 
     /**

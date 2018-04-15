@@ -142,15 +142,11 @@ public class Audio {
     }
 
     /**
-     * Implementation found https://stackoverflow.com/questions/960431/how-to-convert-listinteger-to-int-in-java
+     * Adapted from https://stackoverflow.com/questions/960431/how-to-convert-listinteger-to-int-in-java
      * by Pshemo
-     * @param list Integer list of buffers
+     * @param sources Object list
      * @return int[] of buffers
      */
-    private static int[] integerListToIntArray(List<Integer> list) {
-        return list.stream().mapToInt(i -> i).toArray();
-    }
-
     private static int[] objectArrayToIntArray(Object[] sources) {
         Integer[] src = Arrays.copyOf(sources, sources.length, Integer[].class);
         return Arrays.stream(src).mapToInt(i -> i).toArray();

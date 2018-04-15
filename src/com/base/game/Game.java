@@ -34,6 +34,7 @@ public class Game {
         startedAudio = false;
 
         startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
+//        Audio.loopBuffer(startMusic);
 
         levels = new ArrayList();
 
@@ -51,6 +52,7 @@ public class Game {
 
     public void startAudio() {
         Audio.playBuffer(startMusic);
+        Audio.loopBuffer(startMusic);
 
         startedAudio = true;
     }

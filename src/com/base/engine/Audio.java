@@ -109,6 +109,18 @@ public class Audio {
         alSourceStopv(objectArrayToIntArray(sources.values().toArray()));
     }
 
+    public static void loopBuffer(int bufferPointer) {
+        alSourcei(sources.get(bufferPointer), AL_LOOPING, AL_TRUE);
+    }
+
+    public static void setBufferGain(int bufferPointer, float bufferGain) {
+        alSourcef(sources.get(bufferPointer), AL_GAIN, Math.abs(bufferGain));
+    }
+
+    public static void setBufferPitch(int bufferPointer, float bufferPitch) {
+        alSourcef(sources.get(bufferPointer), AL_PITCH, bufferPitch);
+    }
+
     public static void cleanUp() {
         alDeleteBuffers(objectArrayToIntArray(buffers.toArray()));
         alDeleteSources(objectArrayToIntArray(sources.values().toArray()));

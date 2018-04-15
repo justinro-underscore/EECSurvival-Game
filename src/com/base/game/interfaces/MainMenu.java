@@ -34,6 +34,7 @@ public class MainMenu extends Interface {
 
     public void startAudio() {
         Audio.playBuffer(music);
+        Audio.loopBuffer(music);
 
         startedAudio = true;
     }

@@ -32,7 +32,7 @@ public class GameButton extends GameObject
 
         onPressed = func;
 
-        init(xPos, yPos, width, height, btnTexture); // Create the object
+        init(xPos, yPos, width, height, btnTexture,false); // Create the object
     }
 
     /**

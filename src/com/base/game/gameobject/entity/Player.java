@@ -29,7 +29,7 @@ public class Player extends Character {
      * @param attackDamage how much damage the character deals
      */
     public Player(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage); // Call Character superclass's constructor
+        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,false); // Call Character superclass's constructor
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
 
@@ -162,7 +162,7 @@ public class Player extends Character {
 
         Audio.playBuffer(fireSfx);
         Audio.setBufferGain(fireSfx, 1.5f);
-        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8); // Create the projectile
+        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8 , false); // Create the projectile
 
         Game.game.addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire

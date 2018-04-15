@@ -39,7 +39,7 @@ public class BossLevel extends Level {
      */
     public void killBoss()
     {
-        StandardProjectile s = new StandardProjectile(boss.getX(), boss.getY(), 10, 10, "", new Vector2f(0, 1), 400, 1);
+        StandardProjectile s = new StandardProjectile(boss.getX(), boss.getY(), 10, 10, "", new Vector2f(0, 1), 400, 1 , false);
         Game.game.addObj(s);
     }
 }

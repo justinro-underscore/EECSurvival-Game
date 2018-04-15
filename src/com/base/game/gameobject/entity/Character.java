@@ -28,8 +28,8 @@ public abstract class Character extends GameObject
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        init(xPos, yPos, width, height, imgPath); // Call super initialize method
+    protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, boolean isBoss) {
+        init(xPos, yPos, width, height, imgPath,isBoss); // Call super initialize method
 
         this.speed = speed;
         this.health = health;
@@ -48,12 +48,14 @@ public abstract class Character extends GameObject
         {
             if(Physics.checkCollision(this, obj)) // If the character is touching a GameObject
             {
-                if(obj instanceof Projectile) // If the object is a projectile...
+                if(obj.getBoss()==true && this.getBoss()==true)
+                {}
+                else if(obj instanceof Projectile) // If the object is a projectile...
                 {
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
                 }
-                if(obj instanceof ConsumableItem) // If the object is a consumable item...
+                else if(obj instanceof ConsumableItem) // If the object is a consumable item...
                 {
                     if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
                         gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable

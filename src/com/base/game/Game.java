@@ -20,6 +20,8 @@ import java.util.List;
 public class Game {
     public static Game game;
 
+    private boolean startedAudio;
+
     private ArrayList<Level> levels;
     private int currLevel;
 
@@ -28,10 +30,8 @@ public class Game {
      */
     public Game() {
         currLevel = 0;
+        startedAudio = false;
         levels = new ArrayList();
-
-        int startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
-        Audio.playBuffer(startMusic);
 
         EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
       
@@ -43,6 +43,13 @@ public class Game {
         levels.add(level1);
         levels.add(level2);
         levels.add(endGame);
+    }
+
+    public void startAudio() {
+        int startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
+        Audio.playBuffer(startMusic);
+
+        startedAudio = true;
     }
 
     /**
@@ -57,6 +64,10 @@ public class Game {
      * Update the game
      */
     public void update() {
+        if (!startedAudio) {
+            startAudio();
+        }
+
         levels.get(currLevel).update();
     }
 

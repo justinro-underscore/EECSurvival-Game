@@ -23,9 +23,9 @@ public class MainMenu extends Interface {
         super.init(fileName);
 
         startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "./res/start_release.png", "./res/start_press.png", () -> Display.start());
+                "./res/start_release.png", "./res/start_press.png", Display::start);
         quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "./res/quit_release.png", "./res/quit_press.png", () -> Display.quit());
+                "./res/quit_release.png", "./res/quit_press.png", Display::quit);
     }
 
     /**

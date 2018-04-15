@@ -1,13 +1,10 @@
 package com.base.engine;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.*;
 
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.openal.ALC10.*;
@@ -20,6 +17,8 @@ import static org.lwjgl.system.libc.LibCStdlib.free;
 public class Audio {
 
     private static List<Integer> buffers = new ArrayList<>();
+    private static Map<Integer, Integer> sources = new HashMap<>();
+
     private static long device;
     private static long context;
 
@@ -82,14 +81,46 @@ public class Audio {
         //Assign our buffer to the source
         alSourcei(sourcePointer, AL_BUFFER, bufferPointer);
         alSourcePlay(sourcePointer);
+
+        sources.put(bufferPointer, sourcePointer);
+    }
+
+    public static void pauseBuffer(int bufferPointer) {
+        alSourcePause(sources.get(bufferPointer));
+    }
+
+    public static void resumeBuffer(int bufferPointer) {
+        alSourcePlay(bufferPointer);
+    }
+
+    public static void pauseAll() {
+        alSourcePausev(objectArrayToIntArray(sources.values().toArray()));
+    }
+
+    public static void resumeAll() {
+        alSourcePlayv(objectArrayToIntArray(sources.values().toArray()));
     }
 
     public static void cleanUp() {
-        for (Integer buffer : buffers) {
-            alDeleteBuffers(buffer);
-        }
+        alDeleteBuffers(objectArrayToIntArray(buffers.toArray()));
+        alDeleteSources(objectArrayToIntArray(sources.values().toArray()));
 
         alcDestroyContext(context);
         alcCloseDevice(device);
+    }
+
+    /**
+     * Implementation found https://stackoverflow.com/questions/960431/how-to-convert-listinteger-to-int-in-java
+     * by Pshemo
+     * @param list Integer list of buffers
+     * @return int[] of buffers
+     */
+    private static int[] integerListToIntArray(List<Integer> list) {
+        return list.stream().mapToInt(i -> i).toArray();
+    }
+
+    private static int[] objectArrayToIntArray(Object[] sources) {
+        Integer[] src = Arrays.copyOf(sources, sources.length, Integer[].class);
+        return Arrays.stream(src).mapToInt(i -> i).toArray();
     }
 }

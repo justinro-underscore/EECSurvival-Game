@@ -117,6 +117,13 @@ public class Audio {
         alSourcef(sources.get(bufferPointer), AL_GAIN, Math.abs(bufferGain));
     }
 
+    public static void setMasterGain(float bufferGain) {
+        int[] _sources = objectArrayToIntArray(sources.values().toArray());
+        for (int source : _sources) {
+            alSourcef(source, AL_GAIN, Math.abs(bufferGain));
+        }
+    }
+
     public static void setBufferPitch(int bufferPointer, float bufferPitch) {
         alSourcef(sources.get(bufferPointer), AL_PITCH, bufferPitch);
     }

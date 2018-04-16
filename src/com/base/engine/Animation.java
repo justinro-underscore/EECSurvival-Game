@@ -26,7 +26,7 @@ public class Animation {
 
     private void loadSprites(String fileURI) {
         BufferedImage img = null;
-        String filePath = "res/" + fileURI;
+        String filePath = "res/testWalk/" + fileURI;
         for (int i = 0; i < frames.length; i++) {
             try {
                 img = ImageIO.read(new File(filePath + "_" + i + ".png"));

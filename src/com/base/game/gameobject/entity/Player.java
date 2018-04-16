@@ -17,6 +17,8 @@ public class Player extends Character {
     private int konami;
     private int fireSfx;
 
+    private Animation walk;
+
     /**
      * Creates a player object (should only be done once)
      * @param xPos x-coordinate of the sprite
@@ -35,6 +37,13 @@ public class Player extends Character {
 
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
+
+        walk = new Animation("player", 5);
+    }
+
+    @Override
+    public void render() {
+        walk.render(xPos, yPos);
     }
 
     /**
@@ -45,12 +54,20 @@ public class Player extends Character {
         checkDeath();
 
         getInput();
+
+        walk.update();
     }
 
     /**
      * Gets input from the InputHandler
      */
     public void getInput() {
+        if (InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D)) {
+            walk.start();
+        } else {
+            walk.stop();
+        }
+
         // Go up
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
             yPos += speed;

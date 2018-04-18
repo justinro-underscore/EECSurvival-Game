@@ -50,17 +50,20 @@ public abstract class Character extends GameObject
             {
                 if(obj.getBoss()==true && this.getBoss()==true)
                 {}
-                else if(obj instanceof Projectile) // If the object is a projectile...
-                {
-                    loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
-                    obj.remove(); // Delete the projectile
-                }
                 else if(obj instanceof ConsumableItem) // If the object is a consumable item...
                 {
                     if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
                         gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
                     }
                     obj.remove(); // Delete the consumable
+                }
+                else if(obj.getBoss()==false && this.getBoss()==false){
+
+                }
+                else if(obj instanceof Projectile) // If the object is a projectile...
+                {
+                    loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
+                    obj.remove(); // Delete the projectile
                 }
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions
             }

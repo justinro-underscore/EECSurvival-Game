@@ -3,6 +3,7 @@ package com.base.game.levels;
 import com.base.engine.Vector2f;
 import com.base.game.Game;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.interfaces.UI;
 
@@ -16,8 +17,8 @@ public class BossLevel extends Level {
      * @param boss Boss Object
 
      */
-    public BossLevel(String filePath, Boss boss) {
-        init(filePath);
+    public BossLevel(String filePath, Boss boss, Player player) {
+        init(filePath, player);
         this.boss = boss;
 
         ui = new UI(player.getHealth(), boss.getHealth());

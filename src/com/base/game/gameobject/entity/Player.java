@@ -180,6 +180,8 @@ public class Player extends Character {
         }
 
         if (obj instanceof Door) {
+            xPos = Display.getWidth() / 2 - 30;
+            yPos = 100;
             Game.game.nextLevel();
         }
     }

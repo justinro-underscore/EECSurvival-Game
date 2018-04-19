@@ -23,16 +23,21 @@ public class EventQueue {
     }
 
     public static void invokeCallback(int keyCode) {
-        if (events.get(keyCode) != null) {
+        if (events.containsKey(keyCode)) {
             runnables.add(events.get(keyCode));
         }
     }
 
     public static void registerCallback(int keyCode, Runnable callback) {
+        if (events.containsKey(keyCode)) {
+            deleteCallback(keyCode);
+
+        }
+
         events.put(keyCode, callback);
     }
 
-    public static void deleteCallback(int keyCode) {
+    private static void deleteCallback(int keyCode) {
         events.remove(keyCode);
     }
 }

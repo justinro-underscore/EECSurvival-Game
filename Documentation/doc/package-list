@@ -1,0 +1,10 @@
+com.base.engine
+com.base.game
+com.base.game.gameobject.button
+com.base.game.gameobject.entity
+com.base.game.gameobject.item
+com.base.game.gameobject.object
+com.base.game.gameobject.projectile
+com.base.game.interfaces
+com.base.game.levels
+com.base.game.utilities

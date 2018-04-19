@@ -8,10 +8,8 @@ public abstract class GameObject
     protected float yPos; // y-coordinate (middle of render)
     protected int width;
     protected int height;
-    protected String imgPath;
-
-    protected Animation animation;
-    protected Render render;
+    protected boolean boss;
+    protected Sprite sprite;
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
@@ -23,15 +21,14 @@ public abstract class GameObject
      * @param height height of the render
      * @param imgPath large png we need to chop up
      */
-    protected void init(float xPos, float yPos, int width, int height, String imgPath)
+    protected void init(float xPos, float yPos, int width, int height, String imgPath, boolean theBoss)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
-        this.imgPath = imgPath;
-
-        render = new Render(); // Creates the render
+        this.boss = theBoss;
+        sprite = new Sprite(width, height, imgPath); // Creates the sprite
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }
@@ -95,5 +92,13 @@ public abstract class GameObject
         return yPos + (height/2.0f);
     }
 
+    /**
+     * Resets the texture of the sprite
+     * @param imgPath file path to the new texture
+     */
+    public void setTexture(String imgPath) {
+        sprite.setTexture(imgPath);
+    }
 
+    public boolean getBoss(){return boss;}
 }

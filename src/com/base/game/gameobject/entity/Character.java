@@ -2,6 +2,7 @@ package com.base.game.gameobject.entity;
 
 import com.base.engine.Physics;
 import com.base.engine.GameObject;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.Game;
 
@@ -13,6 +14,7 @@ public abstract class Character extends GameObject
     protected int health; // Health of the Character
     protected int attackDamage; // How much damage the character deals
     protected boolean isDead; // Whether or not the character is dead
+    protected int maxHealth;
 
     /**
      * Abstract constructor for Character
@@ -25,13 +27,14 @@ public abstract class Character extends GameObject
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        init(xPos, yPos, width, height, imgPath); // Call super initialize method
+    protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, boolean isBoss) {
+        init(xPos, yPos, width, height, imgPath,isBoss); // Call super initialize method
 
         this.speed = speed;
         this.health = health;
         this.attackDamage = attackDamage;
         isDead = false; // Character should not start out dead
+        maxHealth = health;
     }
 
     /**
@@ -44,10 +47,19 @@ public abstract class Character extends GameObject
         {
             if(Physics.checkCollision(this, obj)) // If the character is touching a GameObject
             {
-                if(obj instanceof Projectile) // If the object is a projectile...
+                if(obj.getBoss()==true && this.getBoss()==true)
+                {}
+                else if(obj instanceof Projectile) // If the object is a projectile...
                 {
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
+                }
+                else if(obj instanceof ConsumableItem) // If the object is a consumable item...
+                {
+                    if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
+                        gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
+                    }
+                    obj.remove(); // Delete the consumable
                 }
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions
             }
@@ -66,6 +78,16 @@ public abstract class Character extends GameObject
             health = 0;
             isDead = true; // You dead, son
         }
+    }
+
+    /**
+     * Add a specified amount to the character's heath
+     * @param healthGain amount of health to gain
+     */
+    protected void gainHealth(int healthGain)
+    {
+        health += healthGain;
+        //TODO: add checking for max health
     }
 
     /**

@@ -3,149 +3,167 @@ package com.base.game;
 import com.base.engine.*;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.interfaces.UI;
-import com.base.game.utilities.Delay;
-import com.base.game.utilities.LevelTransition;
-import org.lwjgl.opengl.GL11;
+import com.base.game.levels.BossLevel;
+import com.base.game.levels.EmptyLevel;
+import com.base.game.levels.Level;
+import com.base.game.levels.LevelTransition;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
-
-import static org.lwjgl.opengl.GL11.*;
+import java.util.List;
 
 public class Game {
     public static Game game;
-    private ArrayList<GameObject> gameObjects;
-    private ArrayList<GameObject> toAdd;
-    private ArrayList<GameObject> toRemove;
 
-    private Player player;
-    private Boss boss;
-    private UI ui;
+    private boolean startedAudio;
+    private static int startMusic;
 
-    private boolean levelOver;
-    private boolean gameOver;
-    private LevelTransition lvlTransition;
+    private ArrayList<Level> levels;
+    private int currLevel;
 
+    /**
+     * Add the levels to the game
+     */
     public Game() {
-        gameObjects = new ArrayList<>();
-        toAdd = new ArrayList<>();
-        toRemove = new ArrayList<>();
+        currLevel = 0;
+        startedAudio = false;
 
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/testSpriteSheet.png", 4f, 20, 5);
+        startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
 
-        boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 2f,67, 5);
+        levels = new ArrayList();
 
-        addObj(player);
-        addObj(boss);
+        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", true);
+      
+        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
+        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss);
 
-        ui = new UI(player.getHealth(), boss.getHealth());
+        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", false);
 
-        levelOver = false;
-        gameOver = false;
-        lvlTransition = new LevelTransition();
+        levels.add(level1);
+        levels.add(level2);
+        levels.add(endGame);
     }
 
+    public void startAudio() {
+        Audio.playBuffer(startMusic);
+        Audio.loopBuffer(startMusic);
+
+        startedAudio = true;
+    }
+
+    public static void pause() {
+        Audio.pauseBuffer(startMusic);
+    }
+
+    public static void resume() {
+        Audio.resumeBuffer(startMusic);
+    }
+
+    /**
+     * Get the current level
+     * @return the current level
+     */
+    private Level getCurrLevel() {
+        return levels.get(currLevel);
+    }
+
+    /**
+     * Update the game
+     */
     public void update() {
-        if(!levelOver) {
-            for (GameObject object : gameObjects) {
-                if (!object.isRemoved())
-                    object.update();
-                else
-                    toRemove.add(object);
-            }
-            if (ui != null) {
-                ui.update();
-            }
-
-            if (!toAdd.isEmpty()) {
-                while (!toAdd.isEmpty())
-                    gameObjects.add(toAdd.remove(0));
-            }
-
-            if (!toRemove.isEmpty()) {
-                for (GameObject object : toRemove) {
-                    gameObjects.remove(object);
-                }
-
-                toRemove.clear();
-            }
+        if (!startedAudio) {
+            startAudio();
         }
+
+        levels.get(currLevel).update();
     }
 
+    /**
+     * Render the game
+     */
     public void render() {
-        gameObjects.forEach(GameObject::render);
-        if (ui != null) { ui.render(); }
-        if(levelOver)
-        {
-            if(lvlTransition != null && lvlTransition.render(gameOver))
-            {
-                lvlTransition = null;
-                levelOver = false;
-            }
-        }
+        levels.get(currLevel).render();
     }
 
+    /**
+     * Add an object to the game
+     * @param obj the object to be added
+     */
     public void addObj(GameObject obj) {
-        toAdd.add(obj);
+        getCurrLevel().addObj(obj);
     }
 
+    /**
+     * End the level
+     */
+    public void endLevel() {
+        getCurrLevel().endLevel();
+    }
+
+    /**
+     * Get objects close to the object passed in
+     * @param object the object to search around
+     * @param range the range around the current object to search for close objects
+     * @return return all of the objects close to the parameter object
+     */
+    public ArrayList<GameObject> getCloseObjects(GameObject object, float range) {
+        return getCurrLevel().getCloseObjects(object, range);
+    }
+
+    /**
+     * End the level
+     * @param lose true if the player lose
+     */
+    public void levelOver(boolean lose) {
+        getCurrLevel().levelOver(lose);
+    }
+
+    /**
+     * Get the player's x-value
+     * @return the player's x-value
+     */
     public float getPlayerX() {
-        return player.getX();
+        return getCurrLevel().getPlayerX();
     }
 
+    /**
+     * Get the player's y-value
+     * @return the player's y-value
+     */
     public float getPlayerY() {
-        return player.getY();
+        return getCurrLevel().getPlayerY();
     }
 
+    /**
+     * Get the health of the specified player
+     * @param isPlayer the specific player
+     * @return the player's health
+     */
     public int getHealth(boolean isPlayer)
     {
-        return (isPlayer ? player.getHealth() : boss.getHealth());
+        return getCurrLevel().getHealth(isPlayer);
     }
 
-    public ArrayList<GameObject> getCloseObjects(GameObject object, float range)
+    /**
+     * Executes the cheat code
+     * Can be changed to create different cheats
+     */
+    public void executeCheat()
     {
-        ArrayList<GameObject> closeObj = new ArrayList<>();
-        float p1 = object.getX() - (object.getWidth()/2f) - range;
-        float p2 = object.getY() - (object.getHeight()/2f) - range;
-        Rectangle field = new Rectangle((int)p1, (int)p2, (int)(object.getWidth() + 2 * range), (int)(object.getHeight() + 2 * range));
-        /*
-        glBegin(GL11.GL_QUADS);
-            glVertex2f(field.x, field.y);
-            glVertex2f(field.x + field.width, field.y);
-            glVertex2f(field.x + field.width, field.y + field.height);
-            glVertex2f(field.x, field.y + field.height);
-        glEnd();
-        */
-        for(GameObject o : gameObjects)
-        {
-            if(!o.equals(object) && Physics.checkCollision(field, o))
-                closeObj.add(o);
-        }
-        return closeObj;
+        if(currLevel == 1) // Only works if you are on the second level
+            ((BossLevel)levels.get(1)).killBoss();
     }
 
-    public void levelOver(boolean lose)
-    {
-        levelOver = true;
-        gameOver = lose;
-        lvlTransition.init();
-    }
-
-    public void endLevel()
-    {
-        boolean done = false;
-        while(!done)
-        {
-            try {
-                gameObjects.remove(1); // Get rid of everything besides the player
-            }
-            catch(IndexOutOfBoundsException e) {
-                done = true;
-            }
-        }
-        ui = null;
-        // TODO Create door
+    /**
+     * Increment the level
+     */
+    public void nextLevel() {
+        if (currLevel < levels.size() - 1)
+            currLevel++;
     }
 }

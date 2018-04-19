@@ -2,6 +2,7 @@ package com.base.game.interfaces;
 
 import com.base.engine.Display;
 import com.base.engine.GameObject;
+import com.base.engine.Sprite;
 import com.base.game.Game;
 import org.lwjgl.opengl.GL11;
 
@@ -18,26 +19,74 @@ public class UI extends Interface // TODO Add all UI functionality
     private final int PLAYER_HEALTH_BAR_WIDTH = Display.getWidth() / 2 - 20;
     private final int BOSS_HEALTH_BAR_WIDTH = Display.getWidth() - 40;
 
+    private Sprite[] digits; // Holds all digits
+    private Sprite[] playerHealthDigits; // Holds the player's health as digits
+
+    /**
+     * Create the user interface
+     * @param playerHealth the player's health
+     * @param bossHealth the boss's health
+     */
     public UI(int playerHealth, int bossHealth)
     {
         playerHealthBar = new Rectangle(10, 10, PLAYER_HEALTH_BAR_WIDTH, 20);
         playerHealthFactor = (float)PLAYER_HEALTH_BAR_WIDTH / playerHealth;
         bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
         bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossHealth;
+
+        digits = new Sprite[11];
+        // Populate the digits array with pictures of the digits
+        for(int i = 0; i < 10; i++)
+        {
+            Sprite dig = new Sprite(25, 25, "res/digits/" + i + ".png");
+            digits[i] = dig;
+        }
+        digits[10] = new Sprite(25, 25, ""); // 11th index is just a blank sprite
+
+        playerHealthDigits = new Sprite[3];
+        // Initialize player's health to nothing using the default index
+        for(int i = 0; i < 3; i++)
+        {
+            playerHealthDigits[i] = digits[10];
+        }
     }
 
+    /**
+     * Update the player and boss health based off of damage and consumable input
+     */
     public void update()
     {
-        playerHealthBar.width = (int)(Game.game.getHealth(true) * playerHealthFactor);
+        int playerHealth = Game.game.getHealth(true);
+        playerHealthBar.width = (int)(playerHealth * playerHealthFactor);
         bossHealthBar.width = (int)(Game.game.getHealth(false) * bossHealthFactor);
+
+        setPlayerHealthDigits(playerHealth);
     }
 
+    /**
+     * Sets the player's health as text
+     * @param playerHealth Health of the player
+     */
+    private void setPlayerHealthDigits(int playerHealth)
+    {
+        playerHealthDigits[0] = digits[playerHealth / 100 != 0 ? playerHealth / 100 : 10]; // If the player's health is not a multiple of 100, don't show
+        playerHealthDigits[1] = digits[(playerHealth / 100 != 0) || (playerHealth / 10 != 0) ? (playerHealth % 100) / 10 : 10];
+        playerHealthDigits[2] = digits[playerHealth % 10];
+    }
+
+    /**
+     * Render the health bars
+     */
     public void render()
     {
         showPlayerHealth();
         showBossHealth();
+        showPlayerHealthNumber();
     }
 
+    /**
+     * Display the player health
+     */
     private void showPlayerHealth()
     {
         // Health remaining
@@ -71,6 +120,9 @@ public class UI extends Interface // TODO Add all UI functionality
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
+    /**
+     * Display the boss health
+     */
     private void showBossHealth()
     {
         // Health remaining
@@ -102,5 +154,26 @@ public class UI extends Interface // TODO Add all UI functionality
             glVertex2f(bossHealthBar.x - 2, bossHealthBar.y + bossHealthBar.height + 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+    /**
+     * Display the player health as text
+     */
+    private void showPlayerHealthNumber()
+    {
+        // Background on the text
+        glColor4f(1, 1, 1, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20, playerHealthBar.y);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 95, playerHealthBar.y);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 95, playerHealthBar.y + 25);
+            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20, playerHealthBar.y + 25);
+        glEnd();
+
+        // Shows the player health digits
+        for(int i = 0; i < 3; i++)
+        {
+            playerHealthDigits[i].render(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20 + (25 * i), playerHealthBar.y);
+        }
     }
 }

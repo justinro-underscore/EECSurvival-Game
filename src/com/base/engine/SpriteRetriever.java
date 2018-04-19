@@ -13,6 +13,11 @@ public class SpriteRetriever {
     //private static BufferedImage spriteSheet;
     private static int TILE_SIZE;
 
+    /*
+    *  When you make the sprite retriever, having a variable TILE_SIZE lets
+    *  us utilize multiple different sprite sheets if we don't happen to have
+    *  a standardized sprite sheet.
+    */
     public SpriteRetriever(int TILE_SIZE)
     {
         this.TILE_SIZE = TILE_SIZE;

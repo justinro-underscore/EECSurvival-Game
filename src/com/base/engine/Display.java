@@ -23,31 +23,18 @@ public class Display {
     // The window handle
     private static long window;
 
-    private MainMenu mainMenu;
-    private PauseMenu pauseMenu;
-
     private static String title;
     private static int width;
     private static int height;
-
-    public enum State {
-        MAIN_MENU, GAME, PAUSE_MENU;
-    }
-
-    private static State state = State.MAIN_MENU;
 
     private InputHandler inputHandler;
 
     /**
      * run the display
-     * @param width the width of the screen
-     * @param height the height of the screen
      * @param name of the game
      */
-    public void run(int width, int height, String name) {
+    public void run(String name) {
         Display.title = name;
-        Display.width = width;
-        Display.height = height;
 
         Time.init();
         init();
@@ -71,11 +58,6 @@ public class Display {
     private void initGame() {
         Game.game = new Game();
         inputHandler = new InputHandler();
-
-        mainMenu = new MainMenu();
-        mainMenu.init("res/assets/parchment.png");
-        pauseMenu = new PauseMenu();
-        pauseMenu.init("res/assets/bricks.jpg");
     }
 
     /**
@@ -108,17 +90,6 @@ public class Display {
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            //Pause the game after clicking escape while playing the game
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME ) {
-                state = State.PAUSE_MENU;
-                Game.pause();
-            }
-            //Resume the game after clicking escape to resume the game
-            else if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.PAUSE_MENU) {
-                Game.resume();
-                start();
-            }
-
             inputHandler.invokeKey(window, key, scancode, action, mods);
         });
 
@@ -189,20 +160,8 @@ public class Display {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-            switch (state) {
-                case MAIN_MENU:
-                    mainMenu.update();
-                    mainMenu.render();
-                    break;
-                case GAME:
-                    Game.game.update();
-                    Game.game.render();
-                    break;
-                case PAUSE_MENU:
-                    pauseMenu.update();
-                    pauseMenu.render();
-                    break;
-            }
+            Game.game.update();
+            Game.game.render();
 
             glfwSwapBuffers(window); // swap the color buffers
 
@@ -210,13 +169,6 @@ public class Display {
             // invoked during this call.
             glfwPollEvents();
         }
-    }
-
-    /**
-     * start the game
-     */
-    public static void start() {
-        state = State.GAME;
     }
 
     /**

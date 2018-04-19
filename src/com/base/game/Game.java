@@ -4,11 +4,11 @@ import com.base.engine.*;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.item.ConsumableItem;
+import com.base.game.interfaces.MainMenu;
+import com.base.game.interfaces.PauseMenu;
 import com.base.game.interfaces.UI;
-import com.base.game.levels.BossLevel;
-import com.base.game.levels.EmptyLevel;
-import com.base.game.levels.Level;
-import com.base.game.levels.LevelTransition;
+import com.base.game.levels.*;
+import jdk.internal.util.xml.impl.Input;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -17,153 +17,75 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+
 public class Game {
     public static Game game;
 
-    private boolean startedAudio;
-    private static int startMusic;
+    private MainMenu mainMenu;
+    private PauseMenu pauseMenu;
 
-    private ArrayList<Level> levels;
-    private int currLevel;
+    private LevelManager levelManager;
 
-    /**
-     * Add the levels to the game
-     */
+    public enum State {
+        MAIN_MENU, GAME, PAUSE_MENU;
+    }
+
+    private static State state = State.MAIN_MENU;
+
     public Game() {
-        currLevel = 0;
-        startedAudio = false;
+        mainMenu = new MainMenu();
+        mainMenu.init("res/assets/parchment.png");
+        pauseMenu = new PauseMenu();
+        pauseMenu.init("res/assets/bricks.jpg");
 
-        startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
-
-        levels = new ArrayList();
-
-        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", true);
-      
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss);
-
-        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", false);
-
-        levels.add(level1);
-        levels.add(level2);
-        levels.add(endGame);
+        levelManager = new LevelManager();
     }
 
-    public void startAudio() {
-        Audio.playBuffer(startMusic);
-        Audio.loopBuffer(startMusic);
-
-        startedAudio = true;
-    }
-
-    public static void pause() {
-        Audio.pauseBuffer(startMusic);
-    }
-
-    public static void resume() {
-        Audio.resumeBuffer(startMusic);
-    }
-
-    /**
-     * Get the current level
-     * @return the current level
-     */
-    private Level getCurrLevel() {
-        return levels.get(currLevel);
-    }
-
-    /**
-     * Update the game
-     */
     public void update() {
-        if (!startedAudio) {
-            startAudio();
+        getInput();
+
+        //TODO: add currEvent to be rendered and updates
+        //TODO: make level manager extend interface -> change currInterface to one of these
+        switch (state) {
+            case MAIN_MENU:
+                mainMenu.update();
+                mainMenu.render();
+                break;
+            case GAME:
+                levelManager.update();
+                levelManager.render();
+                break;
+            case PAUSE_MENU:
+                pauseMenu.update();
+                pauseMenu.render();
+                break;
         }
+    }
 
-        levels.get(currLevel).update();
+    public void render() {}
+
+    public void getInput() {
+        if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.GAME ) {
+            state = State.PAUSE_MENU;
+            LevelManager.pause();
+        }
+        //Resume the game after clicking escape to resume the game
+        else if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.PAUSE_MENU) {
+            LevelManager.resume();
+            start();
+        }
+    }
+
+    public Level getCurrLevel() {
+        return levelManager.getCurrLevel();
     }
 
     /**
-     * Render the game
+     * start the game
      */
-    public void render() {
-        levels.get(currLevel).render();
-    }
-
-    /**
-     * Add an object to the game
-     * @param obj the object to be added
-     */
-    public void addObj(GameObject obj) {
-        getCurrLevel().addObj(obj);
-    }
-
-    /**
-     * End the level
-     */
-    public void endLevel() {
-        getCurrLevel().endLevel();
-    }
-
-    /**
-     * Get objects close to the object passed in
-     * @param object the object to search around
-     * @param range the range around the current object to search for close objects
-     * @return return all of the objects close to the parameter object
-     */
-    public ArrayList<GameObject> getCloseObjects(GameObject object, float range) {
-        return getCurrLevel().getCloseObjects(object, range);
-    }
-
-    /**
-     * End the level
-     * @param lose true if the player lose
-     */
-    public void levelOver(boolean lose) {
-        getCurrLevel().levelOver(lose);
-    }
-
-    /**
-     * Get the player's x-value
-     * @return the player's x-value
-     */
-    public float getPlayerX() {
-        return getCurrLevel().getPlayerX();
-    }
-
-    /**
-     * Get the player's y-value
-     * @return the player's y-value
-     */
-    public float getPlayerY() {
-        return getCurrLevel().getPlayerY();
-    }
-
-    /**
-     * Get the health of the specified player
-     * @param isPlayer the specific player
-     * @return the player's health
-     */
-    public int getHealth(boolean isPlayer)
-    {
-        return getCurrLevel().getHealth(isPlayer);
-    }
-
-    /**
-     * Executes the cheat code
-     * Can be changed to create different cheats
-     */
-    public void executeCheat()
-    {
-        if(currLevel == 1) // Only works if you are on the second level
-            ((BossLevel)levels.get(1)).killBoss();
-    }
-
-    /**
-     * Increment the level
-     */
-    public void nextLevel() {
-        if (currLevel < levels.size() - 1)
-            currLevel++;
+    public static void start() {
+        state = State.GAME;
     }
 }

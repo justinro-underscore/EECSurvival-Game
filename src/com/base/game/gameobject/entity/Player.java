@@ -53,22 +53,22 @@ public class Player extends Character {
     public void getInput() {
         // Go up
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-            yPos += speed;
+            yPos += stats.getSpeed();
         }
 
         // Go down
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-            yPos -= speed;
+            yPos -= stats.getSpeed();
         }
 
         // Go right
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-            xPos += speed;
+            xPos += stats.getSpeed();
         }
 
         // Go left
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -= speed;
+            xPos -= stats.getSpeed();
         }
 
         // Shoot *Can't shoot while sprinting
@@ -80,13 +80,13 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
             //Detects the input from the user for spring direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-                yPos += speed * 1.1;
+                yPos += stats.getSpeed() * 1.1;
             } else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-                yPos -= speed * 1.1;
+                yPos -= stats.getSpeed() * 1.1;
             } else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-                xPos += speed * 1.2;
+                xPos += stats.getSpeed() * 1.2;
             } else if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-                xPos -= speed * 1.2;
+                xPos -= stats.getSpeed() * 1.2;
             }
         }
 
@@ -188,7 +188,7 @@ public class Player extends Character {
      * Check to see if the player has died
      */
     protected void checkDeath() {
-        if (isDead) // If the player is dead...
+        if (stats.getIsDead()) // If the player is dead...
         {
             Game.game.levelOver(true); // Run levelOver
         }

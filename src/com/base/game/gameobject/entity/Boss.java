@@ -59,9 +59,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
         }
         projectiles.clear();
 
-        xPos += speed; // Move
+        xPos += stats.getSpeed(); // Move
         if (Math.abs(getX() - Display.getWidth() / 2.0f) >= Display.getWidth() / 4.0f) // Change direction
-            speed = -speed;
+            stats.setSpeed(-(stats.getSpeed()));
     }
 
     /**
@@ -132,7 +132,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     protected void checkDeath()
     {
-        if(isDead)
+        if(stats.getIsDead())
         {
             Game.game.levelOver(false); // Level has been won!
         }

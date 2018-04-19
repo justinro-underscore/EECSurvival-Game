@@ -11,11 +11,7 @@ import java.util.ArrayList;
 
 public abstract class Character extends GameObject
 {
-    protected float speed; // Speed of the Character
-    protected int health; // Health of the Character
-    protected int attackDamage; // How much damage the character deals
-    protected boolean isDead; // Whether or not the character is dead
-    protected int maxHealth;
+    protected Stats stats;
 
     /**
      * Abstract constructor for Character
@@ -31,11 +27,7 @@ public abstract class Character extends GameObject
     protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, boolean isBoss) {
         init(xPos, yPos, width, height, imgPath,isBoss); // Call super initialize method
 
-        this.speed = speed;
-        this.health = health;
-        this.attackDamage = attackDamage;
-        isDead = false; // Character should not start out dead
-        maxHealth = health;
+        stats = new Stats(speed, health, attackDamage);
     }
 
     /**
@@ -52,7 +44,7 @@ public abstract class Character extends GameObject
                 {}
                 else if(obj instanceof ConsumableItem) // If the object is a consumable item...
                 {
-                    if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
+                    if(stats.getHealth() + ((ConsumableItem) obj).getAddedHealth() <= stats.getMaxHealth()){
                         gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
                     }
                     obj.remove(); // Delete the consumable
@@ -76,11 +68,11 @@ public abstract class Character extends GameObject
      */
     protected void loseHealth(int hit)
     {
-        health -= hit;
-        if(health <= 0) // If health drops below 0
+        stats.setHealth(stats.getHealth() - hit);
+        if(stats.getHealth() <= 0) // If health drops below 0
         {
-            health = 0;
-            isDead = true; // You dead, son
+            stats.setHealth(0);
+            stats.setIsDead(true); // You dead, son
         }
     }
 
@@ -90,7 +82,7 @@ public abstract class Character extends GameObject
      */
     protected void gainHealth(int healthGain)
     {
-        health += healthGain;
+        stats.setHealth(stats.getHealth() + healthGain);
         //TODO: add checking for max health
     }
 
@@ -100,7 +92,7 @@ public abstract class Character extends GameObject
      */
     public int getHealth()
     {
-        return health;
+        return stats.getHealth();
     }
 
     /**

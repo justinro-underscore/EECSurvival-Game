@@ -3,7 +3,6 @@ package com.base.engine;
 import java.util.*;
 
 public class EventQueue {
-    // TODO: change Integer to Event -> encapsulate any event
     private static HashMap<Event, Runnable> events;
     private static Queue<Runnable> runnables;
     private static List<Runnable> tenureRunnables;

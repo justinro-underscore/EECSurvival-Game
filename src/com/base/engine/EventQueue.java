@@ -1,43 +1,52 @@
 package com.base.engine;
 
-import org.lwjgl.glfw.GLFW;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class EventQueue {
     // TODO: change Integer to Event -> encapsulate any event
-    private static HashMap<Integer, Runnable> events;
+    private static HashMap<Event, Runnable> events;
     private static Queue<Runnable> runnables;
+    private static List<Runnable> tenureRunnables;
 
     public static void init() {
         events = new HashMap<>();
+        runnables = new PriorityQueue<>();
+        tenureRunnables = new ArrayList<>();
     }
 
     public static void update() {
         if (!runnables.isEmpty()) {
             runnables.poll().run();
         }
-    }
 
-    public static void invokeCallback(int keyCode) {
-        if (events.containsKey(keyCode)) {
-            runnables.add(events.get(keyCode));
+        for (Runnable r : tenureRunnables) {
+            r.run();
         }
     }
 
-    public static void registerCallback(int keyCode, Runnable callback) {
-        if (events.containsKey(keyCode)) {
-            deleteCallback(keyCode);
-
+    public static void invokeCallback(Event event) {
+        if (events.containsKey(event)) {
+            runnables.add(events.get(event));
         }
-
-        events.put(keyCode, callback);
     }
 
-    private static void deleteCallback(int keyCode) {
-        events.remove(keyCode);
+    public static void registerCallback(Event event, Runnable callback) {
+        if (events.containsKey(event)) {
+            deleteCallback(event);
+        }
+
+        if (event.isTenured()) {
+            tenureRunnables.add(callback);
+        }
+
+        events.put(event, callback);
+    }
+
+    private static void deleteCallback(Event event) {
+        if (event.isTenured()) {
+            tenureRunnables.remove(events.get(event));
+        }
+
+        events.remove(event);
     }
 }

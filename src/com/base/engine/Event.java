@@ -18,7 +18,7 @@ public class Event {
     }
 
     private int value() {
-        String code = type + action + isTenured;
+        String code = type.toLowerCase() + action.toLowerCase() + isTenured;
         return code.hashCode();
     }
 

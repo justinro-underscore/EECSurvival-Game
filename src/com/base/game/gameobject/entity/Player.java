@@ -18,18 +18,9 @@ public class Player extends Character {
     private int konami;
     private int fireSfx;
 
-    private Animation walk;
-
-    // Images for each animation
-    private int[] walk = {1};//need to load this with a list of textureID's for walking
-    private int[] standing = {1};//need to load this with one textureID of idle
-
     // These are animation states
-    private Animation walking = new Animation(walk, 10);
-    private Animation idle = new Animation(standing, 10);
-
-
-
+    private Animation walk = new Animation("player", 5);
+    private Animation idle = new Animation("playerStanding_0", 0);
 
     /**
      * Creates a player object (should only be done once)

@@ -42,7 +42,7 @@ public abstract class GameObject
      * Renders the GameObject's render
      */
     public void render() {
-        render.render(height, width, xPos, yPos, textureID);
+        sprite.render(xPos, yPos);
     }
 
     /**

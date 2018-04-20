@@ -1,7 +1,7 @@
 package com.base.game.levels;
 
 import com.base.engine.Display;
-import com.base.engine.Render;
+import com.base.engine.Sprite;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
 import com.base.game.utilities.Delay;
@@ -13,10 +13,10 @@ public class LevelTransition
     private Delay whiteFadeInTime; // Time between black fade out and white fade in
     private Delay whiteFadeOutTime; // Time between white fade in and white fade out
     private boolean blackFade; // Whether or not the screen is fading to black
-    private Render blackScreen;
-    private Render nextLevelScreen;
-    private Render gameOverScreen;
-    private Render whiteScreen;
+    private Sprite blackScreen;
+    private Sprite nextLevelScreen;
+    private Sprite gameOverScreen;
+    private Sprite whiteScreen;
     private float endScreenTransparency; // The transparency of the screens
     private GameButton quitButton;
 

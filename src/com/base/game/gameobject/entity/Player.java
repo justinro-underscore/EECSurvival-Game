@@ -29,7 +29,7 @@ public class Player extends Character {
      * @param attackDamage how much damage the character deals
      */
     public Player(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage); // Call Character superclass's constructor
+        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,false); // Call Character superclass's constructor
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
 
@@ -53,22 +53,22 @@ public class Player extends Character {
     public void getInput() {
         // Go up
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-            yPos += speed;
+            yPos += stats.getSpeed();
         }
 
         // Go down
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-            yPos -= speed;
+            yPos -= stats.getSpeed();
         }
 
         // Go right
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-            xPos += speed;
+            xPos += stats.getSpeed();
         }
 
         // Go left
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -= speed;
+            xPos -= stats.getSpeed();
         }
 
         // Shoot *Can't shoot while sprinting
@@ -80,13 +80,13 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
             //Detects the input from the user for spring direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-                yPos += speed * 1.1;
+                yPos += stats.getSpeed() * 1.1;
             } else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-                yPos -= speed * 1.1;
+                yPos -= stats.getSpeed() * 1.1;
             } else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-                xPos += speed * 1.2;
+                xPos += stats.getSpeed() * 1.2;
             } else if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-                xPos -= speed * 1.2;
+                xPos -= stats.getSpeed() * 1.2;
             }
         }
 
@@ -162,7 +162,7 @@ public class Player extends Character {
 
         Audio.playBuffer(fireSfx);
         Audio.setBufferGain(fireSfx, 1.5f);
-        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8); // Create the projectile
+        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8 , false); // Create the projectile
 
         Game.game.addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire
@@ -180,6 +180,8 @@ public class Player extends Character {
         }
 
         if (obj instanceof Door) {
+            xPos = Display.getWidth() / 2 - 30;
+            yPos = 100;
             Game.game.nextLevel();
         }
     }
@@ -188,7 +190,7 @@ public class Player extends Character {
      * Check to see if the player has died
      */
     protected void checkDeath() {
-        if (isDead) // If the player is dead...
+        if (stats.getIsDead()) // If the player is dead...
         {
             Game.game.levelOver(true); // Run levelOver
         }

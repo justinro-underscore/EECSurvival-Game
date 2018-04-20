@@ -29,7 +29,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param attackDamage how much damage the character deals
      */
     public Boss(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage);
+        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,true);
 
         projectiles = new ArrayList<>(); // Initalizes the list
 
@@ -59,9 +59,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
         }
         projectiles.clear();
 
-        xPos += speed; // Move
+        xPos += stats.getSpeed(); // Move
         if (Math.abs(getX() - Display.getWidth() / 2.0f) >= Display.getWidth() / 4.0f) // Change direction
-            speed = -speed;
+            stats.setSpeed(-(stats.getSpeed()));
     }
 
     /**
@@ -92,7 +92,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void shootAbility(int proWidth, int proHeight, int numberOfPros) {
         for (int i = 1; i <= numberOfPros; i++) {
-            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 5));
+            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 5,true));
         }
     }
 
@@ -103,7 +103,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param numberOfPros Number of projectiles being made
      */
     public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
-        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5));
+        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5,true));
     }
 
     /**
@@ -114,7 +114,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void wallOfFireAbility(int proWidth, int proHeight, int numberOfPros) {
         for (int i = 1; i <= numberOfPros; i++){
-            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "", new Vector2f(0, -1), 5, 5));
+            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "", new Vector2f(0, -1), 5, 5,true));
         }
     }
 
@@ -132,7 +132,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     protected void checkDeath()
     {
-        if(isDead)
+        if(stats.getIsDead())
         {
             Game.game.levelOver(false); // Level has been won!
         }

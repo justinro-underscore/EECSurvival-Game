@@ -12,7 +12,7 @@ public class Door extends GameObject {
      * @param imgPath file path to the image representing the door
      */
     public Door(float xPos, float yPos, int width, int height, String imgPath) {
-        init(xPos, yPos, width, height, imgPath);
+        init(xPos, yPos, width, height, imgPath,false);
     }
 
     /**

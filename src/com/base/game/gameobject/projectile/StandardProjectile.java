@@ -16,8 +16,8 @@ public class StandardProjectile extends Projectile
      * @param damage damage dealt to the character
      * @param speed speed of the projectile
      */
-    public StandardProjectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed)
+    public StandardProjectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean boss)
     {
-        super(xPos, yPos, width, height, imgPath, shootAngle, damage, speed); // Call the super class's contructor
+        super(xPos, yPos, width, height, imgPath, shootAngle, damage, speed, boss); // Call the super class's contructor
     }
 }

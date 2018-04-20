@@ -10,7 +10,7 @@ public abstract class Projectile extends GameObject
     protected Vector2f shootAngle; // The angle of movement of the projectile
     protected int damage; // Damage to be done
     protected float speed; // Speed of the projectile
-
+    protected boolean boss;
     /**
      * Creates a projectile object
      * @param xPos x-coordinate of the sprite
@@ -22,12 +22,13 @@ public abstract class Projectile extends GameObject
      * @param damage damage dealt to the character
      * @param speed speed of the projectile
      */
-    protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed)
+    protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean theBoss)
     {
-        init(xPos, yPos, width, height, imgPath); // Call super class's initialization
+        init(xPos, yPos, width, height, imgPath,theBoss); // Call super class's initialization
         this.shootAngle = shootAngle.normalize();
         this.damage = damage;
         this.speed = speed;
+        this.boss = theBoss;
     }
 
     /**
@@ -52,4 +53,5 @@ public abstract class Projectile extends GameObject
     {
         return damage;
     }
+    public boolean getBoss() {return boss;}
 }

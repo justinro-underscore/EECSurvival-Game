@@ -17,7 +17,7 @@ public abstract class Item extends GameObject
      * @param despawnTime the time it takes for a item to dematerialize and be unattainable
      */
     protected Item(float xPos, float yPos, int width, int height, String imgPath, int despawnTime){
-        init(xPos, yPos, width, height, imgPath);
+        init(xPos, yPos, width, height, imgPath,false);
 
         despawnDelay = new Delay(despawnTime);
     }

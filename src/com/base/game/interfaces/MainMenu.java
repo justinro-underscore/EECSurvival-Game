@@ -27,9 +27,9 @@ public class MainMenu extends Interface {
         music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
 
         startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "./res/start_release.png", "./res/start_press.png", () -> {Display.start(); reset();});
+                "res/assets/start_release.png", "res/assets/start_press.png", () -> {Display.start(); reset();});
         quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "./res/quit_release.png", "./res/quit_press.png", Display::quit);
+                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
     }
 
     public void startAudio() {

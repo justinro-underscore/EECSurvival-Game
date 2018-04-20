@@ -14,7 +14,7 @@ public class EventQueue {
     }
 
     public static void update() {
-        if (!runnables.isEmpty()) {
+        while (!runnables.isEmpty()) {
             runnables.poll().run();
         }
 

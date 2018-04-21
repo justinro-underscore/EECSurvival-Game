@@ -12,6 +12,7 @@ public class SpriteRetriever {
 
     //private static BufferedImage spriteSheet;
     private static int TILE_SIZE;
+    private TextureLoader loader;
 
     /*
     *  When you make the sprite retriever, having a variable TILE_SIZE lets
@@ -23,17 +24,25 @@ public class SpriteRetriever {
         this.TILE_SIZE = TILE_SIZE;
     }
 
-    public static BufferedImage loadSprite(String file) {
+    /**
+     * Turns the large sprite sheet into a buffered image
+     * @param file the file name of the sprite sheet
+     * @return The sprite sheet in the form of a buffered image.
+     */
+    public static BufferedImage loadSprite(String file)
+    {
 
-        BufferedImage sprite = null;
+        BufferedImage spriteSheet = null;
 
-        try {
-            sprite = ImageIO.read(new File(file));
-        } catch (IOException e) {
+        try
+        {
+            spriteSheet = ImageIO.read(new File(file));
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
 
-        return sprite;
+        return spriteSheet;
     }
 
     /**
@@ -41,16 +50,29 @@ public class SpriteRetriever {
      * @param xGrid the x coordinate of a cell
      * @param yGrid the y coordinate of a cell
      * @param spriteSheet the big ole sprite sheet
-     * @return hands back a subimage of the sprite sheet cell
+     * @return the sprite to be put in an animation
      */
-    //Takes in a sprite sheet and the coordinates of one cell on the sheet and creates a subimage
-    public static BufferedImage getSprite(int xGrid, int yGrid, BufferedImage spriteSheet) {
-
-        if (spriteSheet == null) {
+    //Takes in a sprite sheet and the coordinates of one cell on the sheet and creates a subimage, binds
+    //it to a texture ID, generates a sprite and returns that sprite so it can be loaded into an animation.
+    public  Sprite getSprite(int xGrid, int yGrid, BufferedImage spriteSheet)
+    {
+        if (spriteSheet == null)
+        {
             spriteSheet = loadSprite("testSpriteSheet");
         }
+        int textureID = -1;
+        try
+        {
+            textureID = loader.loadTexture(spriteSheet.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
-        return spriteSheet.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        //sprite we are going to use in an animation
+        Sprite sprite = new Sprite(textureID);
+        return(sprite);
     }
 
 }

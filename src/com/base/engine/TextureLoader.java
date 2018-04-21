@@ -20,12 +20,11 @@ import static org.lwjgl.opengl.GL11.*;
 public class TextureLoader {
     /**
      * Generate a texture ID that corresponds to the image taken in
-     * @param fileName the file to the image
+     * @param image the buffered image to be bound to a texture ID
      * @return texture ID that openGL has binded to that image
      * @throws IOException
      */
-    public static int loadTexture(String fileName) throws IOException {
-        BufferedImage image = ImageIO.read(new File(fileName));
+    public static int loadTexture(BufferedImage image) throws IOException {
 
         int width = image.getWidth();
         int height = image.getHeight();

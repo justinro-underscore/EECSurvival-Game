@@ -24,7 +24,7 @@ public class Animation {
         frames = new Sprite[nFrames];
         n_frames = nFrames;
         currFrame = 0;
-        frameDelay = new Delay(200);
+        frameDelay = new Delay(200); //TODO do we want to make this variable?
         frameDelay.restart();
         retriever = new SpriteRetriever(TILE_SIZE);
         isStopped = false;

@@ -14,11 +14,10 @@ public class SpriteRetriever {
     private static int TILE_SIZE;
     private TextureLoader loader;
 
-    /*
-    *  When you make the sprite retriever, having a variable TILE_SIZE lets
-    *  us utilize multiple different sprite sheets if we don't happen to have
-    *  a standardized sprite sheet.
-    */
+    /**
+     * Initializes the SpriteRetriever
+     * @param TILE_SIZE how many pixels wide/tall is the sprite.
+     */
     public SpriteRetriever(int TILE_SIZE)
     {
         this.TILE_SIZE = TILE_SIZE;

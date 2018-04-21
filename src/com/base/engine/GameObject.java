@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 
 public abstract class GameObject
 {
+    //TODO Im not sure how you want to handle initializing the animation
     protected float xPos; // x-coordinate (middle of render)
     protected float yPos; // y-coordinate (middle of render)
     protected int width;
     protected int height;
     protected boolean boss;
-    protected Sprite sprite;
+    //protected Sprite sprite;
+    protected Animation[] animations; //A list of the possible animation (i.e. walk left, walk right, walk up, walk down, shoot, etc..)
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
@@ -19,16 +21,17 @@ public abstract class GameObject
      * @param yPos y-coordinate
      * @param width width of the render
      * @param height height of the render
-     * @param imgPath large png we need to chop up
+     * @param numOfAnimations how many animations the gameObject will have.
      */
-    protected void init(float xPos, float yPos, int width, int height, String imgPath, boolean theBoss)
+    protected void init(float xPos, float yPos, int width, int height, int numOfAnimations, boolean theBoss)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
         this.boss = theBoss;
-        sprite = new Sprite(width, height, imgPath); // Creates the sprite
+        Animation[] animations = new Animation[numOfAnimations];
+        //sprite = new Sprite(width, height, imgPath); // Creates the sprite
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }

@@ -5,6 +5,7 @@ import com.base.game.Game;
 import com.base.game.gameobject.object.Door;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.utilities.Delay;
+import com.base.game.utilities.Time;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -12,10 +13,12 @@ import java.util.Objects;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+//TODO: make dialog class -> player and boss have list of dialog to be rendered then removed with EventQueue.register call back for enter
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
     private int konami;
     private int fireSfx;
+    private float speedFactor;
 
     /**
      * Creates a player object (should only be done once)
@@ -35,6 +38,8 @@ public class Player extends Character {
 
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
+
+        speedFactor = 1.0f;
     }
 
     /**
@@ -52,24 +57,17 @@ public class Player extends Character {
      */
     public void getInput() {
         // Go up
-        if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-            yPos += speed;
-        }
-
+        if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height)
+            move(0,1);
         // Go down
-        if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-            yPos -= speed;
-        }
-
+        if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0)
+            move(0,-1);
         // Go right
-        if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-            xPos += speed;
-        }
-
+        if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width)
+            move(1, 0);
         // Go left
-        if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -= speed;
-        }
+        if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0)
+            move(-1, 0);
 
         // Shoot *Can't shoot while sprinting
         if (InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver() && !InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
@@ -80,17 +78,50 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
             //Detects the input from the user for spring direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-                yPos += speed * 1.1;
+                speedFactor = 2.0f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-                yPos -= speed * 1.1;
+                speedFactor = 2.0f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-                xPos += speed * 1.2;
+                speedFactor = 2.2f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-                xPos -= speed * 1.2;
+                speedFactor = 2.2f;
             }
+        } else {
+            speedFactor = 1.0f;
         }
 
         enterCheatCode();
+    }
+
+    private void move(int x, int y) {
+        xPos += x * speed * speedFactor;
+        yPos += y * speed * speedFactor;
+    }
+
+
+    public boolean moveTo(int x, int y) {
+        if (Math.ceil(xPos - x) <= 10 && Math.ceil(yPos - y) <= 10) {
+            System.out.println("called");
+            return true;
+        }
+
+        if (Math.ceil(xPos - x) > 10) {
+            if (xPos - x > 0) {
+                move(-1, 0);
+            } else {
+                move(1, 0);
+            }
+        }
+
+        if (Math.ceil(yPos - y) > 10) {
+            if (yPos - y > 0) {
+                move(0, -1);
+            } else {
+                move(0, 1);
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -192,5 +223,9 @@ public class Player extends Character {
         {
             Game.game.getCurrLevel().levelOver(true); // Run levelOver
         }
+    }
+
+    public void render() {
+        super.render();
     }
 }

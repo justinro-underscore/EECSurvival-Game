@@ -4,15 +4,23 @@ import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.engine.Physics;
 import com.base.engine.Sprite;
+import com.base.game.Game;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.object.Door;
 import com.base.game.interfaces.UI;
+import com.base.game.scenes.Event;
+import com.base.game.scenes.Scene;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.Callable;
 
 public abstract class Level {
+    private ArrayList<Event> events;
+
     private Sprite background;
 
     //List of Game Objects
@@ -28,6 +36,10 @@ public abstract class Level {
 
     private boolean levelOver;
     private boolean gameOver;
+
+    private Scene scene;
+    private boolean isCutsceneOver;
+
     private LevelTransition lvlTransition;
 
     /**
@@ -52,21 +64,45 @@ public abstract class Level {
         levelOver = false;
         gameOver = false;
         lvlTransition = new LevelTransition();
+
+        events = new ArrayList<>();
+
+        scene = new Scene("res/scripts/cutsceneTest1.bsh", player);
+        isCutsceneOver = false;
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
     }
 
     /**
      * Updates the frames of the level
      */
     public void update() {
+        if (!isCutsceneOver) {
+            isCutsceneOver = true;
+            scene.run();
+        }
+
         if (levelOver) {
             return;
         }
-        for (GameObject object : gameObjects) {
-            if (!object.isRemoved())
-                object.update();
-            else
-                toRemove.add(object);
+
+        if (!events.isEmpty()) {
+            events.get(0).exec();
+            if (events.get(0).isOver()) {
+                System.out.println("remove");
+                events.remove(0);
+            }
+        } else {
+            for (GameObject object : gameObjects) {
+                if (!object.isRemoved())
+                    object.update();
+                else
+                    toRemove.add(object);
+            }
         }
+
         if (ui != null) {
             ui.update();
         }

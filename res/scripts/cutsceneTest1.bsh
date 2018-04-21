@@ -1,0 +1,34 @@
+import com.base.game.*;
+import com.base.game.gameobject.entity.*;
+import com.base.engine.*;
+import com.base.game.utilities.*;
+import com.base.engine.Display;
+import com.base.engine.GameObject;
+import com.base.engine.Physics;
+import com.base.engine.Sprite;
+import com.base.game.gameobject.entity.Player;
+import com.base.game.gameobject.item.ConsumableItem;
+import com.base.game.gameobject.object.Door;
+import com.base.game.interfaces.UI;
+import com.base.game.scenes.Event;
+
+import java.util.concurrent.Callable;
+
+createWalkEvent(type, x, y) {
+  return new Event(type, "walk", new Callable() {
+     public Boolean call() throws Exception {
+         return player.moveTo(x, y);
+     }
+  });
+}
+
+//TODO: implement with dialog class
+createDialogEvent(type, dialog) {
+  return new Event(type, "dialog", new Callable() {
+     public Boolean call() throws Exception {
+         return true;
+     }
+  });
+}
+
+Game.game.getCurrLevel().addEvent(createWalkEvent("player", 100, 100));

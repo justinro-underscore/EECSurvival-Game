@@ -1,24 +1,14 @@
 package com.base.game;
 
 import com.base.engine.*;
-import com.base.game.gameobject.entity.Player;
-import com.base.game.gameobject.entity.Boss;
-import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.interfaces.MainMenu;
 import com.base.game.interfaces.PauseMenu;
-import com.base.game.interfaces.UI;
 import com.base.game.levels.*;
-import jdk.internal.util.xml.impl.Input;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.awt.*;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import com.base.game.utilities.Delay;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+
+
 
 public class Game {
     public static Game game;
@@ -27,6 +17,8 @@ public class Game {
     private PauseMenu pauseMenu;
 
     private LevelManager levelManager;
+
+    private Delay buttonDelay;
 
     public enum State {
         MAIN_MENU, GAME, PAUSE_MENU;
@@ -41,13 +33,14 @@ public class Game {
         pauseMenu.init("res/assets/bricks.jpg");
 
         levelManager = new LevelManager();
+
+        buttonDelay = new Delay(100);
+        buttonDelay.restart();
     }
 
-    public void update() {
+    public void run() {
         getInput();
 
-        //TODO: add currEvent to be rendered and updates
-        //TODO: make level manager extend interface -> change currInterface to one of these
         switch (state) {
             case MAIN_MENU:
                 mainMenu.update();
@@ -64,22 +57,27 @@ public class Game {
         }
     }
 
-    public void render() {}
-
+    //TODO: remove this and replace with register callback so we don't need delay or getInput
     public void getInput() {
-        if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.GAME ) {
+        if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.GAME && buttonDelay.isOver() ) {
             state = State.PAUSE_MENU;
             LevelManager.pause();
+            buttonDelay.start();
         }
         //Resume the game after clicking escape to resume the game
-        else if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.PAUSE_MENU) {
+        else if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.PAUSE_MENU && buttonDelay.isOver()) {
             LevelManager.resume();
             start();
+            buttonDelay.start();
         }
     }
 
     public Level getCurrLevel() {
         return levelManager.getCurrLevel();
+    }
+
+    public LevelManager getLevelManager() {
+        return levelManager;
     }
 
     /**

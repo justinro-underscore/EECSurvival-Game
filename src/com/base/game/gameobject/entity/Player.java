@@ -146,7 +146,7 @@ public class Player extends Character {
 //            konami++;
 //        else if(konami == 18 && InputHandler.isKeyDown(GLFW_KEY_A)) {
             konami++;
-            Game.game.executeCheat();
+            Game.game.getLevelManager().executeCheat();
         }
     }
 
@@ -164,7 +164,7 @@ public class Player extends Character {
         Audio.setBufferGain(fireSfx, 1.5f);
         StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8 , false); // Create the projectile
 
-        Game.game.addObj(pro);
+        Game.game.getCurrLevel().addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire
     }
 
@@ -180,7 +180,7 @@ public class Player extends Character {
         }
 
         if (obj instanceof Door) {
-            Game.game.nextLevel();
+            Game.game.getLevelManager().nextLevel();
         }
     }
 
@@ -190,7 +190,7 @@ public class Player extends Character {
     protected void checkDeath() {
         if (isDead) // If the player is dead...
         {
-            Game.game.levelOver(true); // Run levelOver
+            Game.game.getCurrLevel().levelOver(true); // Run levelOver
         }
     }
 }

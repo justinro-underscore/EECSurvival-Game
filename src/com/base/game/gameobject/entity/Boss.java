@@ -55,7 +55,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
         attack(); // Runs its attack pattern
 
         for (int i = 0; i < projectiles.size(); i++){
-            Game.game.addObj(projectiles.get(i)); // Create all of the projectiles
+            Game.game.getCurrLevel().addObj(projectiles.get(i)); // Create all of the projectiles
         }
         projectiles.clear();
 
@@ -103,7 +103,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param numberOfPros Number of projectiles being made
      */
     public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
-        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5,true));
+        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getCurrLevel().getPlayerX() - (getX() - (proWidth / 2)), Game.game.getCurrLevel().getPlayerY() - (yPos - proHeight)), 5, 5,true));
     }
 
     /**
@@ -134,7 +134,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     {
         if(isDead)
         {
-            Game.game.levelOver(false); // Level has been won!
+            Game.game.getCurrLevel().levelOver(false); // Level has been won!
         }
     }
 }

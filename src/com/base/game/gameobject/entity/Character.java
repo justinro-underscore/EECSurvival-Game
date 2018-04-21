@@ -43,7 +43,7 @@ public abstract class Character extends GameObject
      */
     protected void checkCharacterCollision()
     {
-        ArrayList<GameObject> closeObjects = Game.game.getCloseObjects(this, 5); // Get any objects close to the character (cuts down on load time)
+        ArrayList<GameObject> closeObjects = Game.game.getCurrLevel().getCloseObjects(this, 5); // Get any objects close to the character (cuts down on load time)
         for(GameObject obj : closeObjects)
         {
             if(Physics.checkCollision(this, obj)) // If the character is touching a GameObject

@@ -160,8 +160,7 @@ public class Display {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-            Game.game.update();
-            Game.game.render();
+            Game.game.run();
 
             glfwSwapBuffers(window); // swap the color buffers
 

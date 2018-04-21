@@ -146,7 +146,7 @@ public class LevelTransition
 
             if (endScreenTransparency >= 0.994 && endScreenTransparency < 1) {
                 whiteFadeOutTime.start(); // Happens here so that it only starts it once, right before Next Level screen gets fully opaque
-                Game.game.endLevel(); // Delete everything
+                Game.game.getCurrLevel().endLevel(); // Delete everything
             }
 
             whiteScreen.setAlpha(endScreenTransparency);

@@ -34,12 +34,12 @@ public class Animation {
      * Adds a new sprite to the animation
      * @param xCord the X coordinate of the sprite in the sprite sheet.
      * @param yCord the Y coordinate of the sprite in the sprite sheet.
-     * @param fileURI the sprite sheet.
+     * @param fileName the sprite sheet.
      */
-    private void addSprite(int xCord, int yCord, String fileURI)
+    public void addSprite(int xCord, int yCord, String fileName)
     {
         //TODO Change to general file path
-        String filePath = "res/testWalk/" + fileURI;
+        String filePath = "res/SpriteSheets/" + fileName + ".png";
         for(int i = 0; i < n_frames; i++)
         {
             //if we haven't given this spot in the animation a sprite, give it one
@@ -70,7 +70,8 @@ public class Animation {
         isStopped = true;
     }
 
-    public void render(float xPos, float yPos) {
+    public void render(float xPos, float yPos)
+    {
         frames[currFrame].render(xPos, yPos);
     }
 

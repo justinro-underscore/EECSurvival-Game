@@ -17,10 +17,13 @@ public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
     private int konami;
     private int fireSfx;
+    private String spriteFile = "testSpriteSheet";
 
     // These are animation states
-    private Animation walk = new Animation("player", 5);
-    private Animation idle = new Animation("playerStanding_0", 0);
+    private Animation walkDown;
+    private Animation walkLeft;
+    private Animation walkRight;
+    private Animation walkUp;
 
     /**
      * Creates a player object (should only be done once)
@@ -41,7 +44,22 @@ public class Player extends Character {
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
 
-        walk = new Animation("player", 5);
+        //Initialize all of the animations
+        walkDown = new Animation(2,32);
+        walkDown.addSprite(1,1, spriteFile);
+        walkDown.addSprite(3,1, spriteFile);
+
+        walkLeft = new Animation(2,32);
+        walkLeft.addSprite(1,2, spriteFile);
+        walkLeft.addSprite(3,2, spriteFile);
+
+        walkRight = new Animation(2,32);
+        walkRight.addSprite(1,3, spriteFile);
+        walkRight.addSprite(3,3, spriteFile);
+
+        walkUp = new Animation(2, 32);
+        walkUp.addSprite(1,4, spriteFile);
+        walkUp.addSprite(3,4, spriteFile);
     }
 
     @Override
@@ -116,6 +134,7 @@ public class Player extends Character {
     /**
      * Allows you to enter in a cheat code (the konami code)
      * Up, up, down, down, left, right, left, right, B, A
+     * jesus christ
      */
     private void enterCheatCode()
     {

@@ -45,6 +45,7 @@ public class Player extends Character {
         attackDelay.restart(); // Run this method so we can immediately fire
 
         //Initialize all of the animations
+        //TODO needs to be put into the super's animation array
         walkDown = new Animation(2,32);
         walkDown.addSprite(1,1, spriteFile);
         walkDown.addSprite(3,1, spriteFile);

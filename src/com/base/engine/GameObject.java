@@ -45,7 +45,7 @@ public abstract class GameObject
      * Renders the GameObject's render
      */
     public void render() {
-        sprite.render(xPos, yPos);
+        animations[0].render(xPos, yPos);
     }
 
     /**
@@ -98,10 +98,11 @@ public abstract class GameObject
     /**
      * Resets the texture of the sprite
      * @param imgPath file path to the new texture
-     */
+     *
     public void setTexture(String imgPath) {
         sprite.setTexture(imgPath);
     }
+    */
 
     public boolean getBoss(){return boss;}
 }

@@ -91,7 +91,6 @@ public abstract class Level {
         if (!events.isEmpty()) {
             events.get(0).exec();
             if (events.get(0).isOver()) {
-                System.out.println("remove");
                 events.remove(0);
             }
         } else {

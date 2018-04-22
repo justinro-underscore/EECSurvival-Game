@@ -4,10 +4,12 @@ import com.base.engine.*;
 import com.base.game.Game;
 import com.base.game.gameobject.object.Door;
 import com.base.game.gameobject.projectile.StandardProjectile;
+import com.base.game.scenes.Dialog;
 import com.base.game.utilities.Delay;
 import com.base.game.utilities.Time;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -19,6 +21,8 @@ public class Player extends Character {
     private int konami;
     private int fireSfx;
     private float speedFactor;
+    private ArrayList<Dialog> dialogs;
+    private boolean startDialog;
 
     /**
      * Creates a player object (should only be done once)
@@ -40,6 +44,9 @@ public class Player extends Character {
         attackDelay.restart(); // Run this method so we can immediately fire
 
         speedFactor = 1.0f;
+
+        dialogs = new ArrayList<>();
+        startDialog = false;
     }
 
     /**
@@ -100,12 +107,11 @@ public class Player extends Character {
 
 
     public boolean moveTo(int x, int y) {
-        if (Math.ceil(xPos - x) <= 10 && Math.ceil(yPos - y) <= 10) {
-            System.out.println("called");
+        if (Math.ceil(Math.abs(xPos - x)) <= 10 && Math.ceil(Math.abs(yPos - y)) <= 10) {
             return true;
         }
 
-        if (Math.ceil(xPos - x) > 10) {
+        if (Math.ceil(Math.abs(xPos - x)) > 10) {
             if (xPos - x > 0) {
                 move(-1, 0);
             } else {
@@ -113,7 +119,7 @@ public class Player extends Character {
             }
         }
 
-        if (Math.ceil(yPos - y) > 10) {
+        if (Math.ceil(Math.abs(yPos - y)) > 10) {
             if (yPos - y > 0) {
                 move(0, -1);
             } else {
@@ -227,5 +233,35 @@ public class Player extends Character {
 
     public void render() {
         super.render();
+
+        if (!dialogs.isEmpty() && startDialog)
+            getCurrDialog().render();
+    }
+
+    public void updateDialog() {
+        if (!startDialog)
+            return;
+
+        if (getCurrDialog().isOver()) {
+            dialogs.remove(0);
+        }
+
+        getCurrDialog().update();
+    }
+
+    public void startDialog() {
+        startDialog = true;
+    }
+
+    public void stopDialog() {
+        startDialog = false;
+    }
+
+    public void addDialog(Dialog dialog) {
+        dialogs.add(dialog);
+    }
+
+    public Dialog getCurrDialog() {
+        return dialogs.get(0);
     }
 }

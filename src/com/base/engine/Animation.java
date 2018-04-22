@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Animation {
-    private Sprite[] frames;
+    public Sprite[] frames;
     private int currFrame;
     private int n_frames;
     private Delay frameDelay;

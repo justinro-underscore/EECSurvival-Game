@@ -42,10 +42,10 @@ public abstract class GameObject
     abstract public void update();
 
     /**
-     * Renders the GameObject's render
+     * Renders the GameObject's render (defaults to the first sprite)
      */
     public void render() {
-        animations[0].render(xPos, yPos);
+        animations[0].frames[0].render(xPos, yPos);
     }
 
     /**

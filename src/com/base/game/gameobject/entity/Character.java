@@ -22,13 +22,13 @@ public abstract class Character extends GameObject
      * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the render
+     * @param numOfAnimations how many animations
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, boolean isBoss) {
-        init(xPos, yPos, width, height, imgPath,isBoss); // Call super initialize method
+    protected Character(float xPos, float yPos, int width, int height, int numOfAnimations, float speed, int health, int attackDamage, boolean isBoss) {
+        init(xPos, yPos, width, height, numOfAnimations,isBoss); // Call super initialize method
 
         this.speed = speed;
         this.health = health;

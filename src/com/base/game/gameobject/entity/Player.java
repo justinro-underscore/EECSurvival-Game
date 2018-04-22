@@ -24,6 +24,7 @@ public class Player extends Character {
     private Animation walkLeft;
     private Animation walkRight;
     private Animation walkUp;
+    private Animation idle;
 
     /**
      * Creates a player object (should only be done once)
@@ -31,13 +32,13 @@ public class Player extends Character {
      * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the render
+     * @param numOfAnimations file path to the image representing the render
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Player(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,false); // Call Character superclass's constructor
+    public Player(float xPos, float yPos, int width, int height, int numOfAnimations, float speed, int health, int attackDamage) {
+        super(xPos, yPos, width, height, numOfAnimations, speed, health, attackDamage,false); // Call Character superclass's constructor
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
 
@@ -45,27 +46,35 @@ public class Player extends Character {
         attackDelay.restart(); // Run this method so we can immediately fire
 
         //Initialize all of the animations
-        //TODO needs to be put into the super's animation array
         walkDown = new Animation(2,32);
         walkDown.addSprite(1,1, spriteFile);
         walkDown.addSprite(3,1, spriteFile);
+        animations[0] = walkDown;
 
         walkLeft = new Animation(2,32);
         walkLeft.addSprite(1,2, spriteFile);
         walkLeft.addSprite(3,2, spriteFile);
+        animations[1] = walkLeft;
 
         walkRight = new Animation(2,32);
         walkRight.addSprite(1,3, spriteFile);
         walkRight.addSprite(3,3, spriteFile);
+        animations[2] = walkRight;
 
         walkUp = new Animation(2, 32);
         walkUp.addSprite(1,4, spriteFile);
         walkUp.addSprite(3,4, spriteFile);
+        animations[3] = walkUp;
+
+        idle = new Animation(1, 32);
+        idle.addSprite(1,2, spriteFile);
+        animations[4] = idle;
+
     }
 
     @Override
     public void render() {
-        walk.render(xPos, yPos);
+        animations[4].render(xPos, yPos);
     }
 
     /**
@@ -77,7 +86,7 @@ public class Player extends Character {
 
         getInput();
 
-        walk.update();
+        animations[4].update();
     }
 
     /**
@@ -85,29 +94,49 @@ public class Player extends Character {
      */
     public void getInput() {
         if (InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D)) {
-            walk.start();
+            //walk.start();
         } else {
-            walk.stop();
+            //walk.stop();
         }
 
         // Go up
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
             yPos += speed;
+            animations[3].start();
+        }
+        else
+        {
+            animations[3].stop();
         }
 
         // Go down
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
             yPos -= speed;
+            animations[0].start();
+        }
+        else
+        {
+            animations[0].stop();
         }
 
         // Go right
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
             xPos += speed;
+            animations[2].start();
+        }
+        else
+        {
+            animations[1].stop();
         }
 
         // Go left
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
             xPos -= speed;
+            animations[1].start();
+        }
+        else
+        {
+            animations[1].stop();
         }
 
         // Shoot *Can't shoot while sprinting

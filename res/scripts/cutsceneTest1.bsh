@@ -1,46 +1,7 @@
-import com.base.game.*;
-import com.base.game.gameobject.entity.*;
-import com.base.engine.*;
-import com.base.game.utilities.*;
-import com.base.game.gameobject.entity.Player;
-import com.base.game.scenes.Event;
-import com.base.game.scenes.Dialog;
+import com.base.engine.Display;
 
-import java.util.concurrent.Callable;
-
-//TODO: refactor this into seperate files -> 1 for creating and returning events as well as loading an array of events
-//The rest for individual boss scripts
-createWalkEvent(type, x, y) {
-  return new Event(type, "walk", new Callable() {
-     public Boolean call() throws Exception {
-         return player.moveTo(x, y);
-     }
-  });
-}
-
-//TODO: implement with boss too
-createDialogEvent(type, content) {
-  var callable;
-  var dialog = new Dialog(content);
-  player.addDialog(dialog);
-
-  callable = new Callable() {
-     public Boolean call() throws Exception {
-       player.startDialog();
-       player.updateDialog();
-       if (player.getCurrDialog().isOver()) {
-         player.stopDialog();
-         return true;
-       }
-       return false;
-     }
-  };
-
-  return new Event(type, "dialog", callable);
-}
-
-Game.game.getCurrLevel().addEvent(createWalkEvent("player", 100, 100));
-Game.game.getCurrLevel().addEvent(createDialogEvent("player", "test dialog"));
-Game.game.getCurrLevel().addEvent(createWalkEvent("player", 1000, 800));
-Game.game.getCurrLevel().addEvent(createDialogEvent("boss", "long long long test dialog"));
-Game.game.getCurrLevel().addEvent(createWalkEvent("player", Display.getWidth() / 2, 20));
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("test dialog"));
+level.addEvent(player.createWalkEvent(1000, 800));
+level.addEvent(boss.createDialogEvent("long long long test dialog"));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

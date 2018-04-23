@@ -5,10 +5,12 @@ import com.base.game.Game;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.interfaces.UI;
+import com.base.game.scenes.Scene;
 
 public class BossLevel extends Level {
     private Boss boss;
-
+    private Scene scene;
+    private boolean isCutsceneOver;
 
     /**
      * Boss Level Creator
@@ -16,12 +18,25 @@ public class BossLevel extends Level {
      * @param boss Boss Object
 
      */
-    public BossLevel(String filePath, Boss boss) {
+    public BossLevel(String filePath, Boss boss, String scriptPath) {
         init(filePath);
         this.boss = boss;
 
         ui = new UI(player.getHealth(), boss.getHealth());
         addObj(boss);
+
+        scene = new Scene(scriptPath, player, boss, this);
+        isCutsceneOver = false;
+    }
+
+    @Override
+    public void update() {
+        if (!isCutsceneOver) {
+            isCutsceneOver = true;
+            scene.run();
+        }
+
+        super.update();
     }
 
     @Override

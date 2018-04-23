@@ -6,8 +6,11 @@ import com.base.engine.GameObject;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.Game;
+import com.base.game.scenes.Dialog;
+import com.base.game.scenes.Event;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 public abstract class Character extends GameObject
 {
@@ -16,6 +19,8 @@ public abstract class Character extends GameObject
     protected int attackDamage; // How much damage the character deals
     protected boolean isDead; // Whether or not the character is dead
     protected int maxHealth;
+    private ArrayList<Dialog> dialogs;
+    private boolean startDialog;
 
     /**
      * Abstract constructor for Character
@@ -36,6 +41,64 @@ public abstract class Character extends GameObject
         this.attackDamage = attackDamage;
         isDead = false; // Character should not start out dead
         maxHealth = health;
+
+        dialogs = new ArrayList<>();
+        startDialog = false;
+    }
+
+    @Override
+    public void render() {
+        super.render();
+
+        if (!dialogs.isEmpty() && startDialog)
+            getCurrDialog().render();
+    }
+
+    public void updateDialog() {
+        if (!startDialog)
+            return;
+
+        if (getCurrDialog().isOver()) {
+            dialogs.remove(0);
+        }
+
+        getCurrDialog().update();
+    }
+
+    public void startDialog() {
+        startDialog = true;
+    }
+
+    public void stopDialog() {
+        startDialog = false;
+    }
+
+    public void addDialog(Dialog dialog) {
+        dialogs.add(dialog);
+    }
+
+    public Dialog getCurrDialog() {
+        return dialogs.get(0);
+    }
+
+    public Event createDialogEvent(String content) {
+        Callable<Boolean> callable;
+        Dialog dialog = new Dialog(content);
+
+        addDialog(dialog);
+        callable = () -> {
+            startDialog();
+            updateDialog();
+
+            if (getCurrDialog().isOver()) {
+                stopDialog();
+                return true;
+            }
+
+            return false;
+        };
+
+        return new Event("dialog", callable);
     }
 
     /**

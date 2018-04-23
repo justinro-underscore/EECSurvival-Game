@@ -37,9 +37,6 @@ public abstract class Level {
     private boolean levelOver;
     private boolean gameOver;
 
-    private Scene scene;
-    private boolean isCutsceneOver;
-
     private LevelTransition lvlTransition;
 
     /**
@@ -66,9 +63,6 @@ public abstract class Level {
         lvlTransition = new LevelTransition();
 
         events = new ArrayList<>();
-
-        scene = new Scene("res/scripts/cutsceneTest1.bsh", player);
-        isCutsceneOver = false;
     }
 
     public void addEvent(Event event) {
@@ -79,11 +73,6 @@ public abstract class Level {
      * Updates the frames of the level
      */
     public void update() {
-        if (!isCutsceneOver) {
-            isCutsceneOver = true;
-            scene.run();
-        }
-
         if (levelOver) {
             return;
         }

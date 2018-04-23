@@ -5,24 +5,23 @@ import com.base.game.Game;
 import com.base.game.gameobject.object.Door;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.scenes.Dialog;
+import com.base.game.scenes.Event;
 import com.base.game.utilities.Delay;
 import com.base.game.utilities.Time;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-//TODO: make dialog class -> player and boss have list of dialog to be rendered then removed with EventQueue.register call back for enter
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
     private int konami;
     private int fireSfx;
     private float speedFactor;
-    private ArrayList<Dialog> dialogs;
-    private boolean startDialog;
 
     /**
      * Creates a player object (should only be done once)
@@ -44,9 +43,6 @@ public class Player extends Character {
         attackDelay.restart(); // Run this method so we can immediately fire
 
         speedFactor = 1.0f;
-
-        dialogs = new ArrayList<>();
-        startDialog = false;
     }
 
     /**
@@ -106,7 +102,7 @@ public class Player extends Character {
     }
 
 
-    public boolean moveTo(int x, int y) {
+    public boolean moveTo(float x, float y) {
         if (Math.ceil(Math.abs(xPos - x)) <= 10 && Math.ceil(Math.abs(yPos - y)) <= 10) {
             return true;
         }
@@ -231,37 +227,11 @@ public class Player extends Character {
         }
     }
 
-    public void render() {
-        super.render();
-
-        if (!dialogs.isEmpty() && startDialog)
-            getCurrDialog().render();
-    }
-
-    public void updateDialog() {
-        if (!startDialog)
-            return;
-
-        if (getCurrDialog().isOver()) {
-            dialogs.remove(0);
-        }
-
-        getCurrDialog().update();
-    }
-
-    public void startDialog() {
-        startDialog = true;
-    }
-
-    public void stopDialog() {
-        startDialog = false;
-    }
-
-    public void addDialog(Dialog dialog) {
-        dialogs.add(dialog);
-    }
-
-    public Dialog getCurrDialog() {
-        return dialogs.get(0);
+    public Event createWalkEvent(float x, float y) {
+        return new Event("walk", new Callable<Boolean>() {
+            public Boolean call() throws Exception {
+                return moveTo(x, y);
+            }
+        });
     }
 }

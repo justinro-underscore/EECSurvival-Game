@@ -1,8 +1,6 @@
 package com.base.game.interfaces;
 
-import com.base.engine.Display;
-import com.base.engine.GameObject;
-import com.base.engine.Sprite;
+import com.base.engine.*;
 import com.base.game.Game;
 import org.lwjgl.opengl.GL11;
 
@@ -13,7 +11,9 @@ import static org.lwjgl.opengl.GL11.*;
 public class UI extends Interface // TODO Add all UI functionality
 {
     private Rectangle playerHealthBar;
+    private Animation theDigit;
     private float playerHealthFactor;
+    private SpriteRetriever retriever;
     private Rectangle bossHealthBar;
     private float bossHealthFactor;
     private final int PLAYER_HEALTH_BAR_WIDTH = Display.getWidth() / 2 - 20;
@@ -38,10 +38,11 @@ public class UI extends Interface // TODO Add all UI functionality
         // Populate the digits array with pictures of the digits
         for(int i = 0; i < 10; i++)
         {
-            Sprite dig = new Sprite(25, 25, "res/digits/" + i + ".png");
+
+            Sprite dig = retriever.getSprite(50  , 50, retriever.loadSprite("res/digits/" + i + ".png"));
             digits[i] = dig;
         }
-        digits[10] = new Sprite(25, 25, ""); // 11th index is just a blank sprite
+ 
 
         playerHealthDigits = new Sprite[3];
         // Initialize player's health to nothing using the default index

@@ -1,6 +1,7 @@
 package com.base.game.interfaces;
 
 import com.base.engine.*;
+import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
 import org.lwjgl.opengl.GL11;
 
@@ -25,7 +26,11 @@ public class PauseMenu extends Interface {
 
         //Start Button
         startButton = new GameButton((float)(Display.getWidth()/2 - 450), (float)(Display.getHeight()/2 - 40), 400, 80,
-                "res/assets/start_release.png", "res/assets/start_press.png", Display::start);
+                "res/assets/start_release.png", "res/assets/start_press.png",
+                () -> {
+                    Display.start();
+                    Game.resume();
+                });
         //Quit Button
         quitButton = new GameButton((float)(Display.getWidth()/2 + 50), (float)(Display.getHeight()/2 - 40), 400, 80,
                 "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);

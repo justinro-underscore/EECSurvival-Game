@@ -16,8 +16,8 @@ public abstract class Item extends GameObject
      * @param imgPath file path to the image representing the sprite
      * @param despawnTime the time it takes for a item to dematerialize and be unattainable
      */
-    protected Item(float xPos, float yPos, int width, int height, String imgPath, int despawnTime){
-        init(xPos, yPos, width, height, imgPath,false);
+    protected Item(float xPos, float yPos, int width, int height, String imgPath, int despawnTime, int frames){
+        init(xPos, yPos, width, height, frames,false);
 
         despawnDelay = new Delay(despawnTime);
     }

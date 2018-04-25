@@ -1,9 +1,6 @@
 package com.base.game.levels;
 
-import com.base.engine.Display;
-import com.base.engine.GameObject;
-import com.base.engine.Physics;
-import com.base.engine.Sprite;
+import com.base.engine.*;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.object.Door;
@@ -25,7 +22,7 @@ public abstract class Level {
     //The Player
     protected Player player;
     protected UI ui;
-
+    private SpriteRetriever retriever;
     private boolean levelOver;
     private boolean gameOver;
     private LevelTransition lvlTransition;
@@ -39,7 +36,7 @@ public abstract class Level {
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        background = new Sprite(Display.getWidth(), Display.getHeight(), backgroundPath);
+        background = retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite(backgroundPath));
 
         //Creates the player and consumable item
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, 5, 4f, 20, 5);
@@ -193,7 +190,7 @@ public abstract class Level {
      * Creates a door at the end after defeating the boss.
      */
     public void createDoor() {
-        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "res/assets/door.png");
+        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "res/assets/door.png",2);
 
         addObj(door);
     }

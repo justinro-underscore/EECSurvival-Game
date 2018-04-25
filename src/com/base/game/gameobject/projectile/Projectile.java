@@ -21,9 +21,9 @@ public abstract class Projectile extends GameObject
      * @param damage damage dealt to the character
      * @param speed speed of the projectile
      */
-    protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean theBoss)
+    protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean theBoss, int frames)
     {
-        init(xPos, yPos, width, height, imgPath,theBoss); // Call super class's initialization
+        init(xPos, yPos, width, height, frames,theBoss); // Call super class's initialization
         this.shootAngle = shootAngle.normalize();
         this.damage = damage;
         this.speed = speed;

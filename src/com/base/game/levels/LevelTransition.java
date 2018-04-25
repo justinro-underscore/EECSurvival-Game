@@ -2,6 +2,7 @@ package com.base.game.levels;
 
 import com.base.engine.Display;
 import com.base.engine.Sprite;
+import com.base.engine.SpriteRetriever;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
 import com.base.game.utilities.Delay;
@@ -13,6 +14,7 @@ public class LevelTransition
     private Delay whiteFadeInTime; // Time between black fade out and white fade in
     private Delay whiteFadeOutTime; // Time between white fade in and white fade out
     private boolean blackFade; // Whether or not the screen is fading to black
+    private SpriteRetriever retriever;
     private Sprite blackScreen;
     private Sprite nextLevelScreen;
     private Sprite gameOverScreen;
@@ -30,10 +32,14 @@ public class LevelTransition
         whiteFadeInTime = new Delay(500);
         whiteFadeOutTime = new Delay(750);
         blackFade = true; // Start on black fade
-        blackScreen = new Sprite(Display.getWidth(), Display.getHeight(), "res/assets/black.png");
-        nextLevelScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "res/assets/nextLevel.png");
-        gameOverScreen = new Sprite(Display.getWidth() / 2, Display.getHeight() / 2, "res/assets/gameOver.png");
-        whiteScreen = new Sprite(Display.getWidth(), Display.getHeight(), "res/assets/white.png");
+        blackScreen = retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite("res/assets/black.png"));
+
+        nextLevelScreen= retriever.getSprite(Display.getWidth()/2 , Display.getHeight()/2, retriever.loadSprite("res/assets/nextLevel.png"));
+
+        gameOverScreen= retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite("res/assets/gameOver.png"));
+
+        whiteScreen= retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite("res/assets/white.png"));
+
         endScreenTransparency = 0;
     }
 

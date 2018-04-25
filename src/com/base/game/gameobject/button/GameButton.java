@@ -7,9 +7,10 @@ public class GameButton extends GameObject
     private String btnTexture; // The current texture of the button
     private String oldBtnTexture; // Put in place so we will not keep updating the render
     private Runnable onPressed; // Function to be ran
-
+    private Sprite buttonAnimation;
     private String btnReleased; // The image path to the released texture SHOULD NOT BE CHANGED
     private String btnPressed; // The image path to the pressed texture SHOULD NOT BE CHANGED
+    private SpriteRetriever retriever;
 
     /**
      * Creates a new button
@@ -32,7 +33,7 @@ public class GameButton extends GameObject
 
         onPressed = func;
 
-        init(xPos, yPos, width, height, btnTexture,false); // Create the object
+        init(xPos, yPos, width, height, 2,false); // Create the object
     }
 
     /**
@@ -51,7 +52,7 @@ public class GameButton extends GameObject
         // So we're not constantly updating the render
         if(!oldBtnTexture.equals(btnTexture))
         {
-            setTexture(btnTexture);
+            buttonAnimation = retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite(btnTexture));
             oldBtnTexture = btnTexture;
         }
 

@@ -11,16 +11,19 @@ import javax.imageio.ImageIO;
 public class SpriteRetriever {
 
     //private static BufferedImage spriteSheet;
-    private static int TILE_SIZE;
+    private static int TILE_WIDTH;
+    private static int TILE_HEIGHT;
     private TextureLoader loader;
 
     /**
-     * Initializes the SpriteRetriever
-     * @param TILE_SIZE how many pixels wide/tall is the sprite.
+     *
+     * @param TILE_WIDTH asdasd
+     * @param TILE_HEIGHT a sdasd
      */
-    public SpriteRetriever(int TILE_SIZE)
+    public SpriteRetriever(int TILE_WIDTH, int TILE_HEIGHT)
     {
-        this.TILE_SIZE = TILE_SIZE;
+        this.TILE_WIDTH = TILE_WIDTH;
+        this.TILE_HEIGHT = TILE_HEIGHT;
     }
 
     /**
@@ -62,7 +65,7 @@ public class SpriteRetriever {
         int textureID = -1;
         try
         {
-            textureID = loader.loadTexture(spriteSheet.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+            textureID = loader.loadTexture(spriteSheet.getSubimage(xGrid * TILE_WIDTH, yGrid * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT));
         }
         catch (IOException e)
         {

@@ -4,6 +4,9 @@ import com.base.engine.Vector2f;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 class Vector2fTest {
     private Vector2f v;
 
@@ -20,7 +23,7 @@ class Vector2fTest {
      */
     @Test
     void length() {
-        assert (v.length() == 5);
+        assertEquals (5, v.length());
     }
 
     /**
@@ -29,7 +32,7 @@ class Vector2fTest {
     @Test
     void dot() {
         Vector2f v2 = new Vector2f(0, 0);
-        assert (v.dot(v2) == 0);
+        assertEquals(0, v.dot(v2));
     }
 
     /**
@@ -39,7 +42,7 @@ class Vector2fTest {
     void angle() {
         Vector2f v1 = new Vector2f(0, 1);
         Vector2f v2 = new Vector2f(1, 0);
-        assert (v1.angle(v2) == 90.0f);
+        assertEquals (90.0f, v1.angle(v2));
     }
 
     /**
@@ -49,9 +52,9 @@ class Vector2fTest {
     @Test
     void normalize() {
         Vector2f v2 = v.normalize();
-        assert (v2.length() == 1.0);
-        assert (v2.getX() == 3.0f / 5.0f);
-        assert (v2.getY() == 4.0f / 5.0f);
+        assertEquals (1.0, v2.length());
+        assertEquals (3.0f / 5.0f, v2.getX());
+        assertEquals (4.0f / 5.0f, v2.getY());
     }
 
     /**
@@ -60,8 +63,8 @@ class Vector2fTest {
     @Test
     void rotate() {
         Vector2f v2 = v.rotate(180);
-        assert (Math.round(v2.getX()) == -3.0f);
-        assert (Math.round(v2.getY()) == -4.0f);
+        assertEquals (-3.0f, Math.round(v2.getX()));
+        assertEquals (-4.0f, Math.round(v2.getY()));
     }
 
     /**
@@ -70,8 +73,8 @@ class Vector2fTest {
     @Test
     void translate() {
         v = v.translate(1, 2);
-        assert (v.getX() == 4.0f);
-        assert (v.getY() == 6.0f);
+        assertEquals (4.0f, v.getX());
+        assertEquals (6.0f, v.getY());
     }
 
     /**
@@ -80,8 +83,8 @@ class Vector2fTest {
     @Test
     void negate() {
         v = v.negate();
-        assert (v.getX() == -3.0f);
-        assert (v.getY() == -4.0f);
+        assertEquals (-3.0f, v.getX());
+        assertEquals (-4.0f, v.getY());
     }
 
     /**
@@ -91,8 +94,8 @@ class Vector2fTest {
     @Test
     void add() {
         v = v.add(1);
-        assert (v.getX() == 4.0f);
-        assert (v.getY() == 5.0f);
+        assertEquals (4.0f, v.getX());
+        assertEquals (5.0f, v.getY());
     }
 
     /**
@@ -103,8 +106,8 @@ class Vector2fTest {
     void add1() {
         Vector2f v2 = new Vector2f(1, 2);
         v = v.add(v2);
-        assert (v.getX() == 4.0f);
-        assert (v.getY() == 6.0f);
+        assertEquals (4.0f, v.getX());
+        assertEquals (6.0f, v.getY());
     }
 
     /**
@@ -113,8 +116,8 @@ class Vector2fTest {
     @Test
     void sub() {
         v = v.sub(1);
-        assert (v.getX() == 2.0f);
-        assert (v.getY() == 3.0f);
+        assertEquals (2.0f, v.getX());
+        assertEquals (3.0f, v.getY());
     }
 
     /**
@@ -124,8 +127,8 @@ class Vector2fTest {
     void sub1() {
         Vector2f v2 = new Vector2f(1,2);
         v = v.sub(v2);
-        assert (v.getX() == 2.0f);
-        assert (v.getY() == 2.0f);
+        assertEquals (2.0f, v.getX());
+        assertEquals (2.0f, v.getY());
     }
 
     /**
@@ -134,8 +137,8 @@ class Vector2fTest {
     @Test
     void mul() {
         v = v.mul(1);
-        assert (v.getX() == 3.0f);
-        assert (v.getY() == 4.0f);
+        assertEquals (3.0f, v.getX());
+        assertEquals (4.0f, v.getY());
     }
 
     /**
@@ -145,8 +148,8 @@ class Vector2fTest {
     void mul1() {
         Vector2f v2 = new Vector2f(1,2);
         v = v.mul(v2);
-        assert (v.getX() == 3.0f);
-        assert (v.getY() == 8.0f);
+        assertEquals (3.0f, v.getX());
+        assertEquals (8.0f, v.getY());
     }
 
     /**
@@ -155,8 +158,8 @@ class Vector2fTest {
     @Test
     void div() {
         v = v.div(1);
-        assert (v.getX() == 3.0f);
-        assert (v.getY() == 4.0f);
+        assertEquals (3.0f, v.getX());
+        assertEquals (4.0f, v.getY());
     }
 
     /**
@@ -166,8 +169,8 @@ class Vector2fTest {
     void div1() {
         Vector2f v2 = new Vector2f(1,2);
         v = v.div(v2);
-        assert (v.getX() == 3.0f);
-        assert (v.getY() == 2.0f);
+        assertEquals (3.0f, v.getX());
+        assertEquals (2.0f, v.getY());
     }
 
     /**
@@ -177,8 +180,9 @@ class Vector2fTest {
     void abs() {
         v = new Vector2f(-1,-1);
         v = v.abs();
-        assert (v.getX() == 1.0f);
-        assert (v.getY() == 1.0f);
+
+        assertEquals (1.0f, v.getX());
+        assertEquals (1.0f, v.getY());
     }
 
     /**
@@ -195,7 +199,7 @@ class Vector2fTest {
      */
     @Test
     void getX() {
-        assert (v.getX() == 3);
+        assertEquals (3, v.getX());
     }
 
     /**
@@ -203,7 +207,7 @@ class Vector2fTest {
      */
     @Test
     void getY() {
-        assert (v.getY() == 4);
+        assertEquals (4, v.getY());
     }
 
 }

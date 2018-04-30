@@ -27,20 +27,22 @@ public class LevelTransition
      */
     public LevelTransition()
     {
+        //retriever = new SpriteRetriever(16, 16);
+
         blackFadeInTime = new Delay(500);
         blackFadeOutTime = new Delay(1000);
         whiteFadeInTime = new Delay(500);
         whiteFadeOutTime = new Delay(750);
         blackFade = true; // Start on black fade
-        blackScreen = retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite("res/assets/black.png"));
-
-        nextLevelScreen= retriever.getSprite(Display.getWidth()/2 , Display.getHeight()/2, retriever.loadSprite("res/assets/nextLevel.png"));
-
-        gameOverScreen= retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite("res/assets/gameOver.png"));
-
-        whiteScreen= retriever.getSprite(Display.getWidth() , Display.getHeight(), retriever.loadSprite("res/assets/white.png"));
-
-        endScreenTransparency = 0;
+//        blackScreen = retriever.getSprite(1 , 1, retriever.loadSprite("res/assets/black.png"));
+//
+//        nextLevelScreen= retriever.getSprite(1, 1, retriever.loadSprite("res/assets/nextLevel.png"));
+//
+//        gameOverScreen= retriever.getSprite(1 , 1, retriever.loadSprite("res/assets/gameOver.png"));
+//
+//        whiteScreen= retriever.getSprite(1 , 1, retriever.loadSprite("res/assets/white.png"));
+//
+//        endScreenTransparency = 0;
     }
 
     /**

@@ -14,6 +14,7 @@ public class MainMenu extends Interface {
     private GameButton quitButton;
     private int music;
     private boolean startedAudio;
+    private Animation testAnimation;
     // TODO: implement button delay of 10ms
 
     @Override
@@ -21,15 +22,16 @@ public class MainMenu extends Interface {
      * Initialize the main menu screen
      */
     public void init(String fileName) {
-        super.init(fileName);
+//        super.init(fileName);
 
         startedAudio = false;
         music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
+        testAnimation = new Animation(1,0,0,"res/assets/door.png",60,60);
 
-        startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "res/assets/start_release.png", "res/assets/start_press.png", () -> {Display.start(); reset();});
-        quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
+        //startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 10, 10,
+          //      "res/assets/start_release.png", "res/assets/start_press.pn", () -> {Display.start(); reset();});
+//        quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
+//                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
     }
 
     public void startAudio() {
@@ -43,12 +45,12 @@ public class MainMenu extends Interface {
      * Perform actions based off of the user clicking the buttons
      */
     public void update() {
-        if (!startedAudio) {
-            startAudio();
-        }
-
-        startButton.update();
-        quitButton.update();
+//        if (!startedAudio) {
+//            startAudio();
+//        }
+//
+//        startButton.update();
+////        quitButton.update();
     }
 
     @Override
@@ -57,10 +59,11 @@ public class MainMenu extends Interface {
      */
     public void render() {
         //calls the inherited render function
-        super.render();
-
-        startButton.render();
-        quitButton.render();
+//        super.render();
+//        System.out.println("WoW");
+//        startButton.render();
+//        quitButton.render();
+        testAnimation.render(Display.getWidth()/2,Display.getHeight()/2);
     }
 
     public void reset() {

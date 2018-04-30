@@ -26,6 +26,7 @@ public class TextureLoader {
      */
     public static int loadTexture(BufferedImage image) throws IOException {
 
+
         int width = image.getWidth();
         int height = image.getHeight();
 

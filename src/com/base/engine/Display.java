@@ -8,6 +8,7 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import java.io.File;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -69,13 +70,13 @@ public class Display {
      * initialize the game
      */
     private void initGame() {
-        Game.game = new Game();
+//        Game.game = new Game();
         inputHandler = new InputHandler();
 
         mainMenu = new MainMenu();
         mainMenu.init("res/assets/parchment.png");
-        pauseMenu = new PauseMenu();
-        pauseMenu.init("res/assets/bricks.jpg");
+//        pauseMenu = new PauseMenu();
+//        pauseMenu.init("res/assets/bricks.jpg");
     }
 
     /**
@@ -177,13 +178,14 @@ public class Display {
         glOrtho(0, width, 0, height, 1, -1);
         glMatrixMode(GL_MODELVIEW);
 
-        initGame();
+       initGame();
 
         // Set the clear color
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
+
         while ( !glfwWindowShouldClose(window) ) {
             Time.update();
 
@@ -210,6 +212,8 @@ public class Display {
             // invoked during this call.
             glfwPollEvents();
         }
+
+
     }
 
     /**

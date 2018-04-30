@@ -18,7 +18,7 @@ public class Player extends Character {
     private int konami;
     private int fireSfx;
     private String spriteFile = "testSpriteSheet";
-
+    private Animation animations[];
     // These are animation states
     private Animation walkDown;
     private Animation walkLeft;
@@ -46,35 +46,37 @@ public class Player extends Character {
         attackDelay.restart(); // Run this method so we can immediately fire
 
         //Initialize all of the animations
-        walkDown = new Animation(2,32);
-        walkDown.addSprite(1,1, spriteFile);
-        walkDown.addSprite(3,1, spriteFile);
-        animations[0] = walkDown;
-
-        walkLeft = new Animation(2,32);
-        walkLeft.addSprite(1,2, spriteFile);
-        walkLeft.addSprite(3,2, spriteFile);
-        animations[1] = walkLeft;
-
-        walkRight = new Animation(2,32);
-        walkRight.addSprite(1,3, spriteFile);
-        walkRight.addSprite(3,3, spriteFile);
-        animations[2] = walkRight;
-
-        walkUp = new Animation(2, 32);
-        walkUp.addSprite(1,4, spriteFile);
-        walkUp.addSprite(3,4, spriteFile);
-        animations[3] = walkUp;
-
-        idle = new Animation(1, 32);
-        idle.addSprite(1,2, spriteFile);
-        animations[4] = idle;
+//        walkDown = new Animation(2,32);
+//        walkDown.addSprite(1,1, spriteFile);
+//        walkDown.addSprite(3,1, spriteFile);
+//        animations[0] = walkDown;
+//
+//        walkLeft = new Animation(2,32);
+//        walkLeft.addSprite(1,2, spriteFile);
+//        walkLeft.addSprite(3,2, spriteFile);
+//        animations[1] = walkLeft;
+//
+//        walkRight = new Animation(2,32);
+//        walkRight.addSprite(1,3, spriteFile);
+//        walkRight.addSprite(3,3, spriteFile);
+//        animations[2] = walkRight;
+//
+//        walkUp = new Animation(2, 32);
+//        walkUp.addSprite(1,4, spriteFile);
+//        walkUp.addSprite(3,4, spriteFile);
+//        animations[3] = walkUp;
+//
+//        idle = new Animation(1, 32);
+//        idle.addSprite(1,2, spriteFile);
+//        animations[4] = idle;
 
     }
 
     @Override
     public void render() {
-        animations[4].render(xPos, yPos);
+
+
+        idle.render(xPos, yPos);
     }
 
     /**

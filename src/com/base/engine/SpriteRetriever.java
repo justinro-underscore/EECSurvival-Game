@@ -13,17 +13,17 @@ public class SpriteRetriever {
     //private static BufferedImage spriteSheet;
     private static int TILE_WIDTH;
     private static int TILE_HEIGHT;
+    private static Sprite frames[];
+
     private TextureLoader loader;
 
     /**
      *
-     * @param TILE_WIDTH asdasd
-     * @param TILE_HEIGHT a sdasd
+     *
      */
-    public SpriteRetriever(int TILE_WIDTH, int TILE_HEIGHT)
+    public SpriteRetriever()
     {
-        this.TILE_WIDTH = TILE_WIDTH;
-        this.TILE_HEIGHT = TILE_HEIGHT;
+
     }
 
     /**
@@ -31,20 +31,40 @@ public class SpriteRetriever {
      * @param file the file name of the sprite sheet
      * @return The sprite sheet in the form of a buffered image.
      */
-    public static BufferedImage loadSprite(String file)
+    public static Sprite[] loadSprite(String file, int x, int y, int theframes, int height, int width)
     {
-
+        frames=new Sprite[theframes];
+        TILE_HEIGHT = height;
+        TILE_WIDTH = width;
         BufferedImage spriteSheet = null;
 
-        try
-        {
+        try {
             spriteSheet = ImageIO.read(new File(file));
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return spriteSheet;
+
+        if(spriteSheet==null)
+        {
+        }
+        try {
+            for (int i = 0; i < theframes; i++) {
+                frames[i] = new Sprite(TextureLoader.loadTexture(spriteSheet.getSubimage(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT)));
+
+            }
+
+
+        }
+        catch (IOException e)
+        {
+
+            e.printStackTrace();
+        }
+
+        //sprite we are going to use in an animation
+        return(frames);
+
     }
 
     /**
@@ -56,25 +76,5 @@ public class SpriteRetriever {
      */
     //Takes in a sprite sheet and the coordinates of one cell on the sheet and creates a subimage, binds
     //it to a texture ID, generates a sprite and returns that sprite so it can be loaded into an animation.
-    public  Sprite getSprite(int xGrid, int yGrid, BufferedImage spriteSheet)
-    {
-        if (spriteSheet == null)
-        {
-            spriteSheet = loadSprite("testSpriteSheet");
-        }
-        int textureID = -1;
-        try
-        {
-            textureID = loader.loadTexture(spriteSheet.getSubimage(xGrid * TILE_WIDTH, yGrid * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        //sprite we are going to use in an animation
-        Sprite sprite = new Sprite(textureID);
-        return(sprite);
-    }
 
 }

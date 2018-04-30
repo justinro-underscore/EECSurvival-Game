@@ -13,20 +13,20 @@ public class Animation {
     private int n_frames;
     private Delay frameDelay;
     private boolean isStopped;
-    private SpriteRetriever retriever;
+
 
     /**
      * Initializes the animation
      * @param nFrames how many sprites will make up the animation
      * @param TILE_SIZE the size of the tile in the given spritesheet.
      */
-    public Animation(int nFrames, int TILE_SIZE) {
-        frames = new Sprite[nFrames];
+    public Animation(int nFrames, int x, int y,String file,int height, int width ) {
+        frames = SpriteRetriever.loadSprite(file,x,y,nFrames,height,width);
         n_frames = nFrames;
         currFrame = 0;
         frameDelay = new Delay(200); //TODO do we want to make this variable?
         frameDelay.restart();
-        retriever = new SpriteRetriever(TILE_SIZE);
+
         isStopped = false;
     }
 
@@ -36,20 +36,7 @@ public class Animation {
      * @param yCord the Y coordinate of the sprite in the sprite sheet.
      * @param fileName the sprite sheet.
      */
-    public void addSprite(int xCord, int yCord, String fileName)
-    {
-        //TODO Change to general file path
-        String filePath = "res/SpriteSheets/" + fileName + ".png";
-        for(int i = 0; i < n_frames; i++)
-        {
-            //if we haven't given this spot in the animation a sprite, give it one
-            //(Make sure to add them in the right order)
-            if(frames[i] == null)
-            {
-                frames[i] = retriever.getSprite(xCord, yCord, retriever.loadSprite(filePath));
-            }
-        }
-    }
+
 
     public void start() {
         if (!isStopped)

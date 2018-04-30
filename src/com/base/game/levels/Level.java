@@ -32,13 +32,12 @@ public abstract class Level {
      * @param backgroundPath Takes in the path that is available to the user
      */
     public void init(String backgroundPath) {
-        retriever = new SpriteRetriever(Display.getWidth(), Display.getHeight());
 
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        background = retriever.getSprite(1 , 1, SpriteRetriever.loadSprite(backgroundPath));
+        //background = retriever.getSprite(1 , 1, SpriteRetriever.loadSprite(backgroundPath));
 
         //Creates the player and consumable item
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, 5, 4f, 20, 5);

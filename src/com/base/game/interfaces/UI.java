@@ -29,6 +29,7 @@ public class UI extends Interface // TODO Add all UI functionality
      */
     public UI(int playerHealth, int bossHealth)
     {
+
         playerHealthBar = new Rectangle(10, 10, PLAYER_HEALTH_BAR_WIDTH, 20);
         playerHealthFactor = (float)PLAYER_HEALTH_BAR_WIDTH / playerHealth;
         bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
@@ -39,8 +40,8 @@ public class UI extends Interface // TODO Add all UI functionality
         for(int i = 0; i < 10; i++)
         {
 
-            Sprite dig = retriever.getSprite(50  , 50, retriever.loadSprite("res/digits/" + i + ".png"));
-            digits[i] = dig;
+            //Sprite dig = retriever.getSprite(1  , 1, retriever.loadSprite("res/digits/" + i + ".png"));
+            //digits[i] = dig;
         }
  
 

@@ -23,7 +23,7 @@ public abstract class Projectile extends GameObject
      */
     protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean theBoss, int frames)
     {
-        init(xPos, yPos, width, height, frames,theBoss); // Call super class's initialization
+        init(xPos, yPos, width, height, frames,theBoss,"res/SpriteSheets/testSpriteSheet.png",3,2); // Call super class's initialization
         this.shootAngle = shootAngle.normalize();
         this.damage = damage;
         this.speed = speed;

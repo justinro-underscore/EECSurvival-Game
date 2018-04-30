@@ -14,13 +14,10 @@ import java.util.concurrent.Callable;
 
 public abstract class Character extends GameObject
 {
-    protected float speed; // Speed of the Character
-    protected int health; // Health of the Character
-    protected int attackDamage; // How much damage the character deals
-    protected boolean isDead; // Whether or not the character is dead
-    protected int maxHealth;
     private ArrayList<Dialog> dialogs;
     private boolean startDialog;
+    
+    protected Stats stats;
 
     /**
      * Abstract constructor for Character
@@ -36,14 +33,10 @@ public abstract class Character extends GameObject
     protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, boolean isBoss) {
         init(xPos, yPos, width, height, imgPath,isBoss); // Call super initialize method
 
-        this.speed = speed;
-        this.health = health;
-        this.attackDamage = attackDamage;
-        isDead = false; // Character should not start out dead
-        maxHealth = health;
-
         dialogs = new ArrayList<>();
         startDialog = false;
+        
+        stats = new Stats(speed, health, attackDamage);
     }
 
     @Override
@@ -113,17 +106,20 @@ public abstract class Character extends GameObject
             {
                 if(obj.getBoss()==true && this.getBoss()==true)
                 {}
+                else if(obj instanceof ConsumableItem) // If the object is a consumable item...
+                {
+                    if(stats.getHealth() + ((ConsumableItem) obj).getAddedHealth() <= stats.getMaxHealth()){
+                        gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
+                    }
+                    obj.remove(); // Delete the consumable
+                }
+                else if(obj.getBoss()==false && this.getBoss()==false){
+
+                }
                 else if(obj instanceof Projectile) // If the object is a projectile...
                 {
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
-                }
-                else if(obj instanceof ConsumableItem) // If the object is a consumable item...
-                {
-                    if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
-                        gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
-                    }
-                    obj.remove(); // Delete the consumable
                 }
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions
             }
@@ -136,11 +132,11 @@ public abstract class Character extends GameObject
      */
     protected void loseHealth(int hit)
     {
-        health -= hit;
-        if(health <= 0) // If health drops below 0
+        stats.setHealth(stats.getHealth() - hit);
+        if(stats.getHealth() <= 0) // If health drops below 0
         {
-            health = 0;
-            isDead = true; // You dead, son
+            stats.setHealth(0);
+            stats.setIsDead(true); // You dead, son
         }
     }
 
@@ -150,7 +146,7 @@ public abstract class Character extends GameObject
      */
     protected void gainHealth(int healthGain)
     {
-        health += healthGain;
+        stats.setHealth(stats.getHealth() + healthGain);
         //TODO: add checking for max health
     }
 
@@ -160,7 +156,7 @@ public abstract class Character extends GameObject
      */
     public int getHealth()
     {
-        return health;
+        return stats.getHealth();
     }
 
     /**

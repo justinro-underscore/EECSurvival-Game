@@ -79,7 +79,7 @@ public class Player extends Character {
 
         //Sprint Functionality
         if (InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
-            //Detects the input from the user for spring direction
+            //Detects the input from the user for sprint direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
                 speedFactor = 2.0f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
@@ -97,8 +97,8 @@ public class Player extends Character {
     }
 
     private void move(int x, int y) {
-        xPos += x * speed * speedFactor;
-        yPos += y * speed * speedFactor;
+        xPos += x * stats.getSpeed() * speedFactor;
+        yPos += y * stats.getSpeed() * speedFactor;
     }
 
 
@@ -213,6 +213,8 @@ public class Player extends Character {
         }
 
         if (obj instanceof Door) {
+            xPos = Display.getWidth() / 2 - 30;
+            yPos = 100;
             Game.game.getLevelManager().nextLevel();
         }
     }
@@ -221,7 +223,7 @@ public class Player extends Character {
      * Check to see if the player has died
      */
     protected void checkDeath() {
-        if (isDead) // If the player is dead...
+        if (stats.getIsDead()) // If the player is dead...
         {
             Game.game.getCurrLevel().levelOver(true); // Run levelOver
         }

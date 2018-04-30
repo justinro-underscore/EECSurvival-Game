@@ -37,6 +37,7 @@ public class Display {
         Display.title = name;
 
         Time.init();
+        EventQueue.init();
         init();
         Audio.init();
         gameLoop();
@@ -157,6 +158,7 @@ public class Display {
         // the window or has pressed the ESCAPE key.
         while ( !glfwWindowShouldClose(window) ) {
             Time.update();
+            EventQueue.update();
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 

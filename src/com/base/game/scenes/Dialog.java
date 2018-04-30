@@ -16,10 +16,10 @@ public class Dialog {
     private TextRenderer text;
     private boolean isOver;
 
-    public Dialog(String content)
+    public Dialog(String content, int fontSize)
     {
         background = new Sprite(1000, 150, "");
-        text = new TextRenderer(content, 950, 100, 2, true, Display.getWidth() / 2 - 475, 125);
+        text = new TextRenderer(content, 950, 100, fontSize, true, Display.getWidth() / 2 - 475, 125);
         text.startTypewriterDelay();
         isOver = false;
     }

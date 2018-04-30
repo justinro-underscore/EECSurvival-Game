@@ -4,12 +4,14 @@ import com.base.engine.Audio;
 import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.game.gameobject.entity.Boss;
+import com.base.game.gameobject.entity.Player;
 
 import java.util.ArrayList;
 
 public class LevelManager {
     private boolean startedAudio;
     private static int startMusic;
+    private Player player;
 
     private ArrayList<Level> levels;
     private int currLevel;
@@ -25,12 +27,14 @@ public class LevelManager {
 
         levels = new ArrayList();
 
-        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", true);
+        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
+
+        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
 
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, "res/scripts/cutsceneTest1.bsh");
+        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, player, "res/scripts/cutsceneTest1.bsh");
 
-        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", false);
+        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
 
         levels.add(level1);
         levels.add(level2);

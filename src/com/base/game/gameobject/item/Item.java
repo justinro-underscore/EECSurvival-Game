@@ -6,6 +6,7 @@ import com.base.game.utilities.Delay;
 public abstract class Item extends GameObject
 {
     private Delay despawnDelay;
+    private boolean canDespawn;
 
     /**
      * Generic constructor for an item
@@ -19,6 +20,12 @@ public abstract class Item extends GameObject
     protected Item(float xPos, float yPos, int width, int height, String imgPath, int despawnTime){
         init(xPos, yPos, width, height, imgPath,false);
 
+        if (despawnTime == -1) {
+            canDespawn = false;
+        } else {
+            canDespawn = true;
+        }
+
         despawnDelay = new Delay(despawnTime);
     }
 
@@ -26,6 +33,9 @@ public abstract class Item extends GameObject
      * Increment the despawn timer
      */
     public void update(){
+        if (!canDespawn)
+            return;
+
         if(!despawnDelay.isStarted()){
             despawnDelay.start();
         }

@@ -1,18 +1,22 @@
 package com.test;
 
 import com.base.engine.Display;
-import com.base.engine.GameObject;
 import com.base.engine.Vector2f;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.entity.EmptyBoss;
 import com.base.game.gameobject.entity.Player;
+import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.gameobject.projectile.StandardProjectile;
 import com.base.game.interfaces.UI;
 import com.base.game.levels.Level;
 import com.base.game.utilities.Delay;
+import com.base.game.utilities.Time;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -23,6 +27,9 @@ public class TestLevel extends Level {
     private ArrayList<Integer> keyLog;
     private Robot robot;
     private Delay keyDelay;
+    private PrintWriter writer;
+    private int currentKey;
+    private ConsumableItem consumableItem2;
 
     public TestLevel(boolean isAutomated) {
         this.isAutomated = isAutomated;
@@ -30,6 +37,8 @@ public class TestLevel extends Level {
         keyLog = new ArrayList<>();
         keyDelay = new Delay(100);
         keyDelay.restart();
+
+        currentKey = VK_W;
 
         try {
             robot = new Robot();
@@ -43,11 +52,12 @@ public class TestLevel extends Level {
 
         Boss boss = new EmptyBoss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
         Projectile projectile = new StandardProjectile(100, 100, 100, 100, "", new Vector2f(1,1), 5, 0, true);
+        consumableItem2 = new ConsumableItem(400,400, 50, 50, "", -1, 5);
 
-        //TODO: respawn projectile and item and boss
         ui = new UI(player.getHealth(), boss.getHealth());
         addObj(boss);
         addObj(projectile);
+        addObj(consumableItem2);
     }
 
     @Override
@@ -60,7 +70,13 @@ public class TestLevel extends Level {
         try {
             autoUpdate();
         } catch (Exception e) {
-            //TODO: output keyLog
+            try {
+                writer = new PrintWriter("crashLog" + Time.getTime() + ".txt", "UTF-8");
+            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+                ex.printStackTrace();
+            }
+            writer.println(keyLog);
+            writer.close();
         }
     }
 
@@ -73,12 +89,9 @@ public class TestLevel extends Level {
         robot.keyPress(VK_SPACE);
 
         if (keyDelay.isOver()) {
-            robot.keyRelease(VK_W);
-            robot.keyRelease(VK_D);
-            robot.keyRelease(VK_A);
-            robot.keyRelease(VK_S);
-
+            robot.keyRelease(currentKey);
             keyDelay.start();
+
             return;
         }
 
@@ -86,28 +99,21 @@ public class TestLevel extends Level {
 
         switch (dir) {
             case 0:
-                robot.keyPress(VK_W);
-                keyLog.add(VK_W);
-
+                currentKey = VK_W;
                 break;
             case 1:
-                robot.keyPress(VK_S);
-                keyLog.add(VK_S);
-
+                currentKey = VK_S;
                 break;
             case 2:
-                robot.keyPress(VK_A);
-                keyLog.add(VK_A);
-
+                currentKey = VK_A;
                 break;
             case 3:
-                robot.keyPress(VK_D);
-                keyLog.add(VK_D);
-
-                super.update();
+                currentKey = VK_D;
                 break;
         }
 
+        robot.keyPress(currentKey);
+        keyLog.add(currentKey);
         super.update();
     }
 

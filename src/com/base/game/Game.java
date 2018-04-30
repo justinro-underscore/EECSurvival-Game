@@ -8,6 +8,7 @@ import com.base.game.utilities.Delay;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
+
 public class Game {
     public static Game game;
 

@@ -23,6 +23,10 @@ public class Player extends Character {
     private int fireSfx;
     private float speedFactor;
 
+    private int startHealth;
+    private float startX;
+    private float startY;
+
     /**
      * Creates a player object (should only be done once)
      * @param xPos x-coordinate of the sprite
@@ -36,6 +40,10 @@ public class Player extends Character {
      */
     public Player(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
         super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,false); // Call Character superclass's constructor
+
+        startX = xPos;
+        startY = yPos;
+        startHealth = health;
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
 
@@ -235,5 +243,13 @@ public class Player extends Character {
                 return moveTo(x, y);
             }
         });
+    }
+
+    public void respawn() {
+         xPos = startX;
+         yPos = startY;
+
+         this.gainHealth(startHealth);
+         stats.setIsDead(false);
     }
 }

@@ -33,6 +33,7 @@ public abstract class Level {
      */
     public void init(String backgroundPath) {
         retriever = new SpriteRetriever(Display.getWidth(), Display.getHeight());
+
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();

@@ -13,7 +13,8 @@ public class Animation {
     private int n_frames;
     private Delay frameDelay;
     private boolean isStopped;
-
+    private int width;
+    private int height;
 
     /**
      * Initializes the animation
@@ -21,6 +22,8 @@ public class Animation {
      * @param TILE_SIZE the size of the tile in the given spritesheet.
      */
     public Animation(int nFrames, int x, int y,String file,int height, int width ) {
+        this.width=width;
+        this.height = height;
         frames = SpriteRetriever.loadSprite(file,x,y,nFrames,height,width);
         n_frames = nFrames;
         currFrame = 0;
@@ -59,7 +62,7 @@ public class Animation {
 
     public void render(float xPos, float yPos)
     {
-        frames[currFrame].render(xPos, yPos);
+        frames[currFrame].render(xPos, yPos,width,height);
     }
 
     public void update() {

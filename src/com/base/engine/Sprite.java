@@ -29,7 +29,9 @@ public class Sprite {
      * @param xPos x-coordinate of the sprite
      * @param yPos y-coordinate of the sprite TODO IS IT CENTERED?
      */
-    public void render(float xPos, float yPos) {
+    public void render(float xPos, float yPos, int width, int height) {
+        this.width=width;
+        this.height=height;
         glPushMatrix(); // Create a new image matrix
         {
             glTranslatef(xPos, yPos, 0); // Translate so it is easier to create the image at a coordinate

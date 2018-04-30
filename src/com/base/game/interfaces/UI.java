@@ -175,7 +175,7 @@ public class UI extends Interface // TODO Add all UI functionality
         // Shows the player health digits
         for(int i = 0; i < 3; i++)
         {
-            playerHealthDigits[i].render(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20 + (25 * i), playerHealthBar.y);
+            playerHealthDigits[i].render(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20 + (25 * i), playerHealthBar.y,10,10);
         }
     }
 }

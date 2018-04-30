@@ -85,7 +85,7 @@ public abstract class Level {
      * Renders the objects in the level
      */
     public void render() {
-        background.render(0 ,0);
+        background.render(0 ,0,Display.getWidth(),Display.getHeight());
 
         gameObjects.forEach(GameObject::render);
 

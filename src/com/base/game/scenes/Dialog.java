@@ -1,44 +1,44 @@
 package com.base.game.scenes;
 
 import com.base.engine.Display;
+import com.base.engine.InputHandler;
 import com.base.engine.Sprite;
+import com.base.engine.TextRenderer;
 import com.base.game.utilities.Delay;
+import jdk.internal.util.xml.impl.Input;
 
 import java.awt.image.BufferedImage;
 
-//TODO: hook up with sprite sheet for text
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
+
 public class Dialog {
-    private String content;
-    private int length;
-    private Delay wordDelay;
-    private Sprite currDialog;
-    private BufferedImage img;
+    private Sprite background;
+    private TextRenderer text;
+    private boolean isOver;
 
-    public Dialog(String content) {
-        this.content = content;
-
-        length = 1;
-        wordDelay = new Delay(100);
-        wordDelay.restart();
-
-        //TODO: remove this
-        currDialog = new Sprite(500, 100, "");
+    public Dialog(String content)
+    {
+        background = new Sprite(1000, 150, "");
+        text = new TextRenderer(content, 950, 100, 2, true, Display.getWidth() / 2 - 475, 125);
+        text.startTypewriterDelay();
+        isOver = false;
     }
 
-    public boolean isOver() {
-        return (content.length() - 1 == length);
+    public boolean isOver()
+    {
+        return isOver;
     }
 
-    public void update() {
-        if (length < content.length() - 1 && wordDelay.isOver()) {
-            length++;
-
-            wordDelay.start();
-        }
+    public void update()
+    {
+        if(InputHandler.isKeyDown(GLFW_KEY_ENTER) && text.getIsOver())
+            isOver = true;
+        text.update();
     }
 
-    public void render() {
-        if (currDialog != null)
-            currDialog.render(Display.getWidth() / 2 - 250, 80);
+    public void render()
+    {
+        background.render(Display.getWidth() / 2 - 500, 100);
+        text.render();
     }
 }

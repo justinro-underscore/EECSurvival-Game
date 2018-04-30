@@ -1,0 +1,7 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("test dialog"));
+level.addEvent(player.createWalkEvent(1000, 800));
+level.addEvent(boss.createDialogEvent("long long long test dialog"));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

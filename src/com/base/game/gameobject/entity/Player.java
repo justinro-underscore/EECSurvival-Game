@@ -4,10 +4,15 @@ import com.base.engine.*;
 import com.base.game.Game;
 import com.base.game.gameobject.object.Door;
 import com.base.game.gameobject.projectile.StandardProjectile;
+import com.base.game.scenes.Dialog;
+import com.base.game.scenes.Event;
 import com.base.game.utilities.Delay;
+import com.base.game.utilities.Time;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -16,6 +21,7 @@ public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
     private int konami;
     private int fireSfx;
+    private float speedFactor;
 
     /**
      * Creates a player object (should only be done once)
@@ -35,6 +41,8 @@ public class Player extends Character {
 
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
+
+        speedFactor = 1.0f;
     }
 
     /**
@@ -52,24 +60,17 @@ public class Player extends Character {
      */
     public void getInput() {
         // Go up
-        if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-            yPos += stats.getSpeed();
-        }
-
+        if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height)
+            move(0,1);
         // Go down
-        if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-            yPos -= stats.getSpeed();
-        }
-
+        if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0)
+            move(0,-1);
         // Go right
-        if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-            xPos += stats.getSpeed();
-        }
-
+        if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width)
+            move(1, 0);
         // Go left
-        if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-            xPos -= stats.getSpeed();
-        }
+        if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0)
+            move(-1, 0);
 
         // Shoot *Can't shoot while sprinting
         if (InputHandler.isKeyDown(GLFW_KEY_SPACE) && attackDelay.isOver() && !InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
@@ -78,19 +79,51 @@ public class Player extends Character {
 
         //Sprint Functionality
         if (InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
-            //Detects the input from the user for spring direction
+            //Detects the input from the user for sprint direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-                yPos += stats.getSpeed() * 1.1;
+                speedFactor = 2.0f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-                yPos -= stats.getSpeed() * 1.1;
+                speedFactor = 2.0f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-                xPos += stats.getSpeed() * 1.2;
+                speedFactor = 2.2f;
             } else if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-                xPos -= stats.getSpeed() * 1.2;
+                speedFactor = 2.2f;
             }
+        } else {
+            speedFactor = 1.0f;
         }
 
         enterCheatCode();
+    }
+
+    private void move(int x, int y) {
+        xPos += x * stats.getSpeed() * speedFactor;
+        yPos += y * stats.getSpeed() * speedFactor;
+    }
+
+
+    public boolean moveTo(float x, float y) {
+        if (Math.ceil(Math.abs(xPos - x)) <= 10 && Math.ceil(Math.abs(yPos - y)) <= 10) {
+            return true;
+        }
+
+        if (Math.ceil(Math.abs(xPos - x)) > 10) {
+            if (xPos - x > 0) {
+                move(-1, 0);
+            } else {
+                move(1, 0);
+            }
+        }
+
+        if (Math.ceil(Math.abs(yPos - y)) > 10) {
+            if (yPos - y > 0) {
+                move(0, -1);
+            } else {
+                move(0, 1);
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -146,7 +179,7 @@ public class Player extends Character {
 //            konami++;
 //        else if(konami == 18 && InputHandler.isKeyDown(GLFW_KEY_A)) {
             konami++;
-            Game.game.executeCheat();
+            Game.game.getLevelManager().executeCheat();
         }
     }
 
@@ -164,7 +197,7 @@ public class Player extends Character {
         Audio.setBufferGain(fireSfx, 1.5f);
         StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8 , false); // Create the projectile
 
-        Game.game.addObj(pro);
+        Game.game.getCurrLevel().addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire
     }
 
@@ -182,7 +215,7 @@ public class Player extends Character {
         if (obj instanceof Door) {
             xPos = Display.getWidth() / 2 - 30;
             yPos = 100;
-            Game.game.nextLevel();
+            Game.game.getLevelManager().nextLevel();
         }
     }
 
@@ -192,7 +225,15 @@ public class Player extends Character {
     protected void checkDeath() {
         if (stats.getIsDead()) // If the player is dead...
         {
-            Game.game.levelOver(true); // Run levelOver
+            Game.game.getCurrLevel().levelOver(true); // Run levelOver
         }
+    }
+
+    public Event createWalkEvent(float x, float y) {
+        return new Event("walk", new Callable<Boolean>() {
+            public Boolean call() throws Exception {
+                return moveTo(x, y);
+            }
+        });
     }
 }

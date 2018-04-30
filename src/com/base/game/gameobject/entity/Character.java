@@ -6,11 +6,17 @@ import com.base.engine.GameObject;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.Game;
+import com.base.game.scenes.Dialog;
+import com.base.game.scenes.Event;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 public abstract class Character extends GameObject
 {
+    private ArrayList<Dialog> dialogs;
+    private boolean startDialog;
+    
     protected Stats stats;
 
     /**
@@ -27,7 +33,65 @@ public abstract class Character extends GameObject
     protected Character(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, boolean isBoss) {
         init(xPos, yPos, width, height, imgPath,isBoss); // Call super initialize method
 
+        dialogs = new ArrayList<>();
+        startDialog = false;
+        
         stats = new Stats(speed, health, attackDamage);
+    }
+
+    @Override
+    public void render() {
+        super.render();
+
+        if (!dialogs.isEmpty() && startDialog)
+            getCurrDialog().render();
+    }
+
+    public void updateDialog() {
+        if (!startDialog)
+            return;
+
+        if (getCurrDialog().isOver()) {
+            dialogs.remove(0);
+        }
+
+        getCurrDialog().update();
+    }
+
+    public void startDialog() {
+        startDialog = true;
+    }
+
+    public void stopDialog() {
+        startDialog = false;
+    }
+
+    public void addDialog(Dialog dialog) {
+        dialogs.add(dialog);
+    }
+
+    public Dialog getCurrDialog() {
+        return dialogs.get(0);
+    }
+
+    public Event createDialogEvent(String content) {
+        Callable<Boolean> callable;
+        Dialog dialog = new Dialog(content);
+
+        addDialog(dialog);
+        callable = () -> {
+            startDialog();
+            updateDialog();
+
+            if (getCurrDialog().isOver()) {
+                stopDialog();
+                return true;
+            }
+
+            return false;
+        };
+
+        return new Event("dialog", callable);
     }
 
     /**
@@ -35,7 +99,7 @@ public abstract class Character extends GameObject
      */
     protected void checkCharacterCollision()
     {
-        ArrayList<GameObject> closeObjects = Game.game.getCloseObjects(this, 5); // Get any objects close to the character (cuts down on load time)
+        ArrayList<GameObject> closeObjects = Game.game.getCurrLevel().getCloseObjects(this, 5); // Get any objects close to the character (cuts down on load time)
         for(GameObject obj : closeObjects)
         {
             if(Physics.checkCollision(this, obj)) // If the character is touching a GameObject

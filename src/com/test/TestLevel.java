@@ -35,7 +35,7 @@ public class TestLevel extends Level {
         this.isAutomated = isAutomated;
 
         keyLog = new ArrayList<>();
-        keyDelay = new Delay(100);
+        keyDelay = new Delay(200);
         keyDelay.restart();
 
         currentKey = VK_W;

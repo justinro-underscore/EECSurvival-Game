@@ -24,9 +24,9 @@ public abstract class Level {
     private Sprite background;
 
     //List of Game Objects
-    private ArrayList<GameObject> gameObjects;
-    private ArrayList<GameObject> toAdd;
-    private ArrayList<GameObject> toRemove;
+    protected ArrayList<GameObject> gameObjects;
+    protected ArrayList<GameObject> toAdd;
+    protected ArrayList<GameObject> toRemove;
 
     private ConsumableItem consumableItem;
 

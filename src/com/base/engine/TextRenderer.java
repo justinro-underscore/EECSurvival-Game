@@ -8,7 +8,9 @@ public class TextRenderer
 {
     private Sprite[][] stringsArr; // The sprites to be rendered, showing text
     private char[] strings; // The chars of the strings array
+  
     private int fontSize; // The size of the letter sprites
+
     private int numCharsInRow; // Number of characters that will fit per row
     private int numRows; // Number of rows that will fit in the text box
     private int stringsLength; // Length of the string being printed
@@ -18,7 +20,6 @@ public class TextRenderer
     private Delay indexUpdate; // The delay to update the index (typewriter mode only)
 
     private boolean isOver; // If the text is fully displayed
-
     private float x; // X coord of text box
     private float y; // Y coord of text box
 
@@ -32,6 +33,7 @@ public class TextRenderer
      * @param x X coord of box
      * @param y Y coord of box
      */
+
     public TextRenderer(String words, int width, int height, int font, boolean typewriter, float x, float y)
     {
         switch(font)
@@ -43,6 +45,7 @@ public class TextRenderer
         }
         numCharsInRow = width / fontSize; // Get the number of letters in a row
         numRows = height / fontSize;
+      
         stringsArr = new Sprite[numRows][numCharsInRow];
         strings = new char[numRows * numCharsInRow];
         stringsLength = words.length();
@@ -76,6 +79,7 @@ public class TextRenderer
                         stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
                     else
                         stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/ERROR.png");
+                  
                     tempIndex++;
                 }
                 else // Pad the end of the rows with spaces
@@ -91,6 +95,7 @@ public class TextRenderer
         {
             currIndex = -1; // If in typewriter mode, start index out of bounds
             indexUpdate = new Delay((int)Math.pow(2, 2) * 50);
+          
             isOver = false;
         }
         else
@@ -160,6 +165,7 @@ public class TextRenderer
             if(indexUpdate.isOver()) // Add a new character to the string
             {
                 currIndex++;
+
                 if(currIndex == stringsLength)
                     isOver = true;
                 else
@@ -181,6 +187,7 @@ public class TextRenderer
                 if(tempIndex <= currIndex) // Prints whatever should be written
                 {
                     stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize));
+
                     if(strings[index + (row * numCharsInRow)] != ' ') // If we are not at the end, increase tempIndex
                         tempIndex++;
                 }

@@ -2,7 +2,7 @@ package com.base.game;
 
 import com.base.engine.*;
 import com.base.game.interfaces.MainMenu;
-import com.base.game.interfaces.PauseMenu;
+import com.base.game.interfaces.OptionMenu;
 import com.base.game.levels.*;
 import com.base.game.utilities.Delay;
 
@@ -12,12 +12,12 @@ public class Game {
     public static Game game;
 
     private MainMenu mainMenu;
-    private PauseMenu pauseMenu;
+    private OptionMenu pauseMenu;
 
-    private LevelManager levelManager;
+    private static LevelManager levelManager;
 
     public enum State {
-        MAIN_MENU, GAME, PAUSE_MENU;
+        MAIN_MENU, GAME, PAUSE_MENU
     }
 
     private static State state = State.MAIN_MENU;
@@ -25,8 +25,8 @@ public class Game {
     public Game() {
         mainMenu = new MainMenu();
         mainMenu.init("res/assets/parchment.png");
-        pauseMenu = new PauseMenu();
-        pauseMenu.init("res/assets/bricks.jpg");
+        pauseMenu = new OptionMenu();
+        pauseMenu.init("res/assets/parchment.png");
 
         levelManager = new LevelManager();
 
@@ -52,6 +52,10 @@ public class Game {
                 mainMenu.render();
                 break;
             case GAME:
+                if (!levelManager.hasLoadedLevels()) {
+                    levelManager.loadLevels();
+                }
+
                 levelManager.update();
                 levelManager.render();
                 break;
@@ -75,5 +79,8 @@ public class Game {
      */
     public static void start() {
         state = State.GAME;
+    }
+    public static void backToMenu() {
+        state = State.MAIN_MENU;
     }
 }

@@ -23,6 +23,10 @@ public class Player extends Character {
     private int fireSfx;
     private float speedFactor;
 
+    private int startHealth;
+    private float startX;
+    private float startY;
+
     /**
      * Creates a player object (should only be done once)
      * @param xPos x-coordinate of the sprite
@@ -36,6 +40,10 @@ public class Player extends Character {
      */
     public Player(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
         super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,false); // Call Character superclass's constructor
+
+        startX = xPos;
+        startY = yPos;
+        startHealth = health;
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
 
@@ -229,11 +237,52 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * Creates a walk event for player
+     * @param x XPos to go to
+     * @param y YPos to go to
+     * @return True if reached destination
+     */
     public Event createWalkEvent(float x, float y) {
         return new Event("walk", new Callable<Boolean>() {
             public Boolean call() throws Exception {
                 return moveTo(x, y);
             }
         });
+    }
+
+    /**
+     * Respawns player
+     */
+    public void respawn() {
+         xPos = startX;
+         yPos = startY;
+
+         this.gainHealth(startHealth);
+         stats.setIsDead(false);
+    }
+
+    /**
+     * Reduces player health
+     * @param amt amount to decrease player health by
+     */
+    public void takeDMG(int amt) {
+        loseHealth(amt);
+    }
+
+    /**
+     * Adds health to player from external content
+     * @param amt amount to increase health by
+     */
+    public void addHealth(int amt) {
+        gainHealth(amt);
+    }
+
+    /**
+     * Returns true if player is dead
+     * @return player death status
+     */
+    public boolean isDead() {
+        return stats.getIsDead();
     }
 }

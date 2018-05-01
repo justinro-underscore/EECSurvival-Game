@@ -20,16 +20,16 @@ public class PauseMenu extends Interface {
      * Initialize the pause menu screen
      */
     @Override
-    public void init(String fileName) {
-        super.init(fileName);
+    public void init(String fileName,int widthOfImage,int heightOfImage) {
+        super.init(fileName,widthOfImage,heightOfImage);
 
         //Start Button
-        startButton = new GameButton((float)(Display.getWidth()/2 - 450), (float)(Display.getHeight()/2 - 40), 400, 80,
-                "res/assets/start_release.png", "res/assets/start_press.png", Display::start);
+        startButton = new GameButton((float)(Display.getWidth()/2 - 450), (float)(Display.getHeight()/2 - 40), 299, 80,
+                "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::start);
         //Quit Button
-        quitButton = new GameButton((float)(Display.getWidth()/2 + 50), (float)(Display.getHeight()/2 - 40), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
-    }
+//        quitButton = new GameButton((float)(Display.getWidth()/2 + 50), (float)(Display.getHeight()/2 - 40), 400, 80,
+//                "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
+   }
 
     /**
      * Perform actions based off of the user clicking the buttons

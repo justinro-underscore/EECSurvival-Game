@@ -44,13 +44,17 @@ public class Player extends Character {
 
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
-
+        idle = new Animation(1,0,0,"res/assets/player.png",41,82,41,82);
         //Initialize all of the animations
-//        walkDown = new Animation(2,32);
-//        walkDown.addSprite(1,1, spriteFile);
-//        walkDown.addSprite(3,1, spriteFile);
-//        animations[0] = walkDown;
-//
+        walkDown = new Animation(3,0,0,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+        walkLeft = new Animation(3,0,32,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+
+        walkRight = new Animation(3,0,64,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+
+        walkUp = new Animation(3,0,96,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+
+        currAnimation = idle;
+
 //        walkLeft = new Animation(2,32);
 //        walkLeft.addSprite(1,2, spriteFile);
 //        walkLeft.addSprite(3,2, spriteFile);
@@ -74,9 +78,10 @@ public class Player extends Character {
 
     @Override
     public void render() {
+        currAnimation.render(xPos, yPos);
+        currAnimation.start();
 
 
-        idle.render(xPos, yPos);
     }
 
     /**
@@ -86,59 +91,66 @@ public class Player extends Character {
         checkCharacterCollision();
         checkDeath();
 
+
         getInput();
 
-        animations[4].update();
+        //animations[4].update();
     }
 
     /**
      * Gets input from the InputHandler
      */
     public void getInput() {
+        currAnimation.nextFrame();
         if (InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D)) {
-            //walk.start();
-        } else {
+            currAnimation = idle;
             //walk.stop();
         }
 
         // Go up
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
             yPos += speed;
-            animations[3].start();
+            currAnimation = walkUp;
+
+
+          //  animations[3].start();
         }
         else
         {
-            animations[3].stop();
+           // animations[3].stop();
         }
 
         // Go down
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
             yPos -= speed;
-            animations[0].start();
+            currAnimation = walkDown;
+            //animations[0].start();
         }
         else
         {
-            animations[0].stop();
+            //animations[0].stop();
         }
 
         // Go right
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
             xPos += speed;
-            animations[2].start();
+            currAnimation = walkRight;
+           // animations[2].start();
         }
         else
         {
-            animations[1].stop();
+           // animations[1].stop();
         }
 
         // Go left
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
             xPos -= speed;
-            animations[1].start();
+            currAnimation = walkLeft;
+           // animations[1].start();
         }
         else
         {
-            animations[1].stop();
+            //animations[1].stop();
         }
 
         // Shoot *Can't shoot while sprinting
@@ -233,7 +245,7 @@ public class Player extends Character {
 
         Audio.playBuffer(fireSfx);
         Audio.setBufferGain(fireSfx, 1.5f);
-        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "", proDir, 5, 8 , false); // Create the projectile
+        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "res/assets/white.png", proDir, 5, 8 , false); // Create the projectile
 
         Game.game.addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire

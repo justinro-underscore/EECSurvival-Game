@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Level {
-    private Sprite background;
+    private Animation background;
 
     //List of Game Objects
     private ArrayList<GameObject> gameObjects;
@@ -37,7 +37,7 @@ public abstract class Level {
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        //background = retriever.getSprite(1 , 1, SpriteRetriever.loadSprite(backgroundPath));
+        background = new Animation(1,0,0, backgroundPath,500,500,Display.getWidth(),Display.getHeight());
 
         //Creates the player and consumable item
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, 5, 4f, 20, 5);
@@ -85,7 +85,7 @@ public abstract class Level {
      * Renders the objects in the level
      */
     public void render() {
-        background.render(0 ,0,Display.getWidth(),Display.getHeight());
+        background.render(0 ,0);
 
         gameObjects.forEach(GameObject::render);
 
@@ -191,7 +191,7 @@ public abstract class Level {
      * Creates a door at the end after defeating the boss.
      */
     public void createDoor() {
-        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "res/assets/door.png",2);
+        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 60, 60, "res/assets/door.png",1);
 
         addObj(door);
     }

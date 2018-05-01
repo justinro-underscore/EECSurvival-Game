@@ -17,6 +17,6 @@ public class StandardProjectile extends Projectile
      */
     public StandardProjectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean boss)
     {
-        super(xPos, yPos, width, height, imgPath, shootAngle, damage, speed, boss,3); // Call the super class's contructor
+        super(xPos, yPos, width, height, imgPath, shootAngle, damage, speed, boss,1); // Call the super class's contructor
     }
 }

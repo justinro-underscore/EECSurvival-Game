@@ -70,13 +70,13 @@ public class Display {
      * initialize the game
      */
     private void initGame() {
-//        Game.game = new Game();
+        Game.game = new Game();
         inputHandler = new InputHandler();
 
         mainMenu = new MainMenu();
-        mainMenu.init("res/assets/parchment.png");
-//        pauseMenu = new PauseMenu();
-//        pauseMenu.init("res/assets/bricks.jpg");
+        mainMenu.init("res/assets/parchment.png",640,480);
+        pauseMenu = new PauseMenu();
+        pauseMenu.init("res/assets/bricks.jpg",512,512);
     }
 
     /**

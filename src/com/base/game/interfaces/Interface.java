@@ -7,19 +7,19 @@ import com.base.engine.SpriteRetriever;
 
 public abstract class Interface {
     private Animation background;
-    private SpriteRetriever retriever;
     /**
      * Initialize the interface
      * @param filePath the filename of the background image
      */
-    public void init(String filePath) {
-//        background = new Animation(1,1,1,"res/SpriteSheets/testSpriteSheet.png",1,1);
+    public void init(String filePath,int widthOfImage, int heightOfImage) {
+        background = new Animation(1,0,0,filePath,widthOfImage,heightOfImage,Display.getWidth(),Display.getHeight());
+        background.getCurrentFrame().render(0,0,Display.getWidth(),Display.getHeight());
     }
 
     /**
      * Render the interface
      */
     public void render() {
-//        background.render(0, 0);
+       background.render(0, 0);
     }
 }

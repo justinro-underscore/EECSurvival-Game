@@ -21,17 +21,15 @@ public class MainMenu extends Interface {
     /**
      * Initialize the main menu screen
      */
-    public void init(String fileName) {
-//        super.init(fileName);
+    public void init(String fileName,int widthOfImage, int heightOfImage) {
+        super.init(fileName,widthOfImage,heightOfImage);
 
         startedAudio = false;
         music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
-        testAnimation = new Animation(1,0,0,"res/assets/door.png",60,60);
+        testAnimation = new Animation(1,0,0,fileName,60,60,Display.getWidth(),Display.getHeight());
 
-        //startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 10, 10,
-          //      "res/assets/start_release.png", "res/assets/start_press.pn", () -> {Display.start(); reset();});
-//        quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-//                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
+        startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 299, 81, "res/assets/quit_combine.png", "res/assets/quit_combine.png", () -> {Display.start(); reset();});
+       // quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 299, 81, "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
     }
 
     public void startAudio() {
@@ -45,12 +43,12 @@ public class MainMenu extends Interface {
      * Perform actions based off of the user clicking the buttons
      */
     public void update() {
-//        if (!startedAudio) {
-//            startAudio();
-//        }
-//
-//        startButton.update();
-////        quitButton.update();
+        if (!startedAudio) {
+            startAudio();
+        }
+
+        startButton.update();
+        //quitButton.update();
     }
 
     @Override
@@ -58,12 +56,11 @@ public class MainMenu extends Interface {
      * Render the main menu
      */
     public void render() {
-        //calls the inherited render function
-//        super.render();
-//        System.out.println("WoW");
-//        startButton.render();
-//        quitButton.render();
-        testAnimation.render(Display.getWidth()/2,Display.getHeight()/2);
+
+        super.render();
+        startButton.render();
+       // quitButton.render();
+        //testAnimation.render(Display.getWidth()/2,Display.getHeight()/2);
     }
 
     public void reset() {

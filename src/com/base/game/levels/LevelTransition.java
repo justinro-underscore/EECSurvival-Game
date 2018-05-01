@@ -1,5 +1,6 @@
 package com.base.game.levels;
 
+import com.base.engine.Animation;
 import com.base.engine.Display;
 import com.base.engine.Sprite;
 import com.base.engine.SpriteRetriever;
@@ -14,11 +15,10 @@ public class LevelTransition
     private Delay whiteFadeInTime; // Time between black fade out and white fade in
     private Delay whiteFadeOutTime; // Time between white fade in and white fade out
     private boolean blackFade; // Whether or not the screen is fading to black
-    private SpriteRetriever retriever;
-    private Sprite blackScreen;
-    private Sprite nextLevelScreen;
-    private Sprite gameOverScreen;
-    private Sprite whiteScreen;
+    private Animation blackScreen;
+    private Animation nextLevelScreen;
+    private Animation gameOverScreen;
+    private Animation whiteScreen;
     private float endScreenTransparency; // The transparency of the screens
     private GameButton quitButton;
 
@@ -29,20 +29,20 @@ public class LevelTransition
     {
         //retriever = new SpriteRetriever(16, 16);
 
-//        blackFadeInTime = new Delay(500);
-//        blackFadeOutTime = new Delay(1000);
-//        whiteFadeInTime = new Delay(500);
-//        whiteFadeOutTime = new Delay(750);
-//        blackFade = true; // Start on black fade
-//        blackScreen = retriever.getSprite(1 , 1, retriever.loadSprite("res/assets/black.png"));
-//
-//        nextLevelScreen= retriever.getSprite(1, 1, retriever.loadSprite("res/assets/nextLevel.png"));
-//
-//        gameOverScreen= retriever.getSprite(1 , 1, retriever.loadSprite("res/assets/gameOver.png"));
-//
-//        whiteScreen= retriever.getSprite(1 , 1, retriever.loadSprite("res/assets/white.png"));
-//
-//        endScreenTransparency = 0;
+        blackFadeInTime = new Delay(500);
+        blackFadeOutTime = new Delay(1000);
+        whiteFadeInTime = new Delay(500);
+        whiteFadeOutTime = new Delay(750);
+        blackFade = true; // Start on black fade
+        blackScreen = new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+
+        nextLevelScreen= new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+
+        gameOverScreen= new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+
+        whiteScreen= new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+
+        endScreenTransparency = 0;
     }
 
     /**
@@ -104,16 +104,17 @@ public class LevelTransition
             }
 
             if (gameOver || endScreenTransparency < 0.85f) // If gameOver, go to full black, if not go to 85% opaque
-                blackScreen.setAlpha(endScreenTransparency);
-            blackScreen.render(0, 0,100,100);
+                blackScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+
+            blackScreen.render(0, 0);
 
             if(!gameOver) { // If not gameOver, show level complete. If yes, show game over
-                nextLevelScreen.setAlpha(endScreenTransparency);
-                nextLevelScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f,50,50);
+                nextLevelScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+                nextLevelScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
             }
             else {
-                gameOverScreen.setAlpha(endScreenTransparency);
-                gameOverScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f,50,50);
+                gameOverScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+                gameOverScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
                 if(endScreenTransparency >= 1) {
                     quitButton.update();
                     quitButton.render();
@@ -135,11 +136,11 @@ public class LevelTransition
         }
 
         if (endScreenTransparency < 0.85f)
-            blackScreen.setAlpha(endScreenTransparency);
-        blackScreen.render(0, 0,Display.getWidth(),Display.getHeight());
+            blackScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+        blackScreen.render(0, 0);
 
-        nextLevelScreen.setAlpha(endScreenTransparency);
-        nextLevelScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f,50,50);
+        nextLevelScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+        nextLevelScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
     }
 
     /**
@@ -157,8 +158,8 @@ public class LevelTransition
                 Game.game.endLevel(); // Delete everything
             }
 
-            whiteScreen.setAlpha(endScreenTransparency);
-            whiteScreen.render(0, 0,50,50);
+            whiteScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+            whiteScreen.render(0, 0);
         }
     }
 
@@ -170,7 +171,7 @@ public class LevelTransition
         if (endScreenTransparency > 0)
             endScreenTransparency -= 0.02; // Fade out not as quickly
 
-        whiteScreen.setAlpha(endScreenTransparency);
-        whiteScreen.render(0, 0,50,50);
+        whiteScreen.getCurrentFrame().setAlpha(endScreenTransparency);
+        whiteScreen.render(0, 0);
     }
 }

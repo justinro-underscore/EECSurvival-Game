@@ -13,6 +13,8 @@ public class Animation {
     private int n_frames;
     private Delay frameDelay;
     private boolean isStopped;
+    private int IMGwidth;
+    private int IMGheight;
     private int width;
     private int height;
 
@@ -21,10 +23,13 @@ public class Animation {
      * @param nFrames how many sprites will make up the animation
      * @param TILE_SIZE the size of the tile in the given spritesheet.
      */
-    public Animation(int nFrames, int x, int y,String file,int height, int width ) {
-        this.width=width;
-        this.height = height;
-        frames = SpriteRetriever.loadSprite(file,x,y,nFrames,height,width);
+    public Animation(int nFrames, int x, int y,String file,int widthofImage, int heightofImage, int width, int height ) {
+        this.IMGwidth= widthofImage;
+        this.IMGheight = heightofImage;
+
+        this.width =width;
+        this.height=height;
+        frames = SpriteRetriever.loadSprite(file,x,y,nFrames, IMGwidth,IMGheight);
         n_frames = nFrames;
         currFrame = 0;
         frameDelay = new Delay(200); //TODO do we want to make this variable?
@@ -84,10 +89,14 @@ public class Animation {
         isStopped = false;
     }
 
-    private void nextFrame() {
+    public void nextFrame() {
         currFrame++;
         if (currFrame == frames.length) {
             currFrame = 0;
         }
+    }
+    public Sprite getCurrentFrame()
+    {
+        return frames[currFrame];
     }
 }

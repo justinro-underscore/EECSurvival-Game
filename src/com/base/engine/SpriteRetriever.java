@@ -31,11 +31,12 @@ public class SpriteRetriever {
      * @param file the file name of the sprite sheet
      * @return The sprite sheet in the form of a buffered image.
      */
-    public static Sprite[] loadSprite(String file, int x, int y, int theframes, int height, int width)
+    public static Sprite[] loadSprite(String file, int x, int y, int theframes, int width, int height)
     {
         frames=new Sprite[theframes];
         TILE_HEIGHT = height;
         TILE_WIDTH = width;
+
         BufferedImage spriteSheet = null;
 
         try {
@@ -50,7 +51,11 @@ public class SpriteRetriever {
         }
         try {
             for (int i = 0; i < theframes; i++) {
-                frames[i] = new Sprite(TextureLoader.loadTexture(spriteSheet.getSubimage(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT)));
+                System.out.println(i);
+
+
+
+                frames[i] = new Sprite(TextureLoader.loadTexture(spriteSheet.getSubimage( x+i *TILE_WIDTH,  y, TILE_WIDTH, TILE_HEIGHT)));
 
             }
 

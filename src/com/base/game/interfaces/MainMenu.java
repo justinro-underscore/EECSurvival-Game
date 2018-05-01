@@ -4,9 +4,11 @@ import com.base.engine.*;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
 import com.base.game.levels.LevelManager;
+import com.test.TestDriver;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -37,29 +39,33 @@ public class MainMenu extends Interface {
                 "res/assets/start_release.png", "res/assets/start_press.png",
                 () -> {
                     LevelManager.loadGameLevel();
-                    Game.start();
-                    reset();
+                    start();
                 });
         quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80,
                 "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
 
         runTestSuite = new GameButton((float)(Display.getWidth()/2 - 640), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
+                "res/assets/quit_release.png", "res/assets/quit_press.png",
+                () -> {
+                    try {
+                        TestDriver.runTests();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                });
 
         loadTestLevelManual = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
                 "res/assets/quit_release.png", "res/assets/quit_press.png",
                 () -> {
                     LevelManager.loadTestLevel(false);
-                    Game.start();
-                    reset();
+                    start();
                 });
 
         loadTestLevelAuto = new GameButton((float)(Display.getWidth()/2 + 240), (float)(Display.getHeight()/2 - 100), 400, 80,
                 "res/assets/quit_release.png", "res/assets/quit_press.png",
                 () -> {
                     LevelManager.loadTestLevel(true);
-                    Game.start();
-                    reset();
+                    start();
                 });
     }
 
@@ -102,8 +108,13 @@ public class MainMenu extends Interface {
         loadTestLevelAuto.render();
     }
 
-    public void reset() {
+    private void reset() {
         startedAudio = false;
         Audio.stopBuffer(music);
+    }
+
+    private void start() {
+        Game.start();
+        reset();
     }
 }

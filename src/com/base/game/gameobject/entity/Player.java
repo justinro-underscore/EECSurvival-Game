@@ -15,6 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
+    private Delay run;
     private int konami;
     private int fireSfx;
     private String spriteFile = "testSpriteSheet";
@@ -41,10 +42,12 @@ public class Player extends Character {
         super(xPos, yPos, width, height, numOfAnimations, speed, health, attackDamage,false); // Call Character superclass's constructor
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
-
+        run = new Delay(300);
+        run.restart();
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
-        idle = new Animation(1,0,0,"res/assets/player.png",41,82,41,82);
+
+        idle = new Animation(1,32,96,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
         //Initialize all of the animations
         walkDown = new Animation(3,0,0,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
         walkLeft = new Animation(3,0,32,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
@@ -54,32 +57,14 @@ public class Player extends Character {
         walkUp = new Animation(3,0,96,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
 
         currAnimation = idle;
+        currAnimation.start();
 
-//        walkLeft = new Animation(2,32);
-//        walkLeft.addSprite(1,2, spriteFile);
-//        walkLeft.addSprite(3,2, spriteFile);
-//        animations[1] = walkLeft;
-//
-//        walkRight = new Animation(2,32);
-//        walkRight.addSprite(1,3, spriteFile);
-//        walkRight.addSprite(3,3, spriteFile);
-//        animations[2] = walkRight;
-//
-//        walkUp = new Animation(2, 32);
-//        walkUp.addSprite(1,4, spriteFile);
-//        walkUp.addSprite(3,4, spriteFile);
-//        animations[3] = walkUp;
-//
-//        idle = new Animation(1, 32);
-//        idle.addSprite(1,2, spriteFile);
-//        animations[4] = idle;
 
     }
 
     @Override
     public void render() {
         currAnimation.render(xPos, yPos);
-        currAnimation.start();
 
 
     }
@@ -92,6 +77,8 @@ public class Player extends Character {
         checkDeath();
 
 
+
+
         getInput();
 
         //animations[4].update();
@@ -101,10 +88,17 @@ public class Player extends Character {
      * Gets input from the InputHandler
      */
     public void getInput() {
-        currAnimation.nextFrame();
         if (InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D)) {
-            currAnimation = idle;
-            //walk.stop();
+            if(run.isOver())
+            {
+                currAnimation.nextFrame();
+
+                run.start();
+
+            }
+        }
+        if (!(InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D))) {
+//walk.stop();
         }
 
         // Go up
@@ -113,7 +107,7 @@ public class Player extends Character {
             currAnimation = walkUp;
 
 
-          //  animations[3].start();
+            //  animations[3].start();
         }
         else
         {
@@ -124,7 +118,10 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
             yPos -= speed;
             currAnimation = walkDown;
+
+
             //animations[0].start();
+
         }
         else
         {
@@ -135,7 +132,9 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
             xPos += speed;
             currAnimation = walkRight;
-           // animations[2].start();
+
+
+            // animations[2].start();
         }
         else
         {
@@ -146,10 +145,13 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
             xPos -= speed;
             currAnimation = walkLeft;
-           // animations[1].start();
+
+
+            // animations[1].start();
         }
         else
         {
+
             //animations[1].stop();
         }
 

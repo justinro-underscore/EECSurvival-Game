@@ -40,7 +40,7 @@ public abstract class Level {
         background = new Animation(1,0,0, backgroundPath,500,500,Display.getWidth(),Display.getHeight());
 
         //Creates the player and consumable item
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, 5, 4f, 20, 5);
+        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 32, 32, 5, 4f, 20, 5);
         consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
 
         //Renders the two objects

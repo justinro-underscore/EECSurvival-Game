@@ -32,7 +32,7 @@ public class Animation {
         frames = SpriteRetriever.loadSprite(file,x,y,nFrames, IMGwidth,IMGheight);
         n_frames = nFrames;
         currFrame = 0;
-        frameDelay = new Delay(200); //TODO do we want to make this variable?
+        frameDelay = new Delay(5000); //TODO do we want to make this variable?
         frameDelay.restart();
 
         isStopped = false;
@@ -55,6 +55,7 @@ public class Animation {
 
         isStopped = false;
         frameDelay.start();
+
     }
 
     public void stop() {
@@ -90,6 +91,8 @@ public class Animation {
     }
 
     public void nextFrame() {
+        frameDelay.start();
+
         currFrame++;
         if (currFrame == frames.length) {
             currFrame = 0;

@@ -37,12 +37,12 @@ public class Game {
 
         levels = new ArrayList();
 
-        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", true);
+        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", true,500,500);
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8,3);
-        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss);
+        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss,500,500);
 
-        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", false);
+        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", false,1152,648);
 
         levels.add(level1);
         levels.add(level2);
@@ -112,7 +112,7 @@ public class Game {
      * @return return all of the objects close to the parameter object
      */
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range) {
-        System.out.print("The Level is: " + levels.get(currLevel).getCloseObjects(object,45453));
+        System.out.print("The Level is: " + levels.get(currLevel).getCloseObjects(object,50));
 
         return levels.get(currLevel).getCloseObjects(object, range);
     }

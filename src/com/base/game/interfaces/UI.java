@@ -37,10 +37,10 @@ public class UI extends Interface // TODO Add all UI functionality
 
         digits = new Sprite[11];
         // Populate the digits array with pictures of the digits
-        for(int i = 0; i < 10; i++)
+        //for(int i = 0; i < 10; i++)
         {
-            theDigit= new Animation()retriever.getSprite(1  , 1, retriever.loadSprite("res/digits/" + i + ".png"));
-            digits[i] = dig;
+            theDigit= new Animation(1, 0,0,"res/digits/0.png",50,50,50,50);
+            //digits[i] = dig;
         }
  
 
@@ -172,9 +172,6 @@ public class UI extends Interface // TODO Add all UI functionality
         glEnd();
 
         // Shows the player health digits
-        for(int i = 0; i < 3; i++)
-        {
-            playerHealthDigits[i].render(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20 + (25 * i), playerHealthBar.y,10,10);
-        }
+//      w
     }
 }

@@ -16,8 +16,8 @@ public class BossLevel extends Level {
      * @param boss Boss Object
 
      */
-    public BossLevel(String filePath, Boss boss) {
-        init(filePath);
+    public BossLevel(String filePath, Boss boss,int width, int height) {
+        init(filePath,width,height);
         this.boss = boss;
 
         ui = new UI(player.getHealth(), boss.getHealth());

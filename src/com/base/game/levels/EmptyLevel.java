@@ -12,8 +12,8 @@ public class EmptyLevel extends Level {
      * @param filePath takes in a file path for the empty level
 
      */
-    public EmptyLevel(String filePath, boolean hasDoor) {
-        init(filePath);
+    public EmptyLevel(String filePath, boolean hasDoor,int width ,int height) {
+        init(filePath,width,height);
 
         if (hasDoor)
             createDoor();

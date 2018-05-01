@@ -27,8 +27,8 @@ public class PauseMenu extends Interface {
         startButton = new GameButton((float)(Display.getWidth()/2 - 450), (float)(Display.getHeight()/2 - 40), 299, 80,
                 "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::start);
         //Quit Button
-//        quitButton = new GameButton((float)(Display.getWidth()/2 + 50), (float)(Display.getHeight()/2 - 40), 400, 80,
-//                "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
+    quitButton = new GameButton((float)(Display.getWidth()/2 + 50), (float)(Display.getHeight()/2 - 40), 299, 80,
+               "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
    }
 
     /**

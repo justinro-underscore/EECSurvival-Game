@@ -36,16 +36,16 @@ public class GameButton extends GameObject {
      */
     public void update() {
         Vector2f mousePos = InputHandler.getMousePos(); // Get the mouse's position
-        currAnimation.render(Display.getWidth() / 2, Display.getHeight() / 2);
+        //currAnimation.render(Display.getWidth() / 2, Display.getHeight() / 2);
 
         // Set the render's texture
-        //if (Physics.checkCollision(this, (int) mousePos.x, (int) mousePos.y)) {
+        if (Physics.checkCollision(this, (int) mousePos.x, (int) mousePos.y)) {
             if (InputHandler.isMouseDown()) {
                 currAnimation.nextFrame();
                 new Thread(onPressed).start(); // Run the function           }
             } else
                 hover = false;
-      //  }
+      }
 
 
 //        // So we're not constantly updating the render

@@ -34,13 +34,13 @@ public class LevelTransition
         whiteFadeInTime = new Delay(500);
         whiteFadeOutTime = new Delay(750);
         blackFade = true; // Start on black fade
-        blackScreen = new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+        blackScreen = new Animation(1,0,0,"res/assets/black.png",50,50,Display.getWidth(),Display.getHeight());
 
-        nextLevelScreen= new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+        nextLevelScreen= new Animation(1,0,0,"res/assets/nextLevel.png",847,413,Display.getWidth(),Display.getHeight());
 
-        gameOverScreen= new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+        gameOverScreen= new Animation(1,0,0,"res/assets/gameOver.png",286,144,Display.getWidth(),Display.getHeight());
 
-        whiteScreen= new Animation(1,0,0,"res/assets/door.png",60,60,Display.getWidth(),Display.getHeight());
+        whiteScreen= new Animation(1,0,0,"res/assets/white.png",50,50,Display.getWidth(),Display.getHeight());
 
         endScreenTransparency = 0;
     }
@@ -98,8 +98,8 @@ public class LevelTransition
             if (endScreenTransparency >= 0.994 && endScreenTransparency < 1) {
                 blackFadeOutTime.start(); // Happens here so that it only starts it once, right before Next Level screen gets fully opaque
                 if(gameOver) {
-                    quitButton = new GameButton((float) (Display.getWidth() / 2 - 200), 50f, 400, 80,
-                            "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
+                    quitButton = new GameButton((float) (Display.getWidth() / 2 - 200), 50f, 300, 80,
+                            "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
                 }
             }
 
@@ -110,11 +110,11 @@ public class LevelTransition
 
             if(!gameOver) { // If not gameOver, show level complete. If yes, show game over
                 nextLevelScreen.getCurrentFrame().setAlpha(endScreenTransparency);
-                nextLevelScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
+                nextLevelScreen.render(0, 0);
             }
             else {
                 gameOverScreen.getCurrentFrame().setAlpha(endScreenTransparency);
-                gameOverScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
+                gameOverScreen.render(0, 0);
                 if(endScreenTransparency >= 1) {
                     quitButton.update();
                     quitButton.render();
@@ -140,7 +140,7 @@ public class LevelTransition
         blackScreen.render(0, 0);
 
         nextLevelScreen.getCurrentFrame().setAlpha(endScreenTransparency);
-        nextLevelScreen.render(Display.getWidth() / 4f, Display.getHeight() / 4f);
+        nextLevelScreen.render(0, 0);
     }
 
     /**

@@ -28,7 +28,7 @@ public abstract class Character extends GameObject
      * @param attackDamage how much damage the character deals
      */
     protected Character(float xPos, float yPos, int width, int height, int numOfAnimations, float speed, int health, int attackDamage, boolean isBoss) {
-        init(xPos, yPos, 0, 0, numOfAnimations,isBoss,"res/SpriteSheets/testSpriteSheet.png",1,1,width,height); // Call super initialize method
+        init(xPos, yPos, 0, 0, 1,isBoss,"res/SpriteSheets/testSpriteSheet.png",width,height,width,height); // Call super initialize method
 
         this.speed = speed;
         this.health = health;

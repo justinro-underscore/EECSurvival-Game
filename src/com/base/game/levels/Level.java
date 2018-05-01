@@ -31,13 +31,13 @@ public abstract class Level {
      * Passes the background path with inheritance
      * @param backgroundPath Takes in the path that is available to the user
      */
-    public void init(String backgroundPath) {
+    public void init(String backgroundPath,int width,int height) {
 
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        background = new Animation(1,0,0, backgroundPath,500,500,Display.getWidth(),Display.getHeight());
+        background = new Animation(1,0,0, backgroundPath,width,height,Display.getWidth(),Display.getHeight());
 
         //Creates the player and consumable item
         player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 32, 32, 5, 4f, 20, 5);

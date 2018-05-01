@@ -91,7 +91,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void shootAbility(int proWidth, int proHeight, int numberOfPros) {
         for (int i = 1; i <= numberOfPros; i++) {
-            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 5,true));
+            projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(-(numberOfPros/2) + i - 1 , -1), 5, 5,true));
         }
     }
 
@@ -102,7 +102,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param numberOfPros Number of projectiles being made
      */
     public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
-        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5,true));
+        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5,true));
     }
 
     /**
@@ -113,7 +113,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void wallOfFireAbility(int proWidth, int proHeight, int numberOfPros) {
         for (int i = 1; i <= numberOfPros; i++){
-            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "", new Vector2f(0, -1), 5, 5,true));
+            projectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(0, -1), 5, 5,true));
         }
     }
 

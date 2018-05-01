@@ -5,6 +5,7 @@ import com.base.engine.Display;
 import com.base.engine.InputHandler;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
+import com.base.game.levels.LevelManager;
 
 import static com.base.engine.Audio.setMasterGain;
 
@@ -14,7 +15,7 @@ public class OptionMenu extends Interface {
     private GameButton unmuteButton;
     private GameButton closeButton;
     private GameButton mainMenuButton;
-    
+
     //private int music;
     private boolean startedAudio;
 
@@ -44,6 +45,7 @@ public class OptionMenu extends Interface {
                 "res/assets/quit_release.png", "res/assets/quit_press.png",
                 () -> {
                     InputHandler.clear();
+                    LevelManager.reLoadLevels();
                     Game.backToMenu();
                 });
     }

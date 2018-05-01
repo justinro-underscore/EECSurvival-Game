@@ -9,7 +9,12 @@ public class EventQueue {
 
     public static void init() {
         events = new HashMap<>();
-        runnables = new PriorityQueue<>();
+        runnables = new PriorityQueue<>(new Comparator<Runnable>() {
+            @Override
+            public int compare(Runnable o1, Runnable o2) {
+                return 0;
+            }
+        });
         tenureRunnables = new ArrayList<>();
     }
 

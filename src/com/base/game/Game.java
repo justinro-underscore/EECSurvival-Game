@@ -16,8 +16,6 @@ public class Game {
 
     private LevelManager levelManager;
 
-    private Delay buttonDelay;
-
     public enum State {
         MAIN_MENU, GAME, PAUSE_MENU;
     }
@@ -32,13 +30,22 @@ public class Game {
 
         levelManager = new LevelManager();
 
-        buttonDelay = new Delay(100);
-        buttonDelay.restart();
+        EventQueue.registerCallback(new Event("Keyboard", Integer.toString(GLFW_KEY_ESCAPE), false),
+                () -> {
+                    if (InputHandler.isKeyDown(GLFW_KEY_ESCAPE))
+                        return;
+
+                    if (state == State.GAME) {
+                        state = State.PAUSE_MENU;
+                        LevelManager.pause();
+                    } else if (state == State.PAUSE_MENU) {
+                        LevelManager.resume();
+                        start();
+                    }
+                });
     }
 
     public void run() {
-        getInput();
-
         switch (state) {
             case MAIN_MENU:
                 mainMenu.update();
@@ -52,21 +59,6 @@ public class Game {
                 pauseMenu.update();
                 pauseMenu.render();
                 break;
-        }
-    }
-
-    //TODO: remove this and replace with register callback so we don't need delay or getInput
-    public void getInput() {
-        if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.GAME && buttonDelay.isOver() ) {
-            state = State.PAUSE_MENU;
-            LevelManager.pause();
-            buttonDelay.start();
-        }
-        //Resume the game after clicking escape to resume the game
-        else if ( InputHandler.isKeyDown(GLFW_KEY_ESCAPE) && state == State.PAUSE_MENU && buttonDelay.isOver()) {
-            LevelManager.resume();
-            start();
-            buttonDelay.start();
         }
     }
 

@@ -22,6 +22,8 @@ public class InputHandler {
         if (key == -1) {
             return;
         }
+
+        EventQueue.invokeCallback(new Event("Keyboard", Integer.toString(key), false));
         keys[key] = action != GLFW_RELEASE;
     }
 

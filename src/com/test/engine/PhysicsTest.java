@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PhysicsTest {
 
+    /**
+     * Tests collisions between gameObjects
+     */
     @Test
     void checkCollision() {
         GameObject obj1 = new Empty(10, 10, 10, 10);
@@ -19,6 +22,9 @@ class PhysicsTest {
         assertFalse(Physics.checkCollision(obj1, obj3));
     }
 
+    /**
+     * Checks collision between point and gameObject
+     */
     @Test
     void checkCollision1() {
         GameObject obj1 = new Empty(10, 10, 10, 10);

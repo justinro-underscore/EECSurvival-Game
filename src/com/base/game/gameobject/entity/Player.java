@@ -237,6 +237,12 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * Creates a walk event for player
+     * @param x XPos to go to
+     * @param y YPos to go to
+     * @return True if reached destination
+     */
     public Event createWalkEvent(float x, float y) {
         return new Event("walk", new Callable<Boolean>() {
             public Boolean call() throws Exception {
@@ -245,11 +251,38 @@ public class Player extends Character {
         });
     }
 
+    /**
+     * Respawns player
+     */
     public void respawn() {
          xPos = startX;
          yPos = startY;
 
          this.gainHealth(startHealth);
          stats.setIsDead(false);
+    }
+
+    /**
+     * Reduces player health
+     * @param amt amount to decrease player health by
+     */
+    public void takeDMG(int amt) {
+        loseHealth(amt);
+    }
+
+    /**
+     * Adds health to player from external content
+     * @param amt amount to increase health by
+     */
+    public void addHealth(int amt) {
+        gainHealth(amt);
+    }
+
+    /**
+     * Returns true if player is dead
+     * @return player death status
+     */
+    public boolean isDead() {
+        return stats.getIsDead();
     }
 }

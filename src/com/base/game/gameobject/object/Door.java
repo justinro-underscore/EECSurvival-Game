@@ -18,5 +18,8 @@ public class Door extends GameObject {
     /**
      * Empty update
      */
-    public void update() {}
+    public void update()
+    {
+        currAnimation.render(xPos,yPos);
+    }
 }

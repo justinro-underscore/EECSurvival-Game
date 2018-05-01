@@ -263,7 +263,7 @@ public class Player extends Character {
         {
             loseHealth(1); // Continually lose one hitpoint
         }
-
+    System.out.println("It hits the collision");
         if (obj instanceof Door) {
             Game.game.nextLevel();
         }

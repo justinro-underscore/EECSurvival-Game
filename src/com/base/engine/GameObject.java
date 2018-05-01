@@ -27,8 +27,8 @@ public abstract class GameObject
     {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
+        this.width = xSprite;
+        this.height = ySprite;
         this.boss = theBoss;
         currAnimation = new Animation(numFrames,width,height,imgPath,xSprite,ySprite,screenWidth,screenHeight);
         //sprite = new Sprite(width, height, imgPath); // Creates the sprite

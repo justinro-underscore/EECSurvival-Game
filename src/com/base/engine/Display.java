@@ -99,6 +99,7 @@ public class Display {
         // Create the window
         GLFWVidMode mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         width = mode.width();
+
         height = mode.height();
 
         window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);

@@ -112,7 +112,9 @@ public class Game {
      * @return return all of the objects close to the parameter object
      */
     public ArrayList<GameObject> getCloseObjects(GameObject object, float range) {
-        return getCurrLevel().getCloseObjects(object, range);
+        System.out.print("The Level is: " + levels.get(currLevel).getCloseObjects(object,45453));
+
+        return levels.get(currLevel).getCloseObjects(object, range);
     }
 
     /**

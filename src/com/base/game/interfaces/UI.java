@@ -39,9 +39,8 @@ public class UI extends Interface // TODO Add all UI functionality
         // Populate the digits array with pictures of the digits
         for(int i = 0; i < 10; i++)
         {
-
-            //Sprite dig = retriever.getSprite(1  , 1, retriever.loadSprite("res/digits/" + i + ".png"));
-            //digits[i] = dig;
+            theDigit= new Animation()retriever.getSprite(1  , 1, retriever.loadSprite("res/digits/" + i + ".png"));
+            digits[i] = dig;
         }
  
 

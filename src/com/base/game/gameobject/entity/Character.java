@@ -42,11 +42,15 @@ public abstract class Character extends GameObject
      */
     protected void checkCharacterCollision()
     {
-        ArrayList<GameObject> closeObjects = Game.game.getCloseObjects(this, 5); // Get any objects close to the character (cuts down on load time)
+        ArrayList<GameObject> closeObjects = Game.game.getCloseObjects(this, 1000); // Get any objects close to the character (cuts down on load time)
+
         for(GameObject obj : closeObjects)
         {
+            System.out.print(obj);
             if(Physics.checkCollision(this, obj)) // If the character is touching a GameObject
             {
+                System.out.println("test2");
+
                 if(obj.getBoss()==true && this.getBoss()==true)
                 {}
                 else if(obj instanceof Projectile) // If the object is a projectile...
@@ -61,6 +65,7 @@ public abstract class Character extends GameObject
                     }
                     obj.remove(); // Delete the consumable
                 }
+
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions
             }
         }

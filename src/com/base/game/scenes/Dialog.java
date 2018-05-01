@@ -1,44 +1,59 @@
 package com.base.game.scenes;
 
 import com.base.engine.Display;
+import com.base.engine.InputHandler;
 import com.base.engine.Sprite;
+import com.base.engine.TextRenderer;
 import com.base.game.utilities.Delay;
+import jdk.internal.util.xml.impl.Input;
 
 import java.awt.image.BufferedImage;
 
-//TODO: hook up with sprite sheet for text
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
+
 public class Dialog {
-    private String content;
-    private int length;
-    private Delay wordDelay;
-    private Sprite currDialog;
-    private BufferedImage img;
+    private Sprite background; // The background to the text
+    private TextRenderer text; // The text that is displayed
+    private boolean isOver; // If the dialog should be removed
 
-    public Dialog(String content) {
-        this.content = content;
-
-        length = 1;
-        wordDelay = new Delay(100);
-        wordDelay.restart();
-
-        //TODO: remove this
-        currDialog = new Sprite(500, 100, "");
+    /**
+     * Creates a new dialog box with a set size
+     * @param content The content of the dialog box
+     * @param fontSize The size of the font (1 to 3 [See TextRenderer for more info])
+     */
+    public Dialog(String content, int fontSize)
+    {
+        background = new Sprite(1000, 150, "");
+        text = new TextRenderer(content, 950, 100, fontSize, true, Display.getWidth() / 2 - 475, 125);
+        text.startTypewriterDelay(); // Start showing the text
+        isOver = false;
     }
 
-    public boolean isOver() {
-        return (content.length() - 1 == length);
+    /**
+     * If the dialog should be closed
+     * @return Whether or not the dialog box should be closed
+     */
+    public boolean isOver()
+    {
+        return isOver;
     }
 
-    public void update() {
-        if (length < content.length() - 1 && wordDelay.isOver()) {
-            length++;
-
-            wordDelay.start();
-        }
+    /**
+     * Updates the dialog box
+     */
+    public void update()
+    {
+        if(InputHandler.isKeyDown(GLFW_KEY_ENTER) && text.getIsOver()) // If the user presses enter, exit the dialog box
+            isOver = true;
+        text.update(); // Update the text
     }
 
-    public void render() {
-        if (currDialog != null)
-            currDialog.render(Display.getWidth() / 2 - 250, 80);
+    /**
+     * Renders the dialog box
+     */
+    public void render()
+    {
+        background.render(Display.getWidth() / 2 - 500, 100);
+        text.render();
     }
 }

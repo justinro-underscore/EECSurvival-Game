@@ -74,9 +74,9 @@ public abstract class Character extends GameObject
         return dialogs.get(0);
     }
 
-    public Event createDialogEvent(String content) {
+    public Event createDialogEvent(String content, int fontSize) {
         Callable<Boolean> callable;
-        Dialog dialog = new Dialog(content);
+        Dialog dialog = new Dialog(content, fontSize);
 
         addDialog(dialog);
         callable = () -> {

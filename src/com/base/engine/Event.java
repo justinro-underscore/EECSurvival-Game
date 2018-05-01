@@ -1,6 +1,6 @@
 package com.base.engine;
 
-public class Event {
+public class Event implements Comparable<Event> {
     private String type;
     private String action;
 
@@ -35,5 +35,10 @@ public class Event {
         }
 
         return false;
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        return value();
     }
 }

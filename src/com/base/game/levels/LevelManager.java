@@ -16,6 +16,9 @@ public class LevelManager {
 
     private ArrayList<Level> levels;
     private int currLevel;
+    private static boolean loadTestLevel = false;
+    private static boolean isTestLevelAutomated = false;
+    private boolean hasLoadedLevels;
 
     /**
      * Add the levels to the game
@@ -27,19 +30,7 @@ public class LevelManager {
         startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
 
         levels = new ArrayList();
-
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
-
-        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
-
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, player, "res/scripts/cutsceneTest1.bsh");
-
-        EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
-
-        levels.add(level1);
-        levels.add(level2);
-        levels.add(endGame);
+        hasLoadedLevels = false;
     }
 
     public void startAudio() {
@@ -158,5 +149,40 @@ public class LevelManager {
     public void nextLevel() {
         if (currLevel < levels.size() - 1)
             currLevel++;
+    }
+
+    public static void loadTestLevel(boolean isAutomated) {
+        loadTestLevel = true;
+        isTestLevelAutomated = isAutomated;
+    }
+
+    public static void loadGameLevel() {
+        loadTestLevel = false;
+    }
+
+    public void loadLevels() {
+        if (!loadTestLevel) {
+            player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
+
+            EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
+
+            Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f, 60, 8);
+            BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, player, "res/scripts/cutsceneTest1.bsh");
+
+            EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
+
+            levels.add(level1);
+            levels.add(level2);
+            levels.add(endGame);
+        } else {
+            TestLevel testLevel = new TestLevel(isTestLevelAutomated);
+            levels.add(testLevel);
+        }
+
+        hasLoadedLevels = true;
+    }
+
+    public boolean hasLoadedLevels() {
+        return hasLoadedLevels;
     }
 }

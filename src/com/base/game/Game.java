@@ -14,12 +14,12 @@ public class Game {
     private MainMenu mainMenu;
     private PauseMenu pauseMenu;
 
-    private LevelManager levelManager;
+    private static LevelManager levelManager;
 
     private Delay buttonDelay;
 
     public enum State {
-        MAIN_MENU, GAME, PAUSE_MENU;
+        MAIN_MENU, GAME, PAUSE_MENU
     }
 
     private static State state = State.MAIN_MENU;
@@ -45,6 +45,10 @@ public class Game {
                 mainMenu.render();
                 break;
             case GAME:
+                if (!levelManager.hasLoadedLevels()) {
+                    levelManager.loadLevels();
+                }
+
                 levelManager.update();
                 levelManager.render();
                 break;

@@ -24,12 +24,10 @@ public class LevelManager {
      * Add the levels to the game
      */
     public LevelManager() {
-        currLevel = 0;
         startedAudio = false;
-
         startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
-
         levels = new ArrayList();
+
         hasLoadedLevels = false;
     }
 
@@ -161,6 +159,7 @@ public class LevelManager {
     }
 
     public void loadLevels() {
+        currLevel = 0;
         if (!loadTestLevel) {
             player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
 

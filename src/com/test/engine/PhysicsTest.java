@@ -3,6 +3,7 @@ package com.test.engine;
 import com.base.engine.GameObject;
 import com.base.engine.Physics;
 import com.base.game.gameobject.entity.Empty;
+import com.base.game.gameobject.object.Door;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

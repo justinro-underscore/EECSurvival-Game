@@ -48,6 +48,9 @@ public class Player extends Character {
     public Player(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage,String image) {
         super(xPos, yPos, width, height, speed, health, attackDamage,false,image); // Call Character superclass's constructor
 
+        if (this instanceof EmptyPlayer)
+            return;
+
         startX = xPos;
         startY = yPos;
         startHealth = health;

@@ -1,6 +1,7 @@
 package com.base.engine;
 
-import java.awt.image.BufferedImage;
+import com.base.game.gameobject.entity.Empty;
+import com.base.game.gameobject.entity.EmptyPlayer;
 
 public abstract class GameObject
 {
@@ -30,7 +31,9 @@ public abstract class GameObject
         this.width = screenWidth;
         this.height = screenHeight;
         this.boss = theBoss;
-        currAnimation = new Animation(numFrames,xStartLocation,yStartLocation,imgPath,xImageWidth,yImageHeight,screenWidth,screenHeight);
+
+        if (!(this instanceof Empty || this instanceof EmptyPlayer))
+            currAnimation = new Animation(numFrames,xStartLocation,yStartLocation,imgPath,xImageWidth,yImageHeight,screenWidth,screenHeight);
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }

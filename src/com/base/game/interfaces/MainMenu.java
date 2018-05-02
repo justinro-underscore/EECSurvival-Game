@@ -48,7 +48,7 @@ public class MainMenu extends Interface {
         }
 
         startButton.update();
-        //quitButton.update();
+        quitButton.update();
     }
 
     @Override
@@ -60,7 +60,6 @@ public class MainMenu extends Interface {
         super.render();
         startButton.render();
         quitButton.render();
-        //testAnimation.render(Display.getWidth()/2,Display.getHeight()/2);
     }
 
     public void reset() {

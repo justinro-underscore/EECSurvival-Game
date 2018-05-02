@@ -6,6 +6,7 @@ import com.base.engine.GameObject;
 import com.base.engine.Physics;
 import com.base.engine.Sprite;
 import com.base.game.Game;
+import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.object.Door;
@@ -29,14 +30,14 @@ public abstract class Level {
     protected ArrayList<GameObject> toAdd;
     protected ArrayList<GameObject> toRemove;
 
-    private ConsumableItem consumableItem;
-
     //The Player
     protected Player player;
     protected UI ui;
     private SpriteRetriever retriever;
     private boolean levelOver;
     private boolean gameOver;
+
+    protected boolean stopSpawningConsumables;
 
     private LevelTransition lvlTransition;
 
@@ -52,15 +53,11 @@ public abstract class Level {
         //Creates a background
         background = new Animation(1,0,0, backgroundPath,width, height,Display.getWidth(),Display.getHeight());
 
-        //Creates the player and consumable item
-        consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
-
-        //Renders the two objects
         addObj(player);
-        addObj(consumableItem);
 
         levelOver = false;
         gameOver = false;
+        stopSpawningConsumables = false;
         lvlTransition = new LevelTransition();
 
         events = new ArrayList<>();
@@ -162,6 +159,19 @@ public abstract class Level {
         return player.getY();
     }
 
+    /**
+     * Remove the consumable item if it is present
+     */
+    protected void removeConsumableIfPresent()
+    {
+        for(int i = 0; i < gameObjects.size(); i++)
+        {
+            if(gameObjects.get(i) instanceof ConsumableItem){
+                toRemove.add(gameObjects.get(i));
+                return;
+            }
+        }
+    }
 
     /**
      * Collision Detection
@@ -192,6 +202,8 @@ public abstract class Level {
     {
         levelOver = true;
         gameOver = lose;
+        removeConsumableIfPresent();
+        stopSpawningConsumables = true;
         lvlTransition.init();
     }
 
@@ -211,6 +223,7 @@ public abstract class Level {
             }
         }
         ui = null;
+        stopSpawningConsumables = true;
         createDoor();
     }
 
@@ -223,4 +236,9 @@ public abstract class Level {
         addObj(door);
     }
 
+    public Player getPlayer(){
+        return player;
+    }
+
+    public abstract Boss getBoss();
 }

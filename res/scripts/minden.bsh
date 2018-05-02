@@ -1,0 +1,4 @@
+import com.base.engine.Display;
+
+level.addEvent(boss.createDialogEvent("Are you here!", 3));
+

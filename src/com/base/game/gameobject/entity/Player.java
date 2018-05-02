@@ -224,6 +224,7 @@ public class Player extends Character {
 //        else if(konami == 18 && InputHandler.isKeyDown(GLFW_KEY_A)) {
             konami++;
             Game.game.getLevelManager().executeCheat();
+            konami = 0;
         }
     }
 

@@ -10,7 +10,7 @@ import com.test.TestLevel;
 import java.util.ArrayList;
 
 public class LevelManager {
-    private boolean startedAudio;
+    private static boolean startedAudio;
     private static int startMusic;
     private Player player;
 
@@ -31,7 +31,7 @@ public class LevelManager {
         hasLoadedLevels = false;
     }
 
-    public void startAudio() {
+    public static void startAudio() {
         Audio.playBuffer(startMusic);
         Audio.loopBuffer(startMusic);
 
@@ -145,8 +145,11 @@ public class LevelManager {
      * Increment the level
      */
     public void nextLevel() {
-        if (currLevel < levels.size() - 1)
+        if (currLevel < levels.size() - 1) {
             currLevel++;
+        }
+
+        resume();
     }
 
     /**
@@ -171,6 +174,9 @@ public class LevelManager {
     public void loadLevels() {
         currLevel = 0;
         levels.clear();
+
+        if (!Audio.isMuted())
+            startAudio();
 
         if (!loadTestLevel) {
             player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 80, 80,  4f, 20, 5,"res/SpriteSheets/walkcyclevarious.png");

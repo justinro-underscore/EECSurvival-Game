@@ -1,5 +1,6 @@
 package com.base.game.gameobject.entity;
 
+import com.base.engine.Audio;
 import com.base.engine.Physics;
 import com.base.engine.GameObject;
 import com.base.game.gameobject.item.ConsumableItem;
@@ -15,6 +16,8 @@ public abstract class Character extends GameObject
 {
     private ArrayList<Dialog> dialogs;
     private boolean startDialog;
+
+    private int hitSfx;
     
     protected Stats stats;
 
@@ -33,7 +36,9 @@ public abstract class Character extends GameObject
 
         dialogs = new ArrayList<>();
         startDialog = false;
-        
+
+        hitSfx = Audio.loadSound("res/audio/hit_sfx.ogg");
+
         stats = new Stats(speed, health, attackDamage);
     }
 
@@ -117,6 +122,8 @@ public abstract class Character extends GameObject
                 }
                 else if(obj instanceof Projectile) // If the object is a projectile...
                 {
+                    Audio.playBuffer(hitSfx);
+
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
                 }

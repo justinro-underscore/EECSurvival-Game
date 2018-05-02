@@ -22,6 +22,8 @@ public class Audio {
     private static long device;
     private static long context;
 
+    private static boolean isMuted;
+
     public static void init() {
         String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
         device = alcOpenDevice(defaultDeviceName);
@@ -33,6 +35,7 @@ public class Audio {
         ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
         ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
 
+        isMuted = false;
     }
 
     public static int loadSound(String filePath) {
@@ -122,6 +125,8 @@ public class Audio {
         for (int source : _sources) {
             alSourcef(source, AL_GAIN, Math.abs(bufferGain));
         }
+
+        isMuted = (bufferGain == 0);
     }
 
     public static void setBufferPitch(int bufferPointer, float bufferPitch) {
@@ -157,5 +162,13 @@ public class Audio {
     private static int[] objectArrayToIntArray(Object[] sources) {
         Integer[] src = Arrays.copyOf(sources, sources.length, Integer[].class);
         return Arrays.stream(src).mapToInt(i -> i).toArray();
+    }
+
+    /**
+     * Returns if master audio is muted
+     * @return isMuted status
+     */
+    public static boolean isMuted() {
+        return isMuted;
     }
 }

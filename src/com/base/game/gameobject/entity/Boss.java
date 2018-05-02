@@ -3,11 +3,10 @@ package com.base.game.gameobject.entity;
 import com.base.engine.*;
 import com.base.game.Game;
 import com.base.game.gameobject.projectile.StandardProjectile;
+import com.base.game.levels.LevelManager;
 import com.base.game.utilities.Delay;
 
 import java.util.ArrayList;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class Boss extends Character { // TODO Make this class abstract, and extend new bosses
     // Different attack delays
@@ -15,6 +14,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     private Delay targetAttackDelay;
     private Delay burstAttackDelay;
     private ArrayList<StandardProjectile> projectiles; // List of projectiles
+
+    private int burstSfx;
+    private int deathSfx;
 
     /**
      * Creates a new boss
@@ -30,6 +32,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
         super(xPos, yPos, width, height, speed, health, attackDamage, true, image);
 
         projectiles = new ArrayList<>(); // Initalizes the list
+
+        burstSfx = Audio.loadSound("res/audio/burst_fire.ogg");
+        deathSfx = Audio.loadSound("res/audio/congratulations.ogg");
 
         //Delay between attacks from the Boss
         wallAttackDelay = new Delay(3000);
@@ -76,6 +81,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
         }
         if(burstAttackDelay.isOver()) { // Burst attack
             if(Math.random() * 2 > 1){
+                Audio.playBuffer(burstSfx);
                 shootAbility(10,10,10);
             }
             burstAttackDelay.start();
@@ -132,6 +138,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     {
         if(stats.getIsDead())
         {
+            LevelManager.pause();
+            Audio.playBuffer(deathSfx);
+
             Game.game.getCurrLevel().levelOver(false); // Level has been won!
         }
     }

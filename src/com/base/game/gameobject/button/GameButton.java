@@ -28,7 +28,7 @@ public class GameButton extends GameObject {
 
         label = new TextRenderer(content, width, height, true, 3, false, xPos, yPos);
 
-        init(xPos, yPos, 300, 81, 2, false, btnTexture, 0, 0, width, height); // Create the object
+        init(xPos, yPos, 0, 0, 2, false, btnTexture, 300, 81, width, height); // Create the object
     }
 
     /**

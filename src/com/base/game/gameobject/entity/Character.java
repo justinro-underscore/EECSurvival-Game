@@ -24,13 +24,12 @@ public abstract class Character extends GameObject
      * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param numOfAnimations how many animations
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    protected Character(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, boolean isBoss) {
-        init(xPos, yPos, 32, 32, 1,isBoss,"res/SpriteSheets/testSpriteSheet.png",0,0,width,height); // Call super initialize method
+    protected Character(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, boolean isBoss,String image) {
+        init(xPos, yPos, 0, 0, 1,isBoss,image,width,height,width,height); // Call super initialize method
 
         dialogs = new ArrayList<>();
         startDialog = false;

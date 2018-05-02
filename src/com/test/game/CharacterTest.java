@@ -14,7 +14,7 @@ class CharacterTest {
      */
     @BeforeEach
     void setUp() {
-        player = new Player(10, 10, 10, 10, 10, 10, 10);
+        player = new Player(10, 10, 10, 10, 10, 10, 10,"res/SpriteSheets/walkcyclevarious.png");
     }
 
     /**

@@ -49,7 +49,7 @@ public abstract class Level {
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        background = new Animation(1,0,0, backgroundPath,32, 32,Display.getWidth(),Display.getHeight());
+        background = new Animation(1,0,0, backgroundPath,width, height,Display.getWidth(),Display.getHeight());
 
         //Creates the player and consumable item
         consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);

@@ -22,13 +22,12 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param yPos y-coordinate of the render
      * @param width width
      * @param height height
-     * @param imgPath file path to the image representing the render
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, speed, health, attackDamage, true);
+    public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage,String image) {
+        super(xPos, yPos, width, height, speed, health, attackDamage, true,image);
 
         projectiles = new ArrayList<>(); // Initalizes the list
 

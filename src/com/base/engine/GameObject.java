@@ -19,18 +19,18 @@ public abstract class GameObject
      * Initializes the GameObject
      * @param xPos x-coordinate
      * @param yPos y-coordinate
-     * @param width width of the render
-     * @param height height of the render
+     * @param xStartLocation width of the render
+     * @param yStartLocation height of the render
      * @param numFrames how many animations the gameObject will have.
      */
-    protected void init(float xPos, float yPos, int width, int height, int numFrames, boolean theBoss, String imgPath, int xSprite, int ySprite,int screenWidth,int screenHeight)
+    protected void init(float xPos, float yPos, int xStartLocation, int yStartLocation, int numFrames, boolean theBoss, String imgPath, int xImageWidth, int yImageHeight,int screenWidth,int screenHeight)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = screenWidth;
         this.height = screenHeight;
         this.boss = theBoss;
-        currAnimation = new Animation(numFrames,xSprite,ySprite,imgPath,width,height,screenWidth,screenHeight);
+        currAnimation = new Animation(numFrames,xStartLocation,yStartLocation,imgPath,xImageWidth,yImageHeight,screenWidth,screenHeight);
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }

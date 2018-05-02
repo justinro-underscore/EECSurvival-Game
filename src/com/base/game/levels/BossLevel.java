@@ -26,8 +26,8 @@ public class BossLevel extends Level {
      * @param boss Boss Object
 
      */
-    public BossLevel(String filePath, Boss boss, Player player, String scriptPath) {
-        init(filePath, player);
+    public BossLevel(String filePath, int width, int height, Boss boss, Player player, String scriptPath) {
+        init(filePath, width, height, player);
         this.boss = boss;
 
         ui = new UI(player.getHealth(), boss.getHealth());
@@ -72,7 +72,7 @@ public class BossLevel extends Level {
      */
     public void killBoss()
     {
-        StandardProjectile s = new StandardProjectile(boss.getX(), boss.getY(), 10, 10, "", new Vector2f(0, 1), 400, 1 , false);
+        StandardProjectile s = new StandardProjectile(boss.getX(), boss.getY(), 10, 10, "res/assets/white.png", new Vector2f(0, 1), 400, 1 , false);
         Game.game.getCurrLevel().addObj(s);
     }
 

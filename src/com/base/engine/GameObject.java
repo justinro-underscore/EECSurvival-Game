@@ -1,17 +1,18 @@
 package com.base.engine;
 
-import java.io.IOException;
-
-import static org.lwjgl.opengl.GL11.*;
+import com.base.game.gameobject.entity.Empty;
+import com.base.game.gameobject.entity.EmptyPlayer;
 
 public abstract class GameObject
 {
-    protected float xPos; // x-coordinate (middle of sprite)
-    protected float yPos; // y-coordinate (middle of sprite)
+    //TODO Im not sure how you want to handle initializing the animation
+    protected float xPos; // x-coordinate (middle of render)
+    protected float yPos; // y-coordinate (middle of render)
     protected int width;
     protected int height;
     protected boolean boss;
-    protected Sprite sprite;
+    //protected Sprite sprite;
+    protected Animation currAnimation; //A list of the possible animation (i.e. walk left, walk right, walk up, walk down, shoot, etc..)
     protected boolean toRemove; // A boolean that tells whether or not the object should be removed
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
@@ -19,32 +20,36 @@ public abstract class GameObject
      * Initializes the GameObject
      * @param xPos x-coordinate
      * @param yPos y-coordinate
-     * @param width width of the sprite
-     * @param height height of the sprite
-     * @param imgPath file path to the image representing the sprite
+     * @param xStartLocation width of the render
+     * @param yStartLocation height of the render
+     * @param numFrames how many animations the gameObject will have.
      */
-    protected void init(float xPos, float yPos, int width, int height, String imgPath, boolean theBoss)
+    protected void init(float xPos, float yPos, int xStartLocation, int yStartLocation, int numFrames, boolean theBoss, String imgPath, int xImageWidth, int yImageHeight,int screenWidth,int screenHeight)
     {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
+        this.width = screenWidth;
+        this.height = screenHeight;
         this.boss = theBoss;
-        sprite = new Sprite(width, height, imgPath); // Creates the sprite
+
+        if (!(this instanceof Empty || this instanceof EmptyPlayer))
+            currAnimation = new Animation(numFrames,xStartLocation,yStartLocation,imgPath,xImageWidth,yImageHeight,screenWidth,screenHeight);
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }
 
     /**
-     * Update function should be implemented by subclasses
+     * Updates the current animation
      */
-    abstract public void update();
+    public void update() {
+        currAnimation.update();
+    }
 
     /**
-     * Renders the GameObject's sprite
+     * Renders the GameObject's render (defaults to the first sprite)
      */
     public void render() {
-        sprite.render(xPos, yPos);
+        currAnimation.render(xPos, yPos);
     }
 
     /**
@@ -63,7 +68,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's height
+     * Gets the render's height
      * @return height
      */
     public int getHeight() {
@@ -71,7 +76,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's width
+     * Gets the render's width
      * @return width
      */
     public int getWidth() {
@@ -79,7 +84,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's x-position (anchored from center of sprite)
+     * Gets the render's x-position (anchored from center of render)
      * @return xPos
      */
     public float getX() {
@@ -87,7 +92,7 @@ public abstract class GameObject
     }
 
     /**
-     * Gets the sprite's y-position (anchored from center of sprite)
+     * Gets the render's y-position (anchored from center of render)
      * @return yPos
      */
     public float getY() {
@@ -96,10 +101,9 @@ public abstract class GameObject
 
     /**
      * Resets the texture of the sprite
-     * @param imgPath file path to the new texture
      */
-    public void setTexture(String imgPath) {
-        sprite.setTexture(imgPath);
+    public void setTexture() {
+        currAnimation.nextFrame();
     }
 
     public boolean getBoss(){return boss;}

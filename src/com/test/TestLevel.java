@@ -31,6 +31,9 @@ public class TestLevel extends Level {
     private int currentKey;
     private ConsumableItem consumableItem2;
 
+    private Projectile projectile;
+    private Boss boss;
+
     public TestLevel(boolean isAutomated) {
         this.isAutomated = isAutomated;
 
@@ -46,13 +49,13 @@ public class TestLevel extends Level {
             e.printStackTrace();
         }
 
-        Player player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
+        Player player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 80, 80, 4f, 20, 5,"res/SpriteSheets/walkcyclevarious.png");
 
-        init("res/assets/bricks.jpg", player);
+        init("res/assets/classroom.png", 1280, 960, player);
 
-        Boss boss = new EmptyBoss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        Projectile projectile = new StandardProjectile(100, 100, 100, 100, "", new Vector2f(1,1), 5, 0, true);
-        consumableItem2 = new ConsumableItem(400,400, 50, 50, "", -1, 5);
+        boss = new EmptyBoss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 439, 556, "res/assets/bardasWhite.png", 3f,60, 8);
+        projectile = new StandardProjectile(100, 100, 50, 50, "res/assets/white.png", new Vector2f(1,1), 5, 0, true);
+        consumableItem2 = new ConsumableItem(400,400, 50, 50, "res/assets/white.png", -1, 5);
 
         ui = new UI(player.getHealth(), boss.getHealth());
         addObj(boss);
@@ -122,5 +125,13 @@ public class TestLevel extends Level {
         if (lose) {
             player.respawn();
         }
+    }
+
+    @Override
+    public int getHealth(boolean isPlayer) {
+        if (isPlayer)
+            return player.getHealth();
+
+        return boss.getHealth();
     }
 }

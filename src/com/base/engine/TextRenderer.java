@@ -6,6 +6,13 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
 public class TextRenderer
 {
+    private final Sprite[] ALPHABET = SpriteRetriever.loadSprite("res/alphabet/alphabet.png", 0, 0, 31, 50, 50);
+    private final int SPACE = 26;
+    private final int PERIOD = 27;
+    private final int EXCLAMATION = 28;
+    private final int QUESTION = 29;
+    private final int ERROR = 30;
+
     private Sprite[][] stringsArr; // The sprites to be rendered, showing text
     private char[] strings; // The chars of the strings array
     private int fontSize; // The size of the letter sprites
@@ -75,18 +82,24 @@ public class TextRenderer
                     strings[index + (row * numCharsInRow)] = currChar; // Get the characters being added
 
                     // Add the characters to the array
-                    if ((currChar >= 'A' && currChar <= 'Z') || currChar == '!' || currChar == '?')
-                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/" + currChar + ".png");
+                    if (currChar >= 'A' && currChar <= 'Z')
+                        stringsArr[row][index] = ALPHABET[currChar - 'A'];
                     else if (currChar == ' ')
-                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
+                        stringsArr[row][index] = ALPHABET[SPACE];
+                    else if(currChar == '.')
+                        stringsArr[row][index] = ALPHABET[PERIOD];
+                    else if(currChar == '!')
+                        stringsArr[row][index] = ALPHABET[EXCLAMATION];
+                    else if(currChar == '?')
+                        stringsArr[row][index] = ALPHABET[QUESTION];
                     else
-                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/ERROR.png");
-                  
+                        stringsArr[row][index] = ALPHABET[ERROR];
+
                     tempIndex++;
                 }
                 else // Pad the end of the rows with spaces
                 {
-                    stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
+                    stringsArr[row][index] = ALPHABET[SPACE];
                     strings[index + (row * numCharsInRow)] = ' ';
                 }
             }
@@ -193,10 +206,10 @@ public class TextRenderer
                     if(centered)
                     {
                         stringsArr[row][index].render(x + ((width / 2.0f) - ((stringsLength / 2) - index + (stringsLength % 2 == 0 ? 0 : 0.5f)) * fontSize),
-                                y + (height - fontSize) / 2.0f);
+                                y + (height - fontSize) / 2.0f, fontSize, fontSize);
                     }
                     else
-                        stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize));
+                        stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize), fontSize, fontSize);
 
                     if(strings[index + (row * numCharsInRow)] != ' ') // If we are not at the end, increase tempIndex
                         tempIndex++;

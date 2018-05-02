@@ -15,7 +15,7 @@ public class ConsumableItem extends Item
      * @param addedHealth the health that will be added to the character who collides with the object
      */
     public ConsumableItem(float xPos, float yPos, int width, int height, String imgPath, int despawnTime, int addedHealth){
-        super(xPos, yPos, width, height, imgPath, despawnTime);
+        super(xPos, yPos,1, 1, imgPath, despawnTime,1);
 
         this.addedHealth = addedHealth;
     }

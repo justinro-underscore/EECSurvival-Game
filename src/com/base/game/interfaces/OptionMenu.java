@@ -19,15 +19,14 @@ public class OptionMenu extends Interface {
     //private int music;
     private boolean startedAudio;
 
-    @Override
     /**
      * Initialize the main menu screen
      */
     public void init(String fileName) {
-        super.init(fileName);
+        super.init(fileName, 200, 200);
 
         startedAudio = false;
-        //music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
+//        music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
 
         muteButton = new GameButton((float)(Display.getWidth()/2), (float)(Display.getHeight()/2 + 100), 400, 80, "Mute", this::pauseMusic);
 

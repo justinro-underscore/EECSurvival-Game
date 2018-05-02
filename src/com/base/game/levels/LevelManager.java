@@ -173,14 +173,14 @@ public class LevelManager {
         levels.clear();
 
         if (!loadTestLevel) {
-            player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
+            player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 80, 80,  4f, 20, 5,"res/SpriteSheets/walkcyclevarious.png");
 
-            EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
+            EmptyLevel level1 = new EmptyLevel("res/assets/classroom.png", 1280, 960, player, true);
 
-            Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 250, 150, 200, "res/assets/bardasWhite.png", 3f, 60, 8);
-            BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, player, "res/scripts/cutsceneTest1.bsh");
+            Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 250, 170, 222, 3f, 60, 8,"res/assets/gibboWhite.png");
+            BossLevel level2 = new BossLevel("res/assets/classroom.png", 1280, 960, boss, player, "res/scripts/cutsceneTest1.bsh");
 
-            EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
+            EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png",1152, 648, player, false);
 
             levels.add(level1);
             levels.add(level2);

@@ -11,12 +11,15 @@ public class Door extends GameObject {
      * @param height height of the door
      * @param imgPath file path to the image representing the door
      */
-    public Door(float xPos, float yPos, int width, int height, String imgPath) {
-        init(xPos, yPos, width, height, imgPath,false);
+    public Door(float xPos, float yPos, int width, int height, String imgPath, int frames) {
+        init(xPos, yPos, 0, 0, frames,false,"res/assets/door.png", width, height, width, height);
     }
 
     /**
      * Empty update
      */
-    public void update() {}
+    public void update()
+    {
+        currAnimation.render(xPos,yPos);
+    }
 }

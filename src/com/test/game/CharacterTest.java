@@ -1,5 +1,6 @@
 package com.test.game;
 
+import com.base.game.gameobject.entity.EmptyPlayer;
 import com.base.game.gameobject.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class CharacterTest {
      */
     @BeforeEach
     void setUp() {
-        player = new Player(10, 10, 10, 10, "", 10, 10, 10);
+        player = new EmptyPlayer(10, 10, 10, 10, 10, 10, 10,"res/SpriteSheets/walkcyclevarious.png");
     }
 
     /**

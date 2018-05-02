@@ -2,12 +2,12 @@ package com.base.engine;
 
 import com.base.game.Game;
 import com.base.game.interfaces.MainMenu;
-import com.base.game.interfaces.PauseMenu;
 import com.base.game.utilities.Time;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import java.io.File;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -81,6 +81,7 @@ public class Display {
         // Create the window
         GLFWVidMode mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         width = mode.width();
+
         height = mode.height();
 
         window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);
@@ -149,13 +150,14 @@ public class Display {
         glOrtho(0, width, 0, height, 1, -1);
         glMatrixMode(GL_MODELVIEW);
 
-        initGame();
+       initGame();
 
         // Set the clear color
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
+
         while ( !glfwWindowShouldClose(window) ) {
             Time.update();
             EventQueue.update();

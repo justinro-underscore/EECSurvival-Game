@@ -4,10 +4,7 @@ import com.base.engine.Display;
 import com.base.engine.InputHandler;
 import com.base.engine.Sprite;
 import com.base.engine.TextRenderer;
-import com.base.game.utilities.Delay;
-import jdk.internal.util.xml.impl.Input;
-
-import java.awt.image.BufferedImage;
+import com.base.engine.*;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
@@ -23,8 +20,9 @@ public class Dialog {
      */
     public Dialog(String content, int fontSize)
     {
-        background = new Sprite(1000, 150, "");
-        text = new TextRenderer(content, 950, 100, fontSize, true, Display.getWidth() / 2 - 475, 125);
+        background = SpriteRetriever.loadSprite("res/assets/white.png", 0, 0, 1, 50, 50)[0];
+
+        text = new TextRenderer(content, 950, 100, false, fontSize, true, Display.getWidth() / 2 - 475, 125);
         text.startTypewriterDelay(); // Start showing the text
         isOver = false;
     }
@@ -53,7 +51,7 @@ public class Dialog {
      */
     public void render()
     {
-        background.render(Display.getWidth() / 2 - 500, 100);
+        background.render(Display.getWidth() / 2 - 500, 100, 1000, 150);
         text.render();
     }
 }

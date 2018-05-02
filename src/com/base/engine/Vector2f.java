@@ -34,7 +34,7 @@ public class Vector2f
     }
 
     public float angle(Vector2f vector) {
-        return (float) Math.acos(dot(vector)/(length() * vector.length()));
+        return (float) Math.toDegrees(Math.acos(dot(vector)/(length() * vector.length())));
     }
 
     /**
@@ -47,6 +47,7 @@ public class Vector2f
     }
 
     public Vector2f rotate(float angle) {
+        angle = (float) Math.toRadians(angle);
         float sinAngle = (float)Math.sin(-angle);
         float cosAngle = (float)Math.cos(-angle);
 

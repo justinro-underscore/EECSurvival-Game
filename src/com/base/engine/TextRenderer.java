@@ -6,9 +6,19 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
 public class TextRenderer
 {
+    private final Sprite[] ALPHABET = SpriteRetriever.loadSprite("res/alphabet/alphabet.png", 0, 0, 31, 50, 50);
+    private final int SPACE = 26;
+    private final int PERIOD = 27;
+    private final int EXCLAMATION = 28;
+    private final int QUESTION = 29;
+    private final int ERROR = 30;
+
     private Sprite[][] stringsArr; // The sprites to be rendered, showing text
     private char[] strings; // The chars of the strings array
     private int fontSize; // The size of the letter sprites
+    private boolean centered; // Whether or not the text should be centered NOTE: Text can only be centered if there is only one line
+    private int width; // Width of the text box (used with centered)
+    private int height; // Height of the text box (used with centered)
     private int numCharsInRow; // Number of characters that will fit per row
     private int numRows; // Number of rows that will fit in the text box
     private int stringsLength; // Length of the string being printed
@@ -18,7 +28,6 @@ public class TextRenderer
     private Delay indexUpdate; // The delay to update the index (typewriter mode only)
 
     private boolean isOver; // If the text is fully displayed
-
     private float x; // X coord of text box
     private float y; // Y coord of text box
 
@@ -32,7 +41,7 @@ public class TextRenderer
      * @param x X coord of box
      * @param y Y coord of box
      */
-    public TextRenderer(String words, int width, int height, int font, boolean typewriter, float x, float y)
+    public TextRenderer(String words, int width, int height, boolean center, int font, boolean typewriter, float x, float y)
     {
         switch(font)
         {
@@ -41,8 +50,11 @@ public class TextRenderer
             case 2:
             default: fontSize = 25; break;
         }
+        this.width = width;
+        this.height = height;
         numCharsInRow = width / fontSize; // Get the number of letters in a row
         numRows = height / fontSize;
+      
         stringsArr = new Sprite[numRows][numCharsInRow];
         strings = new char[numRows * numCharsInRow];
         stringsLength = words.length();
@@ -70,27 +82,37 @@ public class TextRenderer
                     strings[index + (row * numCharsInRow)] = currChar; // Get the characters being added
 
                     // Add the characters to the array
-                    if ((currChar >= 'A' && currChar <= 'Z') || currChar == '!' || currChar == '?')
-                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/" + currChar + ".png");
+                    if (currChar >= 'A' && currChar <= 'Z')
+                        stringsArr[row][index] = ALPHABET[currChar - 'A'];
                     else if (currChar == ' ')
-                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
+                        stringsArr[row][index] = ALPHABET[SPACE];
+                    else if(currChar == '.')
+                        stringsArr[row][index] = ALPHABET[PERIOD];
+                    else if(currChar == '!')
+                        stringsArr[row][index] = ALPHABET[EXCLAMATION];
+                    else if(currChar == '?')
+                        stringsArr[row][index] = ALPHABET[QUESTION];
                     else
-                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/ERROR.png");
+                        stringsArr[row][index] = ALPHABET[ERROR];
+
                     tempIndex++;
                 }
                 else // Pad the end of the rows with spaces
                 {
-                    stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
+                    stringsArr[row][index] = ALPHABET[SPACE];
                     strings[index + (row * numCharsInRow)] = ' ';
                 }
             }
         }
+
+        centered = (numRows == 1 && center);
 
         typewriterMode = typewriter;
         if(typewriterMode)
         {
             currIndex = -1; // If in typewriter mode, start index out of bounds
             indexUpdate = new Delay((int)Math.pow(2, 2) * 50);
+          
             isOver = false;
         }
         else
@@ -160,6 +182,7 @@ public class TextRenderer
             if(indexUpdate.isOver()) // Add a new character to the string
             {
                 currIndex++;
+
                 if(currIndex == stringsLength)
                     isOver = true;
                 else
@@ -180,7 +203,14 @@ public class TextRenderer
             {
                 if(tempIndex <= currIndex) // Prints whatever should be written
                 {
-                    stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize));
+                    if(centered)
+                    {
+                        stringsArr[row][index].render(x + ((width / 2.0f) - ((stringsLength / 2) - index + (stringsLength % 2 == 0 ? 0 : 0.5f)) * fontSize),
+                                y + (height - fontSize) / 2.0f, fontSize, fontSize);
+                    }
+                    else
+                        stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize), fontSize, fontSize);
+
                     if(strings[index + (row * numCharsInRow)] != ' ') // If we are not at the end, increase tempIndex
                         tempIndex++;
                 }

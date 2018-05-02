@@ -25,8 +25,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Boss(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage,true);
+    public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, String image) {
+        super(xPos, yPos, width, height, speed, health, attackDamage, true, image);
     }
 
     /**

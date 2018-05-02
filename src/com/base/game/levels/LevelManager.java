@@ -174,24 +174,24 @@ public class LevelManager {
         if (!loadTestLevel) {
             player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 80, 80,  4f, 20, 5,"res/SpriteSheets/walkcyclevarious.png");
 
-            EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
+            EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", 500, 500, player, true);
 
             Boss168 boss168 = new Boss168(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-            BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss168, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level2 = new BossLevel("res/assets/bossBack.png", 500, 500, boss168, player, "res/scripts/cutsceneTest1.bsh");
 
             Boss268 boss268 = new Boss268(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
-            BossLevel level3 = new BossLevel("res/assets/bossBack.png", boss268, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level3 = new BossLevel("res/assets/bossBack.png", 500, 500, boss268, player, "res/scripts/cutsceneTest1.bsh");
 
             Boss388 boss388 = new Boss388(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,80, 8);
-            BossLevel level4 = new BossLevel("res/assets/bossBack.png", boss388, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level4 = new BossLevel("res/assets/bossBack.png", 500, 500, boss388, player, "res/scripts/cutsceneTest1.bsh");
 
             Boss368 boss368 = new Boss368(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
-            BossLevel level5 = new BossLevel("res/assets/bossBack.png", boss368, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level5 = new BossLevel("res/assets/bossBack.png", 500, 500, boss368, player, "res/scripts/cutsceneTest1.bsh");
 
             Boss448 boss448 = new Boss448(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
-            BossLevel level6 = new BossLevel("res/assets/bossBack.png", boss448, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level6 = new BossLevel("res/assets/bossBack.png", 500, 500, boss448, player, "res/scripts/cutsceneTest1.bsh");
 
-            EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
+            EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", 1152, 648, player, false);
 
             levels.add(level1);
             levels.add(level2);

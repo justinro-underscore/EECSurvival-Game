@@ -10,6 +10,7 @@ public class GameButton extends GameObject {
 
     private boolean isAlreadyPressed;
     private boolean isPressed;
+    private boolean clicked;
 
     /**
      * Creates a new button
@@ -42,14 +43,18 @@ public class GameButton extends GameObject {
         // So we're not constantly updating the sprite
         if(isPressed != isAlreadyPressed)
         {
-            setTexture();
+            if(clicked)
+                clicked = false;
+            else
+                setTexture();
             isAlreadyPressed = isPressed;
         }
 
         // Check to see if the button has been pressed
-        if (InputHandler.isMouseDown() && isPressed)
+        if (InputHandler.isMouseDown() && isPressed && !clicked)
         {
-            isPressed = false;
+            setTexture();
+            clicked = true;
             new Thread(onPressed).start(); // Run the function
         }
     }

@@ -29,7 +29,7 @@ public class MainMenu extends Interface {
         testAnimation = new Animation(1,0,0,fileName,60,60,Display.getWidth(),Display.getHeight());
 
         startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 299, 81, "res/assets/quit_combine.png", "res/assets/quit_combine.png", () -> {Display.start(); reset();});
-       // quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 299, 81, "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
+        quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 299, 81, "res/assets/quit_combine.png", "res/assets/quit_combine.png", Display::quit);
     }
 
     public void startAudio() {
@@ -59,7 +59,7 @@ public class MainMenu extends Interface {
 
         super.render();
         startButton.render();
-       // quitButton.render();
+        quitButton.render();
         //testAnimation.render(Display.getWidth()/2,Display.getHeight()/2);
     }
 

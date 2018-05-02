@@ -35,20 +35,28 @@ public class UI extends Interface // TODO Add all UI functionality
         bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
         bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossHealth;
 
-        digits = new Sprite[11];
+        digits = new Sprite[10];
+
         // Populate the digits array with pictures of the digits
-        //for(int i = 0; i < 10; i++)
-        {
-            theDigit= new Animation(1, 0,0,"res/digits/0.png",50,50,50,50);
-            //digits[i] = dig;
-        }
+
+
+            theDigit= new Animation(10, 0,0,"res/digits/digits.png",50,50,25,25);
+            for(int i = 0; i < 10; i++)
+            {
+                digits[i] = theDigit.getCurrentFrame();
+                theDigit.nextFrame();
+            }
+
+
  
 
         playerHealthDigits = new Sprite[3];
         // Initialize player's health to nothing using the default index
+
         for(int i = 0; i < 3; i++)
         {
-            playerHealthDigits[i] = digits[10];
+            playerHealthDigits[i] = theDigit.getCurrentFrame();
+            playerHealthDigits[i].setAlpha(0.0f);
         }
     }
 
@@ -70,8 +78,22 @@ public class UI extends Interface // TODO Add all UI functionality
      */
     private void setPlayerHealthDigits(int playerHealth)
     {
-        playerHealthDigits[0] = digits[playerHealth / 100 != 0 ? playerHealth / 100 : 10]; // If the player's health is not a multiple of 100, don't show
-        playerHealthDigits[1] = digits[(playerHealth / 100 != 0) || (playerHealth / 10 != 0) ? (playerHealth % 100) / 10 : 10];
+        if(playerHealth / 100 != 0)
+        {
+            playerHealthDigits[0] = digits[playerHealth / 100]; // If the player's health is not a multiple of 100, don't show
+            playerHealthDigits[0].setAlpha(1.0f);
+        }
+        else
+            playerHealthDigits[0].setAlpha(1.0f);
+
+        if((playerHealth / 100 != 0) || (playerHealth / 10 != 0))
+        {
+            playerHealthDigits[1] = digits[(playerHealth % 100) / 10];
+            playerHealthDigits[1].setAlpha(1.0f);
+        }
+        else
+            playerHealthDigits[1].setAlpha(0.0f);
+
         playerHealthDigits[2] = digits[playerHealth % 10];
     }
 
@@ -163,15 +185,18 @@ public class UI extends Interface // TODO Add all UI functionality
     private void showPlayerHealthNumber()
     {
         // Background on the text
-        glColor4f(1, 1, 1, 0.0f);
-        glBegin(GL11.GL_QUADS);
-            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20, playerHealthBar.y);
-            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 95, playerHealthBar.y);
-            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 95, playerHealthBar.y + 25);
-            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20, playerHealthBar.y + 25);
-        glEnd();
+//        glColor4f(1, 1, 1, 0.0f);
+//        glBegin(GL11.GL_QUADS);
+//            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20, playerHealthBar.y);
+//            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 95, playerHealthBar.y);
+//            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 95, playerHealthBar.y + 25);
+//            glVertex2f(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + 20, playerHealthBar.y + 25);
+//        glEnd();
 
         // Shows the player health digits
-//      w
+      for(int i = 1; i < 3; i++)
+        {
+            playerHealthDigits[i].render(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + (25 * i), playerHealthBar.y,25,25);
+        }
     }
 }

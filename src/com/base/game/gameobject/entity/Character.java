@@ -153,6 +153,11 @@ public abstract class Character extends GameObject
     }
 
     /**
+     * Set the character's health to the max health
+     */
+    public void setMaxHealth() { stats.setMaxHealth(); }
+
+    /**
      * Returns the character's health
      * @return health of character
      */

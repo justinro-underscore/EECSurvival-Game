@@ -41,6 +41,9 @@ public class BossLevel extends Level {
     }
 
     @Override
+    /**
+     * Update boss level
+     */
     public void update() {
         if (!isCutsceneOver) {
             isCutsceneOver = true;
@@ -76,6 +79,10 @@ public class BossLevel extends Level {
         Game.game.getCurrLevel().addObj(s);
     }
 
+    /**
+     * Get the boss
+     * @return the boss
+     */
     public Boss getBoss(){
         return boss;
     }

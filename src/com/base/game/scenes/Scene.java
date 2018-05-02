@@ -12,6 +12,13 @@ public class Scene {
     private Interpreter i;
     private String scriptFile;
 
+    /**
+     * Create a scene
+     * @param scriptFile the script file for the scene
+     * @param player the player
+     * @param boss the boss
+     * @param level the level
+     */
     public Scene(String scriptFile, Player player, Boss boss, Level level) {
         i = new Interpreter();
         this.scriptFile = scriptFile;
@@ -24,6 +31,9 @@ public class Scene {
         }
     }
 
+    /**
+     * Run the scene
+     */
     public void run() {
         try {
             i.source(scriptFile);

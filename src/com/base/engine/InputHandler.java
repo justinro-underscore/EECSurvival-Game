@@ -22,6 +22,8 @@ public class InputHandler {
         if (key == -1) {
             return;
         }
+
+        EventQueue.invokeCallback(new Event("Keyboard", Integer.toString(key), false));
         keys[key] = action != GLFW_RELEASE;
     }
 
@@ -110,5 +112,49 @@ public class InputHandler {
      */
     public static Vector2f getMousePos() {
         return new Vector2f((float) mouseXPos, (float) mouseYPos);
+    }
+
+    /**
+     * forces a key down
+     * @param keyCode key to be pressed
+     */
+    public static void forceKeyDown(int keyCode) {
+        keys[keyCode] = true;
+    }
+
+    /**
+     * forces a key to be released
+     * @param keyCode key ot be released
+     */
+    public static void forceKeyRelease(int keyCode) {
+        keys[keyCode] = false;
+    }
+
+    /**
+     * forces a mouse click
+     */
+    public static void forceMouseDown() {
+        isMousePressed = true;
+        isMouseReleased = false;
+    }
+
+    /**
+     * forces mouse release
+     */
+    public static void forceMouseReleased() {
+        isMousePressed = false;
+        isMouseReleased = true;
+    }
+
+    /**
+     * clears all keys and mouse values
+     */
+    public static void clear() {
+        for (int i = 0; i < keys.length; i++) {
+            keys[i] = false;
+        }
+
+        isMousePressed = false;
+        isMouseReleased = false;
     }
 }

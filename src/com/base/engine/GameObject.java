@@ -23,15 +23,14 @@ public abstract class GameObject
      * @param height height of the render
      * @param numFrames how many animations the gameObject will have.
      */
-    protected void init(float xPos, float yPos, int width, int height, int numFrames, boolean theBoss,String imgPath, int xSprite, int ySprite,int screenWidth,int screenHeight)
+    protected void init(float xPos, float yPos, int width, int height, int numFrames, boolean theBoss, String imgPath, int xSprite, int ySprite,int screenWidth,int screenHeight)
     {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = xSprite;
-        this.height = ySprite;
+        this.width = screenWidth;
+        this.height = screenHeight;
         this.boss = theBoss;
-        currAnimation = new Animation(numFrames,width,height,imgPath,xSprite,ySprite,screenWidth,screenHeight);
-        //sprite = new Sprite(width, height, imgPath); // Creates the sprite
+        currAnimation = new Animation(numFrames,xSprite,ySprite,imgPath,width,height,screenWidth,screenHeight);
 
         toRemove = false; // We shouldn't remove it as soon as we create it...
     }
@@ -99,12 +98,11 @@ public abstract class GameObject
 
     /**
      * Resets the texture of the sprite
-     * @param  path to the new texture
-     *
+     * @param imgPath to the new texture
+     */
     public void setTexture(String imgPath) {
-        sprite.setTexture(imgPath);
+//        sprite.setTexture(imgPath);
     }
-    */
 
     public boolean getBoss(){return boss;}
 }

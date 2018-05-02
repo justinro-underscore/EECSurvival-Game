@@ -6,6 +6,7 @@ import com.base.game.utilities.Delay;
 public abstract class Item extends GameObject
 {
     private Delay despawnDelay;
+    private boolean canDespawn;
 
     /**
      * Generic constructor for an item
@@ -17,7 +18,13 @@ public abstract class Item extends GameObject
      * @param despawnTime the time it takes for a item to dematerialize and be unattainable
      */
     protected Item(float xPos, float yPos, int width, int height, String imgPath, int despawnTime, int frames){
-        init(xPos, yPos, 0, 0, frames,false,"res/SpriteSheets/testSpriteSheet.png",1,1,width, height);
+        init(xPos, yPos, 32, 32, frames,false,"res/SpriteSheets/testSpriteSheet.png",0,0, width, height);
+
+        if (despawnTime == -1) {
+            canDespawn = false;
+        } else {
+            canDespawn = true;
+        }
 
         despawnDelay = new Delay(despawnTime);
     }
@@ -26,6 +33,9 @@ public abstract class Item extends GameObject
      * Increment the despawn timer
      */
     public void update(){
+        if (!canDespawn)
+            return;
+
         if(!despawnDelay.isStarted()){
             despawnDelay.start();
         }

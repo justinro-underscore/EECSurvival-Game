@@ -27,8 +27,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Boss(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage, int frames) {
-        super(xPos, yPos, width, height, frames, speed, health, attackDamage,true);
+    public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage) {
+        super(xPos, yPos, width, height, speed, health, attackDamage, true);
 
         projectiles = new ArrayList<>(); // Initalizes the list
 
@@ -54,13 +54,13 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
         attack(); // Runs its attack pattern
 
         for (int i = 0; i < projectiles.size(); i++){
-            Game.game.addObj(projectiles.get(i)); // Create all of the projectiles
+            Game.game.getCurrLevel().addObj(projectiles.get(i)); // Create all of the projectiles
         }
         projectiles.clear();
 
-        xPos += speed; // Move
+        xPos += stats.getSpeed(); // Move
         if (Math.abs(getX() - Display.getWidth() / 2.0f) >= Display.getWidth() / 4.0f) // Change direction
-            speed = -speed;
+            stats.setSpeed(-(stats.getSpeed()));
     }
 
     /**
@@ -102,7 +102,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param numberOfPros Number of projectiles being made
      */
     public void targetPlayerAbility(int proWidth, int proHeight, int numberOfPros) {
-        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(Game.game.getPlayerX() - (getX() - (proWidth / 2)), Game.game.getPlayerY() - (yPos - proHeight)), 5, 5,true));
+        projectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(Game.game.getCurrLevel().getPlayerX() - (getX() - (proWidth / 2)), Game.game.getCurrLevel().getPlayerY() - (yPos - proHeight)), 5, 5,true));
     }
 
     /**
@@ -131,9 +131,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     protected void checkDeath()
     {
-        if(isDead)
+        if(stats.getIsDead())
         {
-            Game.game.levelOver(false); // Level has been won!
+            Game.game.getCurrLevel().levelOver(false); // Level has been won!
         }
     }
 }

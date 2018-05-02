@@ -5,16 +5,18 @@ import com.base.engine.GameObject;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.projectile.Projectile;
 import com.base.game.Game;
+import com.base.game.scenes.Dialog;
+import com.base.game.scenes.Event;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 public abstract class Character extends GameObject
 {
-    protected float speed; // Speed of the Character
-    protected int health; // Health of the Character
-    protected int attackDamage; // How much damage the character deals
-    protected boolean isDead; // Whether or not the character is dead
-    protected int maxHealth;
+    private ArrayList<Dialog> dialogs;
+    private boolean startDialog;
+    
+    protected Stats stats;
 
     /**
      * Abstract constructor for Character
@@ -27,14 +29,68 @@ public abstract class Character extends GameObject
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    protected Character(float xPos, float yPos, int width, int height, int numOfAnimations, float speed, int health, int attackDamage, boolean isBoss) {
-        init(xPos, yPos, 0, 0, 1,isBoss,"res/SpriteSheets/testSpriteSheet.png",width,height,width,height); // Call super initialize method
+    protected Character(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, boolean isBoss) {
+        init(xPos, yPos, 32, 32, 1,isBoss,"res/SpriteSheets/testSpriteSheet.png",0,0,width,height); // Call super initialize method
 
-        this.speed = speed;
-        this.health = health;
-        this.attackDamage = attackDamage;
-        isDead = false; // Character should not start out dead
-        maxHealth = health;
+        dialogs = new ArrayList<>();
+        startDialog = false;
+        
+        stats = new Stats(speed, health, attackDamage);
+    }
+
+    @Override
+    public void render() {
+        super.render();
+
+        if (!dialogs.isEmpty() && startDialog)
+            getCurrDialog().render();
+    }
+
+    public void updateDialog() {
+        if (!startDialog)
+            return;
+
+        if (getCurrDialog().isOver()) {
+            dialogs.remove(0);
+        }
+
+        getCurrDialog().update();
+    }
+
+    public void startDialog() {
+        startDialog = true;
+    }
+
+    public void stopDialog() {
+        startDialog = false;
+    }
+
+    public void addDialog(Dialog dialog) {
+        dialogs.add(dialog);
+    }
+
+    public Dialog getCurrDialog() {
+        return dialogs.get(0);
+    }
+
+    public Event createDialogEvent(String content, int fontSize) {
+        Callable<Boolean> callable;
+        Dialog dialog = new Dialog(content, fontSize);
+
+        addDialog(dialog);
+        callable = () -> {
+            startDialog();
+            updateDialog();
+
+            if (getCurrDialog().isOver()) {
+                stopDialog();
+                return true;
+            }
+
+            return false;
+        };
+
+        return new Event("dialog", callable);
     }
 
     /**
@@ -42,7 +98,7 @@ public abstract class Character extends GameObject
      */
     protected void checkCharacterCollision()
     {
-        ArrayList<GameObject> closeObjects = Game.game.getCloseObjects(this, 1000); // Get any objects close to the character (cuts down on load time)
+        ArrayList<GameObject> closeObjects = Game.game.getCurrLevel().getCloseObjects(this, 5); // Get any objects close to the character (cuts down on load time)
 
         for(GameObject obj : closeObjects)
         {
@@ -50,19 +106,21 @@ public abstract class Character extends GameObject
             {
                 if(obj.getBoss()==true && this.getBoss()==true)
                 {}
+                else if(obj instanceof ConsumableItem) // If the object is a consumable item...
+                {
+                    if(stats.getHealth() + ((ConsumableItem) obj).getAddedHealth() <= stats.getMaxHealth()){
+                        gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
+                    }
+                    obj.remove(); // Delete the consumable
+                }
+                else if(obj.getBoss()==false && this.getBoss()==false){
+
+                }
                 else if(obj instanceof Projectile) // If the object is a projectile...
                 {
                     loseHealth(((Projectile) obj).getDamage()); // Lose specified amount of health
                     obj.remove(); // Delete the projectile
                 }
-                else if(obj instanceof ConsumableItem) // If the object is a consumable item...
-                {
-                    if(health + ((ConsumableItem) obj).getAddedHealth() <= maxHealth){
-                        gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
-                    }
-                    obj.remove(); // Delete the consumable
-                }
-
                 checkCharacterCollisionSpecific(obj); // Go to subclass specific collisions
             }
         }
@@ -74,11 +132,11 @@ public abstract class Character extends GameObject
      */
     protected void loseHealth(int hit)
     {
-        health -= hit;
-        if(health <= 0) // If health drops below 0
+        stats.setHealth(stats.getHealth() - hit);
+        if(stats.getHealth() <= 0) // If health drops below 0
         {
-            health = 0;
-            isDead = true; // You dead, son
+            stats.setHealth(0);
+            stats.setIsDead(true); // You dead, son
         }
     }
 
@@ -88,7 +146,7 @@ public abstract class Character extends GameObject
      */
     protected void gainHealth(int healthGain)
     {
-        health += healthGain;
+        stats.setHealth(stats.getHealth() + healthGain);
         //TODO: add checking for max health
     }
 
@@ -98,7 +156,7 @@ public abstract class Character extends GameObject
      */
     public int getHealth()
     {
-        return health;
+        return stats.getHealth();
     }
 
     /**

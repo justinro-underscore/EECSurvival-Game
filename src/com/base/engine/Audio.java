@@ -117,6 +117,13 @@ public class Audio {
         alSourcef(sources.get(bufferPointer), AL_GAIN, Math.abs(bufferGain));
     }
 
+    public static void setMasterGain(float bufferGain) {
+        int[] _sources = objectArrayToIntArray(sources.values().toArray());
+        for (int source : _sources) {
+            alSourcef(source, AL_GAIN, Math.abs(bufferGain));
+        }
+    }
+
     public static void setBufferPitch(int bufferPointer, float bufferPitch) {
         alSourcef(sources.get(bufferPointer), AL_PITCH, bufferPitch);
     }
@@ -142,15 +149,11 @@ public class Audio {
     }
 
     /**
-     * Implementation found https://stackoverflow.com/questions/960431/how-to-convert-listinteger-to-int-in-java
+     * Adapted from https://stackoverflow.com/questions/960431/how-to-convert-listinteger-to-int-in-java
      * by Pshemo
-     * @param list Integer list of buffers
+     * @param sources Object list
      * @return int[] of buffers
      */
-    private static int[] integerListToIntArray(List<Integer> list) {
-        return list.stream().mapToInt(i -> i).toArray();
-    }
-
     private static int[] objectArrayToIntArray(Object[] sources) {
         Integer[] src = Arrays.copyOf(sources, sources.length, Integer[].class);
         return Arrays.stream(src).mapToInt(i -> i).toArray();

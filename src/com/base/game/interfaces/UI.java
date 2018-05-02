@@ -65,9 +65,9 @@ public class UI extends Interface // TODO Add all UI functionality
      */
     public void update()
     {
-        int playerHealth = Game.game.getHealth(true);
+        int playerHealth = Game.game.getCurrLevel().getHealth(true);
         playerHealthBar.width = (int)(playerHealth * playerHealthFactor);
-        bossHealthBar.width = (int)(Game.game.getHealth(false) * bossHealthFactor);
+        bossHealthBar.width = (int)(Game.game.getCurrLevel().getHealth(false) * bossHealthFactor);
 
         setPlayerHealthDigits(playerHealth);
     }

@@ -1,0 +1,7 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("Hi Phil Swift here for Flex tape the new tape that grips to things and holds on tight. Flex tape is so string, it even works underwater! More test info", 2));
+level.addEvent(player.createWalkEvent(1000, 800));
+level.addEvent(boss.createDialogEvent("Flex tape can do anything including kill Varun", 3));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

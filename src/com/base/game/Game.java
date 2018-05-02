@@ -37,10 +37,10 @@ public class Game {
 
         levels = new ArrayList();
 
-        EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", true,500,500);
+        EmptyLevel level1 = new EmptyLevel("res/assets/classroom.png", true,1280,960);
       
         Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8,3);
-        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss,500,500);
+        BossLevel level2 = new BossLevel("res/assets/classroom.png", boss,1280,960);
 
         EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", false,1152,648);
 

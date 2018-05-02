@@ -179,6 +179,7 @@ public class LevelManager {
             Boss168 boss168 = new Boss168(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
             BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss168, player, "res/scripts/cutsceneTest1.bsh");
 
+
             Boss268 boss268 = new Boss268(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
             BossLevel level3 = new BossLevel("res/assets/bossBack.png", boss268, player, "res/scripts/cutsceneTest1.bsh");
 
@@ -191,7 +192,10 @@ public class LevelManager {
             Boss448 boss448 = new Boss448(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
             BossLevel level6 = new BossLevel("res/assets/bossBack.png", boss448, player, "res/scripts/cutsceneTest1.bsh");
 
-            EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
+
+
+            EmptyLevel endGame = new EmptyLevel("res/assets/diploma.png",1056, 816, player, false);
+
 
             levels.add(level1);
             levels.add(level2);

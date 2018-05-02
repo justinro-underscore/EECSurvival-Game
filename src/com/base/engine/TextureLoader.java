@@ -25,8 +25,6 @@ public class TextureLoader {
      * @throws IOException
      */
     public static int loadTexture(BufferedImage image) throws IOException {
-
-
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -60,7 +58,6 @@ public class TextureLoader {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
         //Return the texture ID so we can bind it later again
-        System.out.println(textureID);
         return textureID;
     }
 }

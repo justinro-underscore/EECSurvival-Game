@@ -15,11 +15,9 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
-    private Delay run;
     private int konami;
     private int fireSfx;
-    private String spriteFile = "testSpriteSheet";
-    private Animation animations[];
+
     // These are animation states
     private Animation walkDown;
     private Animation walkLeft;
@@ -42,46 +40,31 @@ public class Player extends Character {
         super(xPos, yPos, width, height, numOfAnimations, speed, health, attackDamage,false); // Call Character superclass's constructor
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
-        run = new Delay(100);
-        run.restart();
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
 
         idle = new Animation(1,64,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
+
         //Initialize all of the animations
         walkDown = new Animation(3,384,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
         walkLeft = new Animation(3,576,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
-
         walkRight = new Animation(3,192,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
-
         walkUp = new Animation(3,0,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
 
         currAnimation = idle;
-        currAnimation.start();
-
-
-    }
-
-    @Override
-    public void render() {
-        currAnimation.render(xPos, yPos);
-
-
     }
 
     /**
      * Updates the player object every frame
      */
+    @Override
     public void update() {
+        super.update();
+
         checkCharacterCollision();
         checkDeath();
 
-
-
-
         getInput();
-
-        //animations[4].update();
     }
 
     /**
@@ -89,70 +72,33 @@ public class Player extends Character {
      */
     public void getInput() {
         if (InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D)) {
-            if(run.isOver())
-            {
-                currAnimation.nextFrame();
-
-                run.start();
-
-            }
-        }
-        if (!(InputHandler.isKeyDown(GLFW_KEY_W) || InputHandler.isKeyDown(GLFW_KEY_A) || InputHandler.isKeyDown(GLFW_KEY_S) || InputHandler.isKeyDown(GLFW_KEY_D))) {
-//walk.stop();
+            currAnimation.start();
+        } else {
+            currAnimation.stop();
         }
 
         // Go up
         if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
             yPos += speed;
             currAnimation = walkUp;
-
-
-            //  animations[3].start();
-        }
-        else
-        {
-           // animations[3].stop();
         }
 
         // Go down
         if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
             yPos -= speed;
             currAnimation = walkDown;
-
-
-            //animations[0].start();
-
-        }
-        else
-        {
-            //animations[0].stop();
         }
 
         // Go right
         if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
             xPos += speed;
             currAnimation = walkRight;
-
-
-            // animations[2].start();
-        }
-        else
-        {
-           // animations[1].stop();
         }
 
         // Go left
         if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
             xPos -= speed;
             currAnimation = walkLeft;
-
-
-            // animations[1].start();
-        }
-        else
-        {
-
-            //animations[1].stop();
         }
 
         // Shoot *Can't shoot while sprinting
@@ -267,7 +213,7 @@ public class Player extends Character {
         {
             loseHealth(1); // Continually lose one hitpoint
         }
-    System.out.println("It hits the collision");
+
         if (obj instanceof Door) {
             Game.game.nextLevel();
         }
@@ -283,7 +229,3 @@ public class Player extends Character {
         }
     }
 }
-
-/*
-
- */

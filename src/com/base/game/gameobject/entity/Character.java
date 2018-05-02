@@ -46,11 +46,8 @@ public abstract class Character extends GameObject
 
         for(GameObject obj : closeObjects)
         {
-            System.out.print(obj);
             if(Physics.checkCollision(this, obj)) // If the character is touching a GameObject
             {
-                System.out.println("test2");
-
                 if(obj.getBoss()==true && this.getBoss()==true)
                 {}
                 else if(obj instanceof Projectile) // If the object is a projectile...

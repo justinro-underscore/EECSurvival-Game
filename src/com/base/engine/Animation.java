@@ -18,33 +18,22 @@ public class Animation {
     private int width;
     private int height;
 
-    /**
-     * Initializes the animation
-     * @param nFrames how many sprites will make up the animation
-     * @param TILE_SIZE the size of the tile in the given spritesheet.
-     */
     public Animation(int nFrames, int x, int y,String file,int widthofImage, int heightofImage, int width, int height ) {
         this.IMGwidth= widthofImage;
         this.IMGheight = heightofImage;
 
         this.width =width;
         this.height=height;
+
         frames = SpriteRetriever.loadSprite(file,x,y,nFrames, IMGwidth,IMGheight);
         n_frames = nFrames;
-        currFrame = 0;
-        frameDelay = new Delay(5000); //TODO do we want to make this variable?
-        frameDelay.restart();
 
+        currFrame = 0;
+
+        frameDelay = new Delay(100); //TODO: change to parameter
+        frameDelay.restart();
         isStopped = false;
     }
-
-    /**
-     * Adds a new sprite to the animation
-     * @param xCord the X coordinate of the sprite in the sprite sheet.
-     * @param yCord the Y coordinate of the sprite in the sprite sheet.
-     * @param fileName the sprite sheet.
-     */
-
 
     public void start() {
         if (!isStopped)
@@ -90,6 +79,10 @@ public class Animation {
         isStopped = false;
     }
 
+    public void setFrameDelay(int time_ms) {
+        frameDelay.restart(time_ms);
+    }
+
     public void nextFrame() {
         frameDelay.start();
 
@@ -98,6 +91,7 @@ public class Animation {
             currFrame = 0;
         }
     }
+
     public Sprite getCurrentFrame()
     {
         return frames[currFrame];

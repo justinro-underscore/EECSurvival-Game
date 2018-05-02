@@ -37,9 +37,11 @@ public abstract class GameObject
     }
 
     /**
-     * Update function should be implemented by subclasses
+     * Updates the current animation
      */
-    abstract public void update();
+    public void update() {
+        currAnimation.update();
+    }
 
     /**
      * Renders the GameObject's render (defaults to the first sprite)

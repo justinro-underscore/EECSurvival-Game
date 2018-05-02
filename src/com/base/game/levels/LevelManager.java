@@ -3,8 +3,7 @@ package com.base.game.levels;
 import com.base.engine.Audio;
 import com.base.engine.Display;
 import com.base.engine.GameObject;
-import com.base.game.gameobject.entity.Boss;
-import com.base.game.gameobject.entity.Player;
+import com.base.game.gameobject.entity.*;
 
 import java.util.ArrayList;
 
@@ -27,17 +26,33 @@ public class LevelManager {
 
         levels = new ArrayList();
 
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
+        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 100, 5);
 
         EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
 
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, player, "res/scripts/cutsceneTest1.bsh");
+        Boss168 boss168 = new Boss168(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
+        BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss168, player, "res/scripts/cutsceneTest1.bsh");
+
+        Boss268 boss268 = new Boss268(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
+        BossLevel level3 = new BossLevel("res/assets/bossBack.png", boss268, player, "res/scripts/cutsceneTest1.bsh");
+
+        Boss388 boss388 = new Boss388(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,80, 8);
+        BossLevel level4 = new BossLevel("res/assets/bossBack.png", boss388, player, "res/scripts/cutsceneTest1.bsh");
+
+        Boss368 boss368 = new Boss368(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
+        BossLevel level5 = new BossLevel("res/assets/bossBack.png", boss368, player, "res/scripts/cutsceneTest1.bsh");
+
+        Boss448 boss448 = new Boss448(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,100, 8);
+        BossLevel level6 = new BossLevel("res/assets/bossBack.png", boss448, player, "res/scripts/cutsceneTest1.bsh");
 
         EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);
 
         levels.add(level1);
         levels.add(level2);
+        levels.add(level3);
+        levels.add(level4);
+        levels.add(level5);
+        levels.add(level6);
         levels.add(endGame);
     }
 
@@ -147,8 +162,8 @@ public class LevelManager {
      */
     public void executeCheat()
     {
-        if(currLevel == 1) // Only works if you are on the second level
-            ((BossLevel)levels.get(1)).killBoss();
+        if(getCurrLevel() instanceof BossLevel)
+            ((BossLevel)getCurrLevel()).killBoss();
     }
 
     /**

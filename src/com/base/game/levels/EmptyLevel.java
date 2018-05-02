@@ -20,4 +20,7 @@ public class EmptyLevel extends Level {
             createDoor();
     }
 
+    public Boss getBoss(){
+        return null;
+    }
 }

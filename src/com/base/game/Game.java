@@ -95,6 +95,7 @@ public class Game {
      * Changes game state to main menu
      */
     public static void backToMenu() {
+        LevelManager.reLoadLevels();
         state = State.MAIN_MENU;
     }
 }

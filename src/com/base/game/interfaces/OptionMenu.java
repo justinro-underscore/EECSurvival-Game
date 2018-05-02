@@ -40,7 +40,6 @@ public class OptionMenu extends Interface {
         mainMenuButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80, "Menu",
                 () -> {
                     InputHandler.clear();
-                    LevelManager.reLoadLevels();
                     Game.backToMenu();
                 });
     }

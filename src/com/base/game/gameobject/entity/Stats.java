@@ -54,6 +54,11 @@ public class Stats {
     }
 
     /**
+     * Set the health to the max health
+     */
+    public void setMaxHealth() { health = maxHealth;}
+
+    /**
      * Get the attack damage
      * @return the character's attack damage
      */

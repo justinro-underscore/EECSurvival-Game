@@ -45,6 +45,9 @@ public class Game {
                 });
     }
 
+    /**
+     * Runs and manages game states
+     */
     public void run() {
         switch (state) {
             case MAIN_MENU:
@@ -52,7 +55,7 @@ public class Game {
                 mainMenu.render();
                 break;
             case GAME:
-                if (!levelManager.hasLoadedLevels()) {
+                if (!LevelManager.hasLoadedLevels()) {
                     levelManager.loadLevels();
                 }
 
@@ -66,10 +69,18 @@ public class Game {
         }
     }
 
+    /**
+     * Returns current level of game
+     * @return current level
+     */
     public Level getCurrLevel() {
         return levelManager.getCurrLevel();
     }
 
+    /**
+     * Returns the levelManager for manipulation
+     * @return levelManager
+     */
     public LevelManager getLevelManager() {
         return levelManager;
     }
@@ -80,6 +91,10 @@ public class Game {
     public static void start() {
         state = State.GAME;
     }
+
+    /**
+     * Changes game state to main menu
+     */
     public static void backToMenu() {
         state = State.MAIN_MENU;
     }

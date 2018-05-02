@@ -149,15 +149,25 @@ public class LevelManager {
             currLevel++;
     }
 
+    /**
+     * Tells levelManager to load test level
+     * @param isAutomated sets test level to either automated or manual
+     */
     public static void loadTestLevel(boolean isAutomated) {
         loadTestLevel = true;
         isTestLevelAutomated = isAutomated;
     }
 
+    /**
+     * Tells levelManager to load the game
+     */
     public static void loadGameLevel() {
         loadTestLevel = false;
     }
 
+    /**
+     * Loads levels into levelManager
+     */
     public void loadLevels() {
         currLevel = 0;
         levels.clear();
@@ -183,11 +193,18 @@ public class LevelManager {
         hasLoadedLevels = true;
     }
 
+    /**
+     * Reloads game levels (restart)
+     */
     public static void reLoadLevels() {
         hasLoadedLevels = false;
     }
 
-    public boolean hasLoadedLevels() {
+    /**
+     * Checks if levels have been reloaded
+     * @return
+     */
+    public static boolean hasLoadedLevels() {
         return hasLoadedLevels;
     }
 }

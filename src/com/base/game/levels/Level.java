@@ -224,6 +224,7 @@ public abstract class Level {
         }
         ui = null;
         stopSpawningConsumables = true;
+        Game.game.getCurrLevel().getPlayer().setMaxHealth();
         createDoor();
     }
 

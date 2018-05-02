@@ -14,15 +14,13 @@ import static org.lwjgl.opengl.GL11.*;
 public class PauseMenu extends Interface {
     private GameButton startButton;
     private GameButton quitButton;
-    // TODO: implement button delay of 10ms
-
 
     /**
      * Initialize the pause menu screen
      */
     @Override
-    public void init(String fileName) {
-        super.init(fileName);
+    public void init(String fileName,int widthOfImage,int heightOfImage) {
+        super.init(fileName,widthOfImage,heightOfImage);
 
         //Start Button
         startButton = new GameButton((float)(Display.getWidth()/2 - 450), (float)(Display.getHeight()/2 - 40), 400, 80, "Start", Game::start);

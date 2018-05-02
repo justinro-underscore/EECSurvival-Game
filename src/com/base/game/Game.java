@@ -24,9 +24,9 @@ public class Game {
 
     public Game() {
         mainMenu = new MainMenu();
-        mainMenu.init("res/assets/parchment.png");
+        mainMenu.init("res/assets/parchment.png",640,480);
         pauseMenu = new OptionMenu();
-        pauseMenu.init("res/assets/parchment.png");
+        pauseMenu.init("res/assets/bricks.jpg",512,512);
 
         levelManager = new LevelManager();
 

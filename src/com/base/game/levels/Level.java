@@ -1,5 +1,6 @@
 package com.base.game.levels;
 
+import com.base.engine.*;
 import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.engine.Physics;
@@ -19,9 +20,8 @@ import java.util.Queue;
 import java.util.concurrent.Callable;
 
 public abstract class Level {
+    private Animation background;
     private ArrayList<Event> events;
-
-    private Sprite background;
 
     //List of Game Objects
     protected ArrayList<GameObject> gameObjects;
@@ -33,7 +33,7 @@ public abstract class Level {
     //The Player
     protected Player player;
     protected UI ui;
-
+    private SpriteRetriever retriever;
     private boolean levelOver;
     private boolean gameOver;
 
@@ -43,13 +43,13 @@ public abstract class Level {
      * Passes the background path with inheritance
      * @param backgroundPath Takes in the path that is available to the user
      */
-    public void init(String backgroundPath, Player player) {
+    public void init(String backgroundPath, int width, int height, Player player) {
         this.player = player;
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        background = new Sprite(Display.getWidth(), Display.getHeight(), backgroundPath);
+        background = new Animation(1,0,0, backgroundPath,width,height,Display.getWidth(),Display.getHeight());
 
         //Creates the player and consumable item
         consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
@@ -217,7 +217,7 @@ public abstract class Level {
      * Creates a door at the end after defeating the boss.
      */
     public void createDoor() {
-        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "res/assets/door.png");
+        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 60, 60, "res/assets/door.png",1);
 
         addObj(door);
     }

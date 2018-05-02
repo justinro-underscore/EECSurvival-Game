@@ -23,14 +23,13 @@ public class MainMenu extends Interface {
 
     private int music;
     private boolean startedAudio;
-    // TODO: implement button delay of 10ms
 
-    @Override
     /**
      * Initialize the main menu screen
      */
-    public void init(String fileName) {
-        super.init(fileName);
+    @Override
+    public void init(String fileName,int widthOfImage, int heightOfImage) {
+        super.init(fileName, widthOfImage, heightOfImage);
 
         startedAudio = false;
         music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
@@ -87,14 +86,13 @@ public class MainMenu extends Interface {
         loadTestLevelAuto.update();
     }
 
-    @Override
     /**
      * Render the main menu
      */
+    @Override
     public void render() {
-        //calls the inherited render function
-        super.render();
 
+        super.render();
         startButton.render();
         quitButton.render();
 

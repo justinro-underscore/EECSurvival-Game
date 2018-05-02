@@ -42,19 +42,19 @@ public class Player extends Character {
         super(xPos, yPos, width, height, numOfAnimations, speed, health, attackDamage,false); // Call Character superclass's constructor
 
         fireSfx = Audio.loadSound("res/audio/fire.ogg");
-        run = new Delay(300);
+        run = new Delay(100);
         run.restart();
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
 
-        idle = new Animation(1,32,96,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+        idle = new Animation(1,64,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
         //Initialize all of the animations
-        walkDown = new Animation(3,0,0,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
-        walkLeft = new Animation(3,0,32,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+        walkDown = new Animation(3,384,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
+        walkLeft = new Animation(3,576,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
 
-        walkRight = new Animation(3,0,64,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+        walkRight = new Animation(3,192,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
 
-        walkUp = new Animation(3,0,96,"res/SpriteSheets/testSpriteSheet.png",32,32,32,32);
+        walkUp = new Animation(3,0,118,"res/SpriteSheets/walkcyclevarious.png",64,59,50,50);
 
         currAnimation = idle;
         currAnimation.start();
@@ -164,13 +164,17 @@ public class Player extends Character {
         if (InputHandler.isKeyDown(GLFW_KEY_LEFT_SHIFT)) {
             //Detects the input from the user for spring direction
             if (InputHandler.isKeyDown(GLFW_KEY_W) && yPos < Display.getHeight() - height) {
-                yPos += speed * 1.1;
+                yPos += speed * 1.05;
+                currAnimation.nextFrame();
             } else if (InputHandler.isKeyDown(GLFW_KEY_S) && yPos > 0) {
-                yPos -= speed * 1.1;
+                yPos -= speed * 1.05;
+                currAnimation.nextFrame();
             } else if (InputHandler.isKeyDown(GLFW_KEY_D) && xPos < Display.getWidth() - width) {
-                xPos += speed * 1.2;
+                xPos += speed * 1.05;
+                currAnimation.nextFrame();
             } else if (InputHandler.isKeyDown(GLFW_KEY_A) && xPos > 0) {
-                xPos -= speed * 1.2;
+                xPos -= speed * 1.05;
+                currAnimation.nextFrame();
             }
         }
 

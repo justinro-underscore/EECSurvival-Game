@@ -2,8 +2,10 @@ package com.base.game.interfaces;
 
 import com.base.engine.Audio;
 import com.base.engine.Display;
+import com.base.engine.InputHandler;
 import com.base.game.Game;
 import com.base.game.gameobject.button.GameButton;
+import com.base.game.levels.LevelManager;
 
 import static com.base.engine.Audio.setMasterGain;
 
@@ -13,9 +15,9 @@ public class OptionMenu extends Interface {
     private GameButton unmuteButton;
     private GameButton closeButton;
     private GameButton mainMenuButton;
+
     //private int music;
     private boolean startedAudio;
-    // TODO: implement button delay of 10ms
 
     @Override
     /**
@@ -28,20 +30,28 @@ public class OptionMenu extends Interface {
         //music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
 
         muteButton = new GameButton((float)(Display.getWidth()/2), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "res/assets/start_release.png", "res/assets/start_press.png", () -> pauseMusic());
+                "res/assets/start_release.png", "res/assets/start_press.png", this::pauseMusic);
 
         unmuteButton = new GameButton((float)(Display.getWidth()/2 - 400), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png",  () -> startAudio());
+                "res/assets/quit_release.png", "res/assets/quit_press.png", this::startAudio);
         closeButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", Game::start);
+                "res/assets/quit_release.png", "res/assets/quit_press.png",
+                () -> {
+                    InputHandler.clear();
+                    Game.start();
+                });
 
         mainMenuButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", Game::backToMenu);
+                "res/assets/quit_release.png", "res/assets/quit_press.png",
+                () -> {
+                    InputHandler.clear();
+                    LevelManager.reLoadLevels();
+                    Game.backToMenu();
+                });
     }
 
     public void startAudio() {
         Audio.setMasterGain(100);
-        //Audio.resumeAll();
 
         startedAudio = true;
     }
@@ -75,17 +85,4 @@ public class OptionMenu extends Interface {
         startedAudio = false;
         Audio.setMasterGain(0);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

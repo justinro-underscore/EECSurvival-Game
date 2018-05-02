@@ -18,7 +18,7 @@ public class LevelManager {
     private int currLevel;
     private static boolean loadTestLevel = false;
     private static boolean isTestLevelAutomated = false;
-    private boolean hasLoadedLevels;
+    private static boolean hasLoadedLevels;
 
     /**
      * Add the levels to the game
@@ -149,17 +149,29 @@ public class LevelManager {
             currLevel++;
     }
 
+    /**
+     * Tells levelManager to load test level
+     * @param isAutomated sets test level to either automated or manual
+     */
     public static void loadTestLevel(boolean isAutomated) {
         loadTestLevel = true;
         isTestLevelAutomated = isAutomated;
     }
 
+    /**
+     * Tells levelManager to load the game
+     */
     public static void loadGameLevel() {
         loadTestLevel = false;
     }
 
+    /**
+     * Loads levels into levelManager
+     */
     public void loadLevels() {
         currLevel = 0;
+        levels.clear();
+
         if (!loadTestLevel) {
             player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "res/assets/player.png", 4f, 20, 5);
 
@@ -181,7 +193,18 @@ public class LevelManager {
         hasLoadedLevels = true;
     }
 
-    public boolean hasLoadedLevels() {
+    /**
+     * Reloads game levels (restart)
+     */
+    public static void reLoadLevels() {
+        hasLoadedLevels = false;
+    }
+
+    /**
+     * Checks if levels have been reloaded
+     * @return
+     */
+    public static boolean hasLoadedLevels() {
         return hasLoadedLevels;
     }
 }

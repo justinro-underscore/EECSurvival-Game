@@ -29,7 +29,6 @@ public class UI extends Interface // TODO Add all UI functionality
      */
     public UI(int playerHealth, int bossHealth)
     {
-
         playerHealthBar = new Rectangle(10, 10, PLAYER_HEALTH_BAR_WIDTH, 20);
         playerHealthFactor = (float)PLAYER_HEALTH_BAR_WIDTH / playerHealth;
         bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
@@ -38,17 +37,12 @@ public class UI extends Interface // TODO Add all UI functionality
         digits = new Sprite[10];
 
         // Populate the digits array with pictures of the digits
-
-
-            theDigit= new Animation(10, 0,0,"res/digits/digits.png",50,50,25,25);
-            for(int i = 0; i < 10; i++)
-            {
-                digits[i] = theDigit.getCurrentFrame();
-                theDigit.nextFrame();
-            }
-
-
- 
+        theDigit = new Animation(10, 0,0,"res/digits/digits.png",50,50,25,25);
+        for(int i = 0; i < 10; i++)
+        {
+            digits[i] = theDigit.getCurrentFrame();
+            theDigit.nextFrame();
+        }
 
         playerHealthDigits = new Sprite[3];
         // Initialize player's health to nothing using the default index
@@ -68,7 +62,6 @@ public class UI extends Interface // TODO Add all UI functionality
         int playerHealth = Game.game.getCurrLevel().getHealth(true);
         playerHealthBar.width = (int)(playerHealth * playerHealthFactor);
         bossHealthBar.width = (int)(Game.game.getCurrLevel().getHealth(false) * bossHealthFactor);
-
         setPlayerHealthDigits(playerHealth);
     }
 

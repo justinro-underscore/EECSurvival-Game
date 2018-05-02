@@ -30,6 +30,8 @@ public class TestLevel extends Level {
     private PrintWriter writer;
     private int currentKey;
     private ConsumableItem consumableItem2;
+    private Projectile projectile;
+    private Boss boss;
 
     public TestLevel(boolean isAutomated) {
         this.isAutomated = isAutomated;
@@ -50,8 +52,8 @@ public class TestLevel extends Level {
 
         init("res/assets/classroom.png", 1280, 960, player);
 
-        Boss boss = new EmptyBoss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 439, 556, "res/assets/bardasWhite.png", 3f,60, 8);
-        Projectile projectile = new StandardProjectile(100, 100, 50, 50, "res/assets/white.png", new Vector2f(1,1), 5, 0, true);
+        boss = new EmptyBoss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 439, 556, "res/assets/bardasWhite.png", 3f,60, 8);
+        projectile = new StandardProjectile(100, 100, 50, 50, "res/assets/white.png", new Vector2f(1,1), 5, 0, true);
         consumableItem2 = new ConsumableItem(400,400, 50, 50, "res/assets/white.png", -1, 5);
 
         ui = new UI(player.getHealth(), boss.getHealth());
@@ -122,5 +124,13 @@ public class TestLevel extends Level {
         if (lose) {
             player.respawn();
         }
+    }
+
+    @Override
+    public int getHealth(boolean isPlayer) {
+        if (isPlayer)
+            return player.getHealth();
+
+        return boss.getHealth();
     }
 }

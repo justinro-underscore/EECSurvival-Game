@@ -4,13 +4,12 @@ import com.base.engine.*;
 
 public class GameButton extends GameObject {
     private String btnTexture; // The current texture of the button
-    private String oldBtnTexture; // Put in place so we will not keep updating the sprite
     private TextRenderer label; // The button's label
   
     private Runnable onPressed; // Function to be ran
 
-    private final String btnReleased = "res/assets/button_release.png"; // The image path to the released texture SHOULD NOT BE CHANGED
-    private final String btnPressed = "res/assets/button_press.png"; // The image path to the pressed texture SHOULD NOT BE CHANGED
+    private boolean isAlreadyPressed;
+    private boolean isPressed;
 
     /**
      * Creates a new button
@@ -25,12 +24,11 @@ public class GameButton extends GameObject {
     {
         onPressed = func;
 
-        btnTexture = btnReleased; // Button should start out released
-        oldBtnTexture = btnTexture;
+        btnTexture = "res/assets/button.png"; // Button should start out released
 
-//        label = new TextRenderer(content, width, height, true, 3, false, xPos, yPos);
+        label = new TextRenderer(content, width, height, true, 3, false, xPos, yPos);
 
-        init(xPos, yPos, 300, 81, 1, false, btnTexture, 0, 0, width, height); // Create the object
+        init(xPos, yPos, 300, 81, 2, false, btnTexture, 0, 0, width, height); // Create the object
     }
 
     /**
@@ -41,21 +39,21 @@ public class GameButton extends GameObject {
 
         // Set the sprite's texture
         if (Physics.checkCollision(this, (int)mousePos.x, (int)mousePos.y))
-            btnTexture = btnPressed;
+            isPressed = true;
         else
-            btnTexture = btnReleased;
+            isPressed = false;
 
         // So we're not constantly updating the sprite
-        if(!oldBtnTexture.equals(btnTexture))
+        if(isPressed != isAlreadyPressed)
         {
-            setTexture(btnTexture);
-            oldBtnTexture = btnTexture;
+            setTexture();
+            isAlreadyPressed = isPressed;
         }
 
         // Check to see if the button has been pressed
-        if (InputHandler.isMouseDown() && btnTexture.equals(btnPressed))
+        if (InputHandler.isMouseDown() && isPressed)
         {
-            btnTexture = btnReleased;
+            isPressed = false;
             new Thread(onPressed).start(); // Run the function
         }
     }
@@ -63,6 +61,6 @@ public class GameButton extends GameObject {
     public void render()
     {
         super.render();
-//        label.render();
+        label.render();
     }
 }

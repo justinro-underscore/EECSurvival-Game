@@ -6,6 +6,13 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
 public class TextRenderer
 {
+    private final Sprite[] ALPHABET = SpriteRetriever.loadSprite("res/alphabet/alphabet.png", 0, 0, 31, 50, 50);
+    private final int SPACE = 26;
+    private final int PERIOD = 27;
+    private final int EXCLAMATION = 28;
+    private final int QUESTION = 29;
+    private final int ERROR = 30;
+
     private Sprite[][] stringsArr; // The sprites to be rendered, showing text
     private char[] strings; // The chars of the strings array
     private int fontSize; // The size of the letter sprites
@@ -71,26 +78,32 @@ public class TextRenderer
 
             for(int index = 0; index < numCharsInRow; index++)
             {
-//                if(index <= endIndex && tempIndex < stringsLength) // Make sure we can still add to the array
-//                {
-//                    char currChar = temp.charAt(tempIndex);
-//                    strings[index + (row * numCharsInRow)] = currChar; // Get the characters being added
-//
-//                    // Add the characters to the array
-//                    if ((currChar >= 'A' && currChar <= 'Z') || currChar == '!' || currChar == '?')
-//                        stringsArr[row][index] = new Sprite(SpriteRetriever.loadSprite("res/alphabet/" + currChar + ".png"));
-//                    else if (currChar == ' ')
-//                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
-//                    else
-//                        stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/ERROR.png");
-//
-//                    tempIndex++;
-//                }
-//                else // Pad the end of the rows with spaces
-//                {
-//                    stringsArr[row][index] = new Sprite(fontSize, fontSize, "res/alphabet/SPACE.png");
-//                    strings[index + (row * numCharsInRow)] = ' ';
-//                }
+                if(index <= endIndex && tempIndex < stringsLength) // Make sure we can still add to the array
+                {
+                    char currChar = temp.charAt(tempIndex);
+                    strings[index + (row * numCharsInRow)] = currChar; // Get the characters being added
+
+                    // Add the characters to the array
+                    if (currChar >= 'A' && currChar <= 'Z')
+                        stringsArr[row][index] = ALPHABET[currChar - 'A'];
+                    else if (currChar == ' ')
+                        stringsArr[row][index] = ALPHABET[SPACE];
+                    else if(currChar == '.')
+                        stringsArr[row][index] = ALPHABET[PERIOD];
+                    else if(currChar == '!')
+                        stringsArr[row][index] = ALPHABET[EXCLAMATION];
+                    else if(currChar == '?')
+                        stringsArr[row][index] = ALPHABET[QUESTION];
+                    else
+                        stringsArr[row][index] = ALPHABET[ERROR];
+
+                    tempIndex++;
+                }
+                else // Pad the end of the rows with spaces
+                {
+                    stringsArr[row][index] = ALPHABET[SPACE];
+                    strings[index + (row * numCharsInRow)] = ' ';
+                }
             }
         }
 

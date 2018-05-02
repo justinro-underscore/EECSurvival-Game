@@ -98,10 +98,9 @@ public abstract class GameObject
 
     /**
      * Resets the texture of the sprite
-     * @param imgPath to the new texture
      */
-    public void setTexture(String imgPath) {
-//        sprite.setTexture(imgPath);
+    public void setTexture() {
+        currAnimation.nextFrame();
     }
 
     public boolean getBoss(){return boss;}

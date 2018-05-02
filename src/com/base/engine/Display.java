@@ -2,7 +2,6 @@ package com.base.engine;
 
 import com.base.game.Game;
 import com.base.game.interfaces.MainMenu;
-import com.base.game.interfaces.PauseMenu;
 import com.base.game.utilities.Time;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;

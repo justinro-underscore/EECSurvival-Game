@@ -177,7 +177,7 @@ public class LevelManager {
 
             EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", player, true);
 
-            Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f, 60, 8);
+            Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 250, 150, 200, "res/assets/bardasWhite.png", 3f, 60, 8);
             BossLevel level2 = new BossLevel("res/assets/bossBack.png", boss, player, "res/scripts/cutsceneTest1.bsh");
 
             EmptyLevel endGame = new EmptyLevel("res/assets/thankYouForWatching.png", player, false);

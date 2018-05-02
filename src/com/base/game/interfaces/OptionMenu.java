@@ -29,16 +29,16 @@ public class OptionMenu extends Interface {
         startedAudio = false;
         //music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
 
-        muteButton = new GameButton((float)(Display.getWidth()/2), (float)(Display.getHeight()/2 + 100), 400, 80, "Mute Music", this::pauseMusic);
+        muteButton = new GameButton((float)(Display.getWidth()/2), (float)(Display.getHeight()/2 + 100), 400, 80, "Mute", this::pauseMusic);
 
-        unmuteButton = new GameButton((float)(Display.getWidth()/2 - 400), (float)(Display.getHeight()/2 + 100), 400, 80, "Unmute Music", this::startAudio);
+        unmuteButton = new GameButton((float)(Display.getWidth()/2 - 400), (float)(Display.getHeight()/2 + 100), 400, 80, "Unmute", this::startAudio);
         closeButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80, "Resume",
                 () -> {
                     InputHandler.clear();
                     Game.start();
                 });
 
-        mainMenuButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80, "Main Menu",
+        mainMenuButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80, "Menu",
                 () -> {
                     InputHandler.clear();
                     LevelManager.reLoadLevels();

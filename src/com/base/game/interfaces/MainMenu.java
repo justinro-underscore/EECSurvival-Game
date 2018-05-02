@@ -35,17 +35,14 @@ public class MainMenu extends Interface {
         startedAudio = false;
         music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
 
-        startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "res/assets/start_release.png", "res/assets/start_press.png",
+        startButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 100), 400, 80, "Start",
                 () -> {
                     LevelManager.loadGameLevel();
                     start();
                 });
-        quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
+        quitButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80, "Quit", Display::quit);
 
-        runTestSuite = new GameButton((float)(Display.getWidth()/2 - 640), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png",
+        runTestSuite = new GameButton((float)(Display.getWidth()/2 - 640), (float)(Display.getHeight()/2 - 100), 400, 80, "Suite",
                 () -> {
                     try {
                         TestDriver.runTests();
@@ -54,15 +51,13 @@ public class MainMenu extends Interface {
                     }
                 });
 
-        loadTestLevelManual = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png",
+        loadTestLevelManual = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80, "Manual",
                 () -> {
                     LevelManager.loadTestLevel(false);
                     start();
                 });
 
-        loadTestLevelAuto = new GameButton((float)(Display.getWidth()/2 + 240), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png",
+        loadTestLevelAuto = new GameButton((float)(Display.getWidth()/2 + 240), (float)(Display.getHeight()/2 - 100), 400, 80, "Auto",
                 () -> {
                     LevelManager.loadTestLevel(true);
                     start();

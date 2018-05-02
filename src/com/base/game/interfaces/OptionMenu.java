@@ -29,20 +29,16 @@ public class OptionMenu extends Interface {
         startedAudio = false;
         //music = Audio.loadSound("res/audio/Ove_Melaa_Times.ogg");
 
-        muteButton = new GameButton((float)(Display.getWidth()/2), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "res/assets/start_release.png", "res/assets/start_press.png", this::pauseMusic);
+        muteButton = new GameButton((float)(Display.getWidth()/2), (float)(Display.getHeight()/2 + 100), 400, 80, "Mute Music", this::pauseMusic);
 
-        unmuteButton = new GameButton((float)(Display.getWidth()/2 - 400), (float)(Display.getHeight()/2 + 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png", this::startAudio);
-        closeButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png",
+        unmuteButton = new GameButton((float)(Display.getWidth()/2 - 400), (float)(Display.getHeight()/2 + 100), 400, 80, "Unmute Music", this::startAudio);
+        closeButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 100), 400, 80, "Resume",
                 () -> {
                     InputHandler.clear();
                     Game.start();
                 });
 
-        mainMenuButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80,
-                "res/assets/quit_release.png", "res/assets/quit_press.png",
+        mainMenuButton = new GameButton((float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 - 300), 400, 80, "Main Menu",
                 () -> {
                     InputHandler.clear();
                     LevelManager.reLoadLevels();

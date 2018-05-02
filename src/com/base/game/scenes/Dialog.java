@@ -24,7 +24,7 @@ public class Dialog {
     public Dialog(String content, int fontSize)
     {
         background = new Sprite(1000, 150, "");
-        text = new TextRenderer(content, 950, 100, fontSize, true, Display.getWidth() / 2 - 475, 125);
+        text = new TextRenderer(content, 950, 100, false, fontSize, true, Display.getWidth() / 2 - 475, 125);
         text.startTypewriterDelay(); // Start showing the text
         isOver = false;
     }

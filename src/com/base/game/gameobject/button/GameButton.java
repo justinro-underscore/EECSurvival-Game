@@ -6,6 +6,7 @@ public class GameButton extends GameObject
 {
     private String btnTexture; // The current texture of the button
     private String oldBtnTexture; // Put in place so we will not keep updating the sprite
+    private TextRenderer label; // The button's label
     private Runnable onPressed; // Function to be ran
 
     private String btnReleased; // The image path to the released texture SHOULD NOT BE CHANGED
@@ -17,18 +18,19 @@ public class GameButton extends GameObject
      * @param yPos y-coordinate
      * @param width width of the sprite
      * @param height height of the sprite
-     * @param imgPathReleased file path to the image representing the released button
-     * @param imgPathPressed file path to the image representing the released button
+     * @param content The content of the button's label
      * @param func the function to be run when pressed
      */
-    public GameButton(float xPos, float yPos, int width, int height, String imgPathReleased, String imgPathPressed, Runnable func)
+    public GameButton(float xPos, float yPos, int width, int height, String content, Runnable func)
     {
         // Set the constant variables
-        btnReleased = imgPathReleased;
-        btnPressed = imgPathPressed;
+        btnReleased = "res/assets/button_release.png";
+        btnPressed = "res/assets/button_press.png";
 
         btnTexture = btnReleased; // Button should start out released
         oldBtnTexture = btnTexture;
+
+        label = new TextRenderer(content, width, height, true, 3, false, xPos, yPos);
 
         onPressed = func;
 
@@ -61,5 +63,11 @@ public class GameButton extends GameObject
             btnTexture = btnReleased;
             new Thread(onPressed).start(); // Run the function
         }
+    }
+
+    public void render()
+    {
+        super.render();
+        label.render();
     }
 }

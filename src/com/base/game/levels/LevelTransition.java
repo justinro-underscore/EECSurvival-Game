@@ -90,8 +90,7 @@ public class LevelTransition
             if (endScreenTransparency >= 0.994 && endScreenTransparency < 1) {
                 blackFadeOutTime.start(); // Happens here so that it only starts it once, right before Next Level screen gets fully opaque
                 if(gameOver) {
-                    quitButton = new GameButton((float) (Display.getWidth() / 2 - 200), 50f, 400, 80,
-                            "res/assets/quit_release.png", "res/assets/quit_press.png", Display::quit);
+                    quitButton = new GameButton((float) (Display.getWidth() / 2 - 200), 50f, 400, 80,"Quit", Display::quit);
                 }
             }
 

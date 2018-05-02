@@ -8,9 +8,10 @@ public class TextRenderer
 {
     private Sprite[][] stringsArr; // The sprites to be rendered, showing text
     private char[] strings; // The chars of the strings array
-  
     private int fontSize; // The size of the letter sprites
-
+    private boolean centered; // Whether or not the text should be centered NOTE: Text can only be centered if there is only one line
+    private int width; // Width of the text box (used with centered)
+    private int height; // Height of the text box (used with centered)
     private int numCharsInRow; // Number of characters that will fit per row
     private int numRows; // Number of rows that will fit in the text box
     private int stringsLength; // Length of the string being printed
@@ -33,8 +34,7 @@ public class TextRenderer
      * @param x X coord of box
      * @param y Y coord of box
      */
-
-    public TextRenderer(String words, int width, int height, int font, boolean typewriter, float x, float y)
+    public TextRenderer(String words, int width, int height, boolean center, int font, boolean typewriter, float x, float y)
     {
         switch(font)
         {
@@ -43,6 +43,8 @@ public class TextRenderer
             case 2:
             default: fontSize = 25; break;
         }
+        this.width = width;
+        this.height = height;
         numCharsInRow = width / fontSize; // Get the number of letters in a row
         numRows = height / fontSize;
       
@@ -89,6 +91,8 @@ public class TextRenderer
                 }
             }
         }
+
+        centered = (numRows == 1 && center);
 
         typewriterMode = typewriter;
         if(typewriterMode)
@@ -186,7 +190,13 @@ public class TextRenderer
             {
                 if(tempIndex <= currIndex) // Prints whatever should be written
                 {
-                    stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize));
+                    if(centered)
+                    {
+                        stringsArr[row][index].render(x + ((width / 2.0f) - ((stringsLength / 2) - index + (stringsLength % 2 == 0 ? 0 : 0.5f)) * fontSize),
+                                y + (height - fontSize) / 2.0f);
+                    }
+                    else
+                        stringsArr[row][index].render(x + (index * fontSize), y + ((numRows - (row + 1)) * fontSize));
 
                     if(strings[index + (row * numCharsInRow)] != ' ') // If we are not at the end, increase tempIndex
                         tempIndex++;

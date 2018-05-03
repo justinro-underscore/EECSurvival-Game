@@ -8,6 +8,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 /**
  * Adapted from LWJGL 3 tutorial: https://tutorialedge.net/java/lwjgl3/lwjgl-3-keyboard-input-handler-tutorial/
+ * Handles the input from the user (mouse and keyboard)
  */
 public class InputHandler {
     private static boolean[] keys = new boolean[65536];
@@ -18,6 +19,14 @@ public class InputHandler {
     private static double mouseXPos = 0;
     private static double mouseYPos = 0;
 
+    /**
+     * Callback for keyPress
+     * @param window window to detect
+     * @param key key that was detected
+     * @param scancode scandcode of key
+     * @param action action of key (pressed/released)
+     * @param mods mods of the key
+     */
     public void invokeKey(long window, int key, int scancode, int action, int mods) {
         if (key == -1) {
             return;
@@ -64,7 +73,14 @@ public class InputHandler {
         }
         return false;
     }
-    
+
+    /**
+     * Callback function for when mouse action is detected
+     * @param window current window to detect events from
+     * @param button button detected
+     * @param action action of button (pressed/released)
+     * @param mods mods of button
+     */
     public void invokeMouseButton(long window, int button, int action, int mods) {
         if (button != GLFW_MOUSE_BUTTON_1)
             return;

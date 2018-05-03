@@ -22,6 +22,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.awt.event.KeyEvent.*;
 
+/**
+ * Test level to be used for acceptance testing
+ */
 public class TestLevel extends Level {
     private boolean isAutomated;
     private ArrayList<Integer> keyLog;
@@ -34,6 +37,10 @@ public class TestLevel extends Level {
     private Projectile projectile;
     private Boss boss;
 
+    /**
+     * Creates a new test level that is automated or not automated
+     * @param isAutomated if test is automated or not
+     */
     public TestLevel(boolean isAutomated) {
         this.isAutomated = isAutomated;
 
@@ -63,6 +70,9 @@ public class TestLevel extends Level {
         addObj(consumableItem2);
     }
 
+    /**
+     * Either uses Level's update or overriden automated updating
+     */
     @Override
     public void update() {
         if (!isAutomated) {
@@ -83,11 +93,17 @@ public class TestLevel extends Level {
         }
     }
 
+    /**
+     * Uses Level's render method
+     */
     @Override
     public void render() {
         super.render();
     }
 
+    /**
+     * Auto moves the character
+     */
     private void autoUpdate() {
         robot.keyPress(VK_SPACE);
 
@@ -120,6 +136,10 @@ public class TestLevel extends Level {
         super.update();
     }
 
+    /**
+     * Checks if level is over
+     * @param lose boolean value that checks if the level is over
+     */
     @Override
     public void levelOver(boolean lose) {
         if (lose) {
@@ -127,11 +147,20 @@ public class TestLevel extends Level {
         }
     }
 
+    /**
+     * Returns the boss of the level
+     * @return null for now
+     */
     @Override
     public Boss getBoss() {
         return null;
     }
 
+    /**
+     * Returns either the player or boss health
+     * @param isPlayer if we want the player or boss health
+     * @return player or boss health
+     */
     @Override
     public int getHealth(boolean isPlayer) {
         if (isPlayer)

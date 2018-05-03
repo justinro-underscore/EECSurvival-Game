@@ -14,8 +14,12 @@ import static org.lwjgl.system.MemoryStack.stackPop;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.libc.LibCStdlib.free;
 
+/**
+ * Audio class to manage all audio buffers
+ * For each audio file we add a buffer to the master array
+ * Audio can set gain, pitch, loop, pause, direction of audio
+ */
 public class Audio {
-
     private static List<Integer> buffers = new ArrayList<>();
     private static Map<Integer, Integer> sources = new HashMap<>();
 
@@ -24,6 +28,9 @@ public class Audio {
 
     private static boolean isMuted;
 
+    /**
+     * Initializes OpenAl capabilities
+     */
     public static void init() {
         String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
         device = alcOpenDevice(defaultDeviceName);
@@ -38,6 +45,11 @@ public class Audio {
         isMuted = false;
     }
 
+    /**
+     * Loads a sound into the buffer array
+     * @param filePath File path to audio file (audio sample must be *.ogg)
+     * @return the integer representing the buffer
+     */
     public static int loadSound(String filePath) {
         //Allocate space to store return information from the function
         stackPush();
@@ -78,6 +90,10 @@ public class Audio {
         return bufferPointer;
     }
 
+    /**
+     * Plays the buffer by creating a source for the audio sample
+     * @param bufferPointer buffer representing audio sample
+     */
     public static void playBuffer(int bufferPointer) {
         int sourcePointer = alGenSources();
 
@@ -88,38 +104,72 @@ public class Audio {
         sources.put(bufferPointer, sourcePointer);
     }
 
+    /**
+     * Pauses a specific buffer
+     * @param bufferPointer buffer representing audio sample
+     */
     public static void pauseBuffer(int bufferPointer) {
         alSourcePause(sources.get(bufferPointer));
     }
 
+    /**
+     * Resumes a specific buffer
+     * @param bufferPointer buffer representing audio sample
+     */
     public static void resumeBuffer(int bufferPointer) {
         alSourcePlay(sources.get(bufferPointer));
     }
 
+    /**
+     * Pauses all current audio samples
+     */
     public static void pauseAll() {
         alSourcePausev(objectArrayToIntArray(sources.values().toArray()));
     }
 
+    /**
+     * Resumes all audio samples
+     */
     public static void resumeAll() {
         alSourcePlayv(objectArrayToIntArray(sources.values().toArray()));
     }
 
+    /**
+     * Stops a specific buffer
+     * @param bufferPointer buffer representing audio sample
+     */
     public static void stopBuffer(int bufferPointer) {
         alSourceStop(sources.get(bufferPointer));
     }
 
+    /**
+     * Stops all current audio samples
+     */
     public static void stopAll() {
         alSourceStopv(objectArrayToIntArray(sources.values().toArray()));
     }
 
+    /**
+     * Loops a specific buffer
+     * @param bufferPointer buffer representing audio sample
+     */
     public static void loopBuffer(int bufferPointer) {
         alSourcei(sources.get(bufferPointer), AL_LOOPING, AL_TRUE);
     }
 
+    /**
+     * Sets a specific audio sample's gain
+     * @param bufferPointer buffer representing audio sample
+     * @param bufferGain amt to set gain to (gain must not be negative)
+     */
     public static void setBufferGain(int bufferPointer, float bufferGain) {
         alSourcef(sources.get(bufferPointer), AL_GAIN, Math.abs(bufferGain));
     }
 
+    /**
+     * Sets the gain for all audio samples
+     * @param bufferGain amt to set gain to (gain must not be negative)
+     */
     public static void setMasterGain(float bufferGain) {
         int[] _sources = objectArrayToIntArray(sources.values().toArray());
         for (int source : _sources) {
@@ -129,22 +179,46 @@ public class Audio {
         isMuted = (bufferGain == 0);
     }
 
+    /**
+     * Sets a specific audio sample's pitch
+     * @param bufferPointer buffer representing audio sample
+     * @param bufferPitch amt to set pitch to
+     */
     public static void setBufferPitch(int bufferPointer, float bufferPitch) {
         alSourcef(sources.get(bufferPointer), AL_PITCH, bufferPitch);
     }
 
+    /**
+     * Sets an audio sample's velocity
+     * @param bufferPointer buffer representing audio sample
+     * @param velocity Velocity of audio
+     */
     public static void setBufferVelocity(int bufferPointer, Vector2f velocity) {
         alSource3f(sources.get(bufferPointer), AL_VELOCITY, velocity.x, velocity.y, 0);
     }
 
+    /**
+     * Sets the audio sample's position in the game world
+     * @param bufferPointer buffer representing audio sample
+     * @param pos position of audio sample
+     */
     public static void setBufferPos(int bufferPointer, Vector2f pos) {
         alSource3f(sources.get(bufferPointer), AL_POSITION, pos.x, pos.y, 0);
     }
 
+    /**
+     * Sets the direction of the audio sample in the game world
+     * @param bufferPointer buffer representing audio sample
+     * @param dir direction of audio sample
+     */
     public static void setBufferDirection(int bufferPointer, Vector2f dir) {
         alSource3f(sources.get(bufferPointer), AL_DIRECTION, dir.x, dir.y, 0);
     }
 
+    /**
+     * Destroys all audio sources and buffers
+     * Also destroys the OpenAl context and device
+     */
     public static void cleanUp() {
         alDeleteBuffers(objectArrayToIntArray(buffers.toArray()));
         alDeleteSources(objectArrayToIntArray(sources.values().toArray()));

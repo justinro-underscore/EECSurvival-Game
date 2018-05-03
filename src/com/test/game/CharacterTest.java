@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the character functionality of the game
+ */
 class CharacterTest {
     private Player player;
 

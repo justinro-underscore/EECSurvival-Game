@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the collision methods of the physics class
+ */
 class PhysicsTest {
 
     /**

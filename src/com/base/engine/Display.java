@@ -18,6 +18,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 /**
  * Adapted from LWJGL getting started: https://www.lwjgl.org/guide
+ * Creates a display using openGl and initializes the game
+ * Manages the gameloop
  */
 public class Display {
     // The window handle

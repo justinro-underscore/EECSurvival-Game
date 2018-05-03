@@ -3,6 +3,10 @@ package com.base.engine;
 import com.base.game.gameobject.entity.Empty;
 import com.base.game.gameobject.entity.EmptyPlayer;
 
+/**
+ * Defines all objects in the game world
+ * All objects extend this class
+ */
 public abstract class GameObject
 {
     //TODO Im not sure how you want to handle initializing the animation
@@ -106,5 +110,9 @@ public abstract class GameObject
         currAnimation.nextFrame();
     }
 
+    /**
+     * Returns true if a gameobject is a boss
+     * @return if gameobject is boss
+     */
     public boolean getBoss(){return boss;}
 }

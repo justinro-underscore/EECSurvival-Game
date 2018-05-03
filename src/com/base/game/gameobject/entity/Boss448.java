@@ -39,9 +39,9 @@ public class Boss448 extends Boss {
         //Delay between attacks from the Boss
         lRwallAttackDelay = new Delay(6000);
         rLwallAttackDelay = new Delay(7000);
-        burstAttackDelay = new Delay(8000);
+        burstAttackDelay = new Delay(4000);
         fourCornersDelay = new Delay(5000);
-        heatSeekingDelay = new Delay(15000);
+        heatSeekingDelay = new Delay(13000);
 
         isInitialAttack = true;
 

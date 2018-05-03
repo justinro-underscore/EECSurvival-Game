@@ -46,16 +46,16 @@ public class Boss268 extends Boss {
      */
     public void attack() {
         if(wallAttackDelay.isOver()){ // Wall attack
-            topDownWallOfFireAbility(15,15,8, 5, 7);
+            topDownWallOfFireAbility(10,10,8, 5, 10);
             wallAttackDelay.start();
         }
         if(targetAttackDelay.isOver()){ // Target attack
-            targetPlayerAbility(15,15, 5, 7);
+            targetPlayerAbility(10,10, 5, 10);
             targetAttackDelay.start();
         }
         if(burstAttackDelay.isOver()) { // Burst attack
             if(Math.random() * 2 > 1){
-                shootAbility(10,10,10, 5, 7);
+                shootAbility(10,10,10, 5, 10);
             }
             burstAttackDelay.start();
         }

@@ -253,14 +253,14 @@ public class Player extends Character {
      */
     protected void attack() {
         // TODO Change this to something more modular
-        int proWidth = 5; // Projectile width
-        int proHeight = 5; // Projectile height
+        int proWidth = 10; // Projectile width
+        int proHeight = 10; // Projectile height
 
         Vector2f proDir = new Vector2f(0, 1);
 
         Audio.playBuffer(fireSfx);
         Audio.setBufferGain(fireSfx, 1.5f);
-        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "res/assets/white.png", proDir, 5, 8 , false); // Create the projectile
+        StandardProjectile pro = new StandardProjectile(getX() - (proWidth / 2), yPos + height, proWidth, proHeight, "res/assets/plus.png", proDir, 5, 8 , false); // Create the projectile
 
         Game.game.getCurrLevel().addObj(pro);
         attackDelay.start(); // Make sure the player can't rapid fire

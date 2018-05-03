@@ -47,11 +47,11 @@ public class Boss168 extends Boss {
      */
     public void attack() {
         if(wallAttackDelay.isOver()){ // Wall attack
-            topDownWallOfFireAbility(15,15,8, 3, 3);
+            topDownWallOfFireAbility(10,10,8, 3, 3);
             wallAttackDelay.start();
         }
         if(targetAttackDelay.isOver()){ // Target attack
-            targetPlayerAbility(15,15, 3, 3);
+            targetPlayerAbility(10,10, 3, 3);
             targetAttackDelay.start();
         }
         if(burstAttackDelay.isOver()) { // Burst attack

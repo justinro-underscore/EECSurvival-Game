@@ -75,7 +75,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void shootAbility(int proWidth, int proHeight, int numberOfPros, float speed, int damage) {
         for (int i = 1; i <= numberOfPros; i++) {
-            standardProjectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png" , new Vector2f(-(numberOfPros/2) + i - 1 , -1), damage, speed,true));
+            standardProjectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/PaperBall.png" , new Vector2f(-(numberOfPros/2) + i - 1 , -1), damage, speed,true));
         }
     }
 
@@ -85,7 +85,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param proHeight Projectile height
      */
     public void targetPlayerAbility(int proWidth, int proHeight, float speed, int damage) {
-        standardProjectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(Game.game.getCurrLevel().getPlayerX() - (getX() - (proWidth / 2)), Game.game.getCurrLevel().getPlayerY() - (yPos - proHeight)), damage, speed,true));
+        standardProjectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(Game.game.getCurrLevel().getPlayerX() - (getX() - (proWidth / 2)), Game.game.getCurrLevel().getPlayerY() - (yPos - proHeight)), damage, speed,true));
     }
 
     /**
@@ -94,7 +94,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param proHeight Projectile height
      */
     public void heatSeekingAbility(int proWidth, int proHeight, float speed, int damage) {
-        heatSeekingProjectiles.add(new HeatSeekingProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(0, -1), damage, speed,true, 200));
+        heatSeekingProjectiles.add(new HeatSeekingProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/redPen.png", new Vector2f(0, -1), damage, speed,true, 300));
     }
 
     /**
@@ -105,7 +105,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public void topDownWallOfFireAbility(int proWidth, int proHeight, int numberOfPros, float speed, int damage) {
         for (int i = 1; i <= numberOfPros; i++){
-            standardProjectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "res/assets/white.png", new Vector2f(0, -1), damage, speed,true));
+            standardProjectiles.add(new StandardProjectile((Display.getWidth() / numberOfPros) * i - (Display.getWidth() / (numberOfPros * 2)), yPos - proHeight, proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(0, -1), damage, speed,true));
         }
     }
 
@@ -119,12 +119,12 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     public void leftOrRightWallOfFireAbility(int proWidth, int proHeight, int numberOfPros, float speed, int damage, boolean goingRight) {
         if(goingRight){
             for (int i = 1; i <= numberOfPros; i++){
-                standardProjectiles.add(new StandardProjectile(0, (Display.getHeight() / numberOfPros) * i - (Display.getHeight() / (numberOfPros * 2)), proWidth, proHeight, "res/assets/white.png", new Vector2f(1, 0), damage, speed,true));
+                standardProjectiles.add(new StandardProjectile(0, (Display.getHeight() / numberOfPros) * i - (Display.getHeight() / (numberOfPros * 2)), proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(1, 0), damage, speed,true));
             }
         }
         else{
             for (int i = 1; i <= numberOfPros; i++){
-                standardProjectiles.add(new StandardProjectile(Display.getWidth(), (Display.getHeight() / numberOfPros) * i - (Display.getHeight() / (numberOfPros * 2)), proWidth, proHeight, "res/assets/white.png", new Vector2f(-1, 0), damage, speed,true));
+                standardProjectiles.add(new StandardProjectile(Display.getWidth(), (Display.getHeight() / numberOfPros) * i - (Display.getHeight() / (numberOfPros * 2)), proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(-1, 0), damage, speed,true));
             }
         }
     }
@@ -135,10 +135,10 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param proHeight Projectile height
      */
     public void fourCornersAbility(int proWidth, int proHeight, float speed, int damage) {
-        standardProjectiles.add(new StandardProjectile(0, 0, proWidth, proHeight, "res/assets/white.png", new Vector2f(Display.getWidth() / 2, Display.getHeight() / 2), damage, speed,true));
-        standardProjectiles.add(new StandardProjectile(0, Display.getHeight(), proWidth, proHeight, "res/assets/white.png", new Vector2f(Display.getWidth() / 2, -Display.getHeight() / 2), damage, speed,true));
-        standardProjectiles.add(new StandardProjectile(Display.getWidth(), Display.getHeight(), proWidth, proHeight, "res/assets/white.png", new Vector2f(-Display.getWidth() / 2, -Display.getHeight() / 2), damage, speed,true));
-        standardProjectiles.add(new StandardProjectile(Display.getWidth(), 0, proWidth, proHeight, "res/assets/white.png", new Vector2f(-Display.getWidth() / 2, Display.getHeight() / 2), damage, speed,true));
+        standardProjectiles.add(new StandardProjectile(0, 0, proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(Display.getWidth() / 2, Display.getHeight() / 2), damage, speed,true));
+        standardProjectiles.add(new StandardProjectile(0, Display.getHeight(), proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(Display.getWidth() / 2, -Display.getHeight() / 2), damage, speed,true));
+        standardProjectiles.add(new StandardProjectile(Display.getWidth(), Display.getHeight(), proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(-Display.getWidth() / 2, -Display.getHeight() / 2), damage, speed,true));
+        standardProjectiles.add(new StandardProjectile(Display.getWidth(), 0, proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(-Display.getWidth() / 2, Display.getHeight() / 2), damage, speed,true));
     }
 
     /**

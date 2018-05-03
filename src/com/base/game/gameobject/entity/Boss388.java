@@ -74,11 +74,11 @@ public class Boss388 extends Boss {
             isInitialAttack = false;
         }
         if(heatSeekingDelay.isOver()){ // Wall attack
-            heatSeekingAbility(50,50,3, 45);
+            heatSeekingAbility(10,50,4, 45);
             heatSeekingDelay.start();
         }
         if(fourCornersDelay.isOver()){
-            fourCornersAbility(15,15, 10, 5);
+            fourCornersAbility(10,10, 10, 15);
             fourCornersDelay.start();
         }
     }

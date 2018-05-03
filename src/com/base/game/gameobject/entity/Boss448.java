@@ -62,25 +62,25 @@ public class Boss448 extends Boss {
             isInitialAttack = false;
         }
         if(lRwallAttackDelay.isOver()){ // Wall attack
-            leftOrRightWallOfFireAbility(8,8,3, 4, 3, true);
+            leftOrRightWallOfFireAbility(8,8,3, 4, 15, true);
             lRwallAttackDelay.start();
         }
         if(rLwallAttackDelay.isOver()){ // Wall attack
-            leftOrRightWallOfFireAbility(8,8,4, 4, 3, false);
+            leftOrRightWallOfFireAbility(8,8,4, 4, 15, false);
             rLwallAttackDelay.start();
         }
         if(burstAttackDelay.isOver()) { // Burst attack
             if(Math.random() * 2 > 1){
-                shootAbility(10,10,10, 3, 3);
+                shootAbility(10,10,10, 3, 15);
             }
             burstAttackDelay.start();
         }
         if(heatSeekingDelay.isOver()){ // Wall attack
-            heatSeekingAbility(40,40,5, 10);
+            heatSeekingAbility(10,50,5, 15);
             heatSeekingDelay.start();
         }
         if(fourCornersDelay.isOver()){
-            fourCornersAbility(15,15, 10, 3);
+            fourCornersAbility(10,10, 10, 15);
             fourCornersDelay.start();
         }
     }

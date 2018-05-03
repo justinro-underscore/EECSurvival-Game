@@ -47,16 +47,16 @@ public class Boss368 extends Boss {
      */
     public void attack() {
         if(lRwallAttackDelay.isOver()){ // Wall attack
-            leftOrRightWallOfFireAbility(15,15,2, 4, 3, true);
+            leftOrRightWallOfFireAbility(10,10,2, 4, 10, true);
             lRwallAttackDelay.start();
         }
         if(rLwallAttackDelay.isOver()){ // Wall attack
-            leftOrRightWallOfFireAbility(15,15,3, 4, 3, false);
+            leftOrRightWallOfFireAbility(10,10,3, 4, 10, false);
             rLwallAttackDelay.start();
         }
         if(burstAttackDelay.isOver()) { // Burst attack
             if(Math.random() * 2 > 1){
-                shootAbility(10,10,10, 3, 3);
+                shootAbility(10,10,10, 3, 10);
             }
             burstAttackDelay.start();
         }

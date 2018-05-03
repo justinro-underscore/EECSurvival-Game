@@ -36,7 +36,7 @@ public class LevelTransition
         blackFade = true; // Start on black fade
         blackScreen = new Animation(1,0,0,"res/assets/black.png",50,50,Display.getWidth(),Display.getHeight());
 
-        nextLevelScreen= new Animation(1,0,0,"res/assets/nextLevel.png",847,413,Display.getWidth(),Display.getHeight());
+        nextLevelScreen= new Animation(1,0,0,"res/assets/BossDefeated.png",820,484,Display.getWidth(),Display.getHeight());
 
         gameOverScreen= new Animation(1,0,0,"res/assets/gameOver.png",286,144,Display.getWidth(),Display.getHeight());
 

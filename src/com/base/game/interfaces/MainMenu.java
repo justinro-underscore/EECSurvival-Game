@@ -112,26 +112,7 @@ public class MainMenu extends Interface {
     private void renderTestOptions()
     {
         // Outline of a box that holds the test options
-        glLineWidth(4);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glColor4f(0.5f, 0.5f, 0.5f, 0.0f);
-        glBegin(GL11.GL_QUADS);
-            glVertex2f((float)(Display.getWidth()/2 - 680), (float)(Display.getHeight()/2 - 140));
-            glVertex2f((float)(Display.getWidth()/2 + 680), (float)(Display.getHeight()/2 - 140));
-            glVertex2f((float)(Display.getWidth()/2 + 680), (float)(Display.getHeight()/2 + 20));
-            glVertex2f((float)(Display.getWidth()/2 - 680), (float)(Display.getHeight()/2 + 20));
-        glEnd();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        // Covers up the line
-        glColor4f(0.721568627f, 0.717647059f, 0.749019608f, 0.0f);
-        glBegin(GL11.GL_QUADS);
-            glVertex2f((float)(Display.getWidth()/2 - 150), (float)(Display.getHeight()/2));
-            glVertex2f((float)(Display.getWidth()/2 + 150), (float)(Display.getHeight()/2));
-            glVertex2f((float)(Display.getWidth()/2 + 150), (float)(Display.getHeight()/2 + 40));
-            glVertex2f((float)(Display.getWidth()/2 - 150), (float)(Display.getHeight()/2 + 40));
-        glEnd();
-
+        container.render(Display.getWidth()/2 - 700, Display.getHeight()/2 - 155,  1395, 200);
         testOptions.render(); // The text
         // The buttons
         runTestSuite.render();

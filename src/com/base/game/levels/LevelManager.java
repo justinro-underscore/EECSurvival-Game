@@ -200,7 +200,7 @@ public class LevelManager {
             Boss368 boss368 = new Boss368(Display.getWidth() / 2 - 35, Display.getHeight() - 250, 1, 170, 222, "res/assets/gibboWhite.png", 3f,100, 8);
             BossLevel level5 = new BossLevel("res/assets/classroom.png", 1280, 960, boss368, player, "res/scripts/eecs368Script.bsh");
 
-            Boss448 boss448 = new Boss448(Display.getWidth() / 2 - 35, Display.getHeight() - 250, 1, 439, 556, "res/assets/bardasWhite.png", 3f,100, 8);
+            Boss448 boss448 = new Boss448(Display.getWidth() / 2 - 35, Display.getHeight() - 250, 1, 170, 215, "res/assets/bardasWhite.png", 3f,100, 8);
             BossLevel level6 = new BossLevel("res/assets/classroom.png", 1280, 960, boss448, player, "res/scripts/eecs448Script.bsh");
 
             EmptyLevel endGame = new EmptyLevel("res/assets/diploma.png",1056, 816, player, false);

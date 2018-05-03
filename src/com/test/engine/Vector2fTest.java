@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * Tests the functionality of the vector class
+ */
 class Vector2fTest {
     private Vector2f v;
 

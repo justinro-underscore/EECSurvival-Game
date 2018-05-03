@@ -16,8 +16,13 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 
 /**
  * Adapted from https://junit.org/junit5/docs/current/user-guide/#advanced-topics
+ * Runs all integration and unit tests
  */
 public class TestDriver {
+    /**
+     * Creates a launcher for each test and logs results
+     * @throws FileNotFoundException
+     */
     public static void runTests() throws FileNotFoundException {
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(

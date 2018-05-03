@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/**
+ * Tests the functionality of the input handler class
+ */
 class InputHandlerTest {
     /**
      * Clears all input before each test

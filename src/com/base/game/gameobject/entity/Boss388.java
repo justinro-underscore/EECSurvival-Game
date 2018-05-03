@@ -51,7 +51,7 @@ public class Boss388 extends Boss {
     public void update()
     {
         super.update();
-        if(!transformed && stats.getHealth() <= 5)
+        if(!transformed && stats.getHealth() == 5)
         {
             Scene scene = new Scene("res/scripts/minden.bsh", Game.game.getCurrLevel().getPlayer(), Game.game.getCurrLevel().getBoss(), Game.game.getCurrLevel());
             scene.run();

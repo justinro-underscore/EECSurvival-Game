@@ -183,20 +183,20 @@ public class LevelManager {
             EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", 500, 500, player, true);
 
             Boss168 boss168 = new Boss168(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 170, 222, "res/assets/gibboWhite.png", 3f,60, 8);
-            BossLevel level2 = new BossLevel("res/assets/classroom.png", 1280, 960, boss168, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level2 = new BossLevel("res/assets/classroom.png", 1280, 960, boss168, player, "res/scripts/eecs168Script.bsh");
 
 
             Boss268 boss268 = new Boss268(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 170, 222, "res/assets/gibboWhite.png", 3f,100, 8);
-            BossLevel level3 = new BossLevel("res/assets/classroom.png", 1280, 960, boss268, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level3 = new BossLevel("res/assets/classroom.png", 1280, 960, boss268, player, "res/scripts/eecs268Script.bsh");
 
             Boss388 boss388 = new Boss388(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 170, 222, "res/assets/gibboWhite.png", 3f,80, 8);
-            BossLevel level4 = new BossLevel("res/assets/classroom.png", 1280, 960, boss388, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level4 = new BossLevel("res/assets/classroom.png", 1280, 960, boss388, player, "res/scripts/eecs388Script");
 
             Boss368 boss368 = new Boss368(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 170, 222, "res/assets/gibboWhite.png", 3f,100, 8);
-            BossLevel level5 = new BossLevel("res/assets/classroom.png", 1280, 960, boss368, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level5 = new BossLevel("res/assets/classroom.png", 1280, 960, boss368, player, "res/scripts/eecs368Script.bsh");
 
             Boss448 boss448 = new Boss448(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 170, 222, "res/assets/gibboWhite.png", 3f,100, 8);
-            BossLevel level6 = new BossLevel("res/assets/classroom.png", 1280, 960, boss448, player, "res/scripts/cutsceneTest1.bsh");
+            BossLevel level6 = new BossLevel("res/assets/classroom.png", 1280, 960, boss448, player, "res/scripts/eecs448Script.bsh");
 
 
 

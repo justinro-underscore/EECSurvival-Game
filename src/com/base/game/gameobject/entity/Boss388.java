@@ -53,6 +53,8 @@ public class Boss388 extends Boss {
         super.update();
         if(!transformed && stats.getHealth() <= 5)
         {
+            Scene scene = new Scene("res/scripts/minden.bsh", Game.game.getCurrLevel().getPlayer(), Game.game.getCurrLevel().getBoss(), Game.game.getCurrLevel());
+            scene.run();
             currAnimation.nextFrame();
             heatSeekingDelay.start();
             heatSeekingDelay.end();
@@ -72,8 +74,6 @@ public class Boss388 extends Boss {
             isInitialAttack = false;
         }
         if(heatSeekingDelay.isOver()){ // Wall attack
-            Scene scene = new Scene("res/scripts/minden.bsh", Game.game.getCurrLevel().getPlayer(), Game.game.getCurrLevel().getBoss(), Game.game.getCurrLevel());
-            scene.run();
             heatSeekingAbility(50,50,3, 45);
             heatSeekingDelay.start();
         }

@@ -64,6 +64,9 @@ public class GameButton extends GameObject {
         }
     }
 
+    /**
+     * Renders the Game button onto the screen
+     */
     public void render()
     {
         super.render();

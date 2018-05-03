@@ -24,6 +24,7 @@ public class HeatSeekingProjectile extends Projectile
      * @param shootAngle the initial angle of the projectile
      * @param damage damage dealt to the character
      * @param speed speed of the projectile
+     * @param boss boolean if player is boss
      * @param heatSeekingRange range to start heatseeking
      */
     public HeatSeekingProjectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean boss, float heatSeekingRange){

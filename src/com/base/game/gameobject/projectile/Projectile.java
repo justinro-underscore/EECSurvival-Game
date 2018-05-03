@@ -20,6 +20,8 @@ public abstract class Projectile extends GameObject
      * @param shootAngle the initial angle of the projectile
      * @param damage damage dealt to the character
      * @param speed speed of the projectile
+     * @param theBoss boolean if object is boss
+     * @param frames number of frames for img animation
      */
     protected Projectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean theBoss, int frames)
     {

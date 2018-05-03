@@ -47,6 +47,9 @@ public abstract class Level {
     /**
      * Passes the background path with inheritance
      * @param backgroundPath Takes in the path that is available to the user
+     * @param width width of img
+     * @param height height of img
+     * @param player player for level
      */
     public void init(String backgroundPath, int width, int height, Player player) {
         this.player = player;

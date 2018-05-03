@@ -21,12 +21,18 @@ public abstract class GameObject
     // We use this in order to avoid ConcurrentModifactionErrors (removing the object in the for loop)
 
     /**
-     * Initializes the GameObject
+     * Initializes the game object
      * @param xPos x-coordinate
      * @param yPos y-coordinate
-     * @param xStartLocation width of the render
-     * @param yStartLocation height of the render
+     * @param xStartLocation x-coordinate on spritesheet
+     * @param yStartLocation y-coordinate on the spritesheet
      * @param numFrames how many animations the gameObject will have.
+     * @param theBoss boolean if gameobject is a boss
+     * @param imgPath img path
+     * @param xImageWidth physical width of img
+     * @param yImageHeight physical height of img
+     * @param screenWidth display width of img
+     * @param screenHeight display height of img
      */
     protected void init(float xPos, float yPos, int xStartLocation, int yStartLocation, int numFrames, boolean theBoss, String imgPath, int xImageWidth, int yImageHeight,int screenWidth,int screenHeight)
     {

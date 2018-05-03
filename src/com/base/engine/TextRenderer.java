@@ -45,6 +45,7 @@ public class TextRenderer
      * @param words The words to be printed
      * @param width The width of the text box
      * @param height The height of the text box
+     * @param center boolean if center text
      * @param font The size of the font (1 = small, 2 = medium, 3 = large) default to medium
      * @param typewriter Whether or not we are in typewriter mode
      * @param x X coord of box
@@ -149,7 +150,7 @@ public class TextRenderer
     /**
      * Sets the text speed
      * @param speed The speed at which the text should be written (1 = fast, 3 = slow)
-     * @return true if in typewriter mode & speed is within [1, 3], false if not
+     * @return true if in typewriter mode and speed is within [1, 3], false if not
      */
     public boolean setSpeed(int speed)
     {

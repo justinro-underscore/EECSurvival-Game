@@ -24,8 +24,11 @@ public class BossLevel extends Level {
     /**
      * Boss Level Creator
      * @param filePath Boss Image
+     * @param width width of img
+     * @param height height of img
      * @param boss Boss Object
-
+     * @param player player obj
+     * @param scriptPath path to custom cutscene script
      */
     public BossLevel(String filePath, int width, int height, Boss boss, Player player, String scriptPath) {
         init(filePath, width, height, player);

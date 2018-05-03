@@ -31,6 +31,8 @@ public class Sprite {
      * Renders the sprite as an image on screen
      * @param xPos x-coordinate of the sprite
      * @param yPos y-coordinate of the sprite TODO IS IT CENTERED?
+     * @param width width of img
+     * @param height height of img
      */
     public void render(float xPos, float yPos, int width, int height) {
         this.width=width;

@@ -14,6 +14,7 @@ public class StandardProjectile extends Projectile
      * @param shootAngle the initial angle of the projectile
      * @param damage damage dealt to the character
      * @param speed speed of the projectile
+     * @param boss boolean if obj is the boss
      */
     public StandardProjectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean boss)
     {

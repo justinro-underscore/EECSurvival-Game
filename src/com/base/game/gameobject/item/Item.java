@@ -16,6 +16,7 @@ public abstract class Item extends GameObject
      * @param height height
      * @param imgPath file path to the image representing the sprite
      * @param despawnTime the time it takes for a item to dematerialize and be unattainable
+     * @param frames number of frames for img animation
      */
     protected Item(float xPos, float yPos, int width, int height, String imgPath, int despawnTime, int frames){
         init(xPos, yPos, 0, 0, frames,false,"res/SpriteSheets/testSpriteSheet.png",width,height, width, height);

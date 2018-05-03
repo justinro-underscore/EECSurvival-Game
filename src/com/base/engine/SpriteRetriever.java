@@ -15,6 +15,11 @@ public class SpriteRetriever {
     /**
      * Turns the large sprite sheet into a buffered image
      * @param file the file name of the sprite sheet
+     * @param x spritesheet x pos
+     * @param y spritesheet y pos
+     * @param theframes number of frames to retrieve
+     * @param width width of physical img
+     * @param height height of physical img
      * @return The sprite sheet in the form of a buffered image.
      */
     public static Sprite[] loadSprite(String file, int x, int y, int theframes, int width, int height)

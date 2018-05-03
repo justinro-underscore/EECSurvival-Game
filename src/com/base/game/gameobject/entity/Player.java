@@ -42,6 +42,7 @@ public class Player extends Character {
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
+     * @param image image of player
      */
     public Player(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage,String image) {
         super(xPos, yPos, 1, width, height, speed, health, attackDamage,false,image); // Call Character superclass's constructor

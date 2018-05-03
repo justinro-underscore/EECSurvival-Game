@@ -17,6 +17,7 @@ public class MainMenu extends Interface {
     private GameButton startButton;
     private GameButton quitButton;
 
+    private TextRenderer testOptions;
     private GameButton runTestSuite;
     private GameButton loadTestLevelManual;
     private GameButton loadTestLevelAuto;
@@ -28,7 +29,7 @@ public class MainMenu extends Interface {
      * Initialize the main menu screen
      */
     @Override
-    public void init(String fileName,int widthOfImage, int heightOfImage) {
+    public void init(String fileName, int widthOfImage, int heightOfImage) {
         super.init(fileName, widthOfImage, heightOfImage);
 
         startedAudio = false;
@@ -61,6 +62,8 @@ public class MainMenu extends Interface {
                     LevelManager.loadTestLevel(true);
                     start();
                 });
+
+        testOptions = new TextRenderer("Test Options", 400, 40, true, 2, false, (float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2));
     }
 
     public void startAudio() {
@@ -96,6 +99,38 @@ public class MainMenu extends Interface {
         startButton.render();
         quitButton.render();
 
+        renderTestOptions();
+
+    }
+
+    /**
+     * Renders the test options
+     */
+    private void renderTestOptions()
+    {
+        // Outline of a box that holds the test options
+        glLineWidth(4);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glColor4f(0.5f, 0.5f, 0.5f, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f((float)(Display.getWidth()/2 - 680), (float)(Display.getHeight()/2 - 140));
+            glVertex2f((float)(Display.getWidth()/2 + 680), (float)(Display.getHeight()/2 - 140));
+            glVertex2f((float)(Display.getWidth()/2 + 680), (float)(Display.getHeight()/2 + 20));
+            glVertex2f((float)(Display.getWidth()/2 - 680), (float)(Display.getHeight()/2 + 20));
+        glEnd();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // Covers up the line
+        glColor4f(0.721568627f, 0.717647059f, 0.749019608f, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f((float)(Display.getWidth()/2 - 150), (float)(Display.getHeight()/2));
+            glVertex2f((float)(Display.getWidth()/2 + 150), (float)(Display.getHeight()/2));
+            glVertex2f((float)(Display.getWidth()/2 + 150), (float)(Display.getHeight()/2 + 40));
+            glVertex2f((float)(Display.getWidth()/2 - 150), (float)(Display.getHeight()/2 + 40));
+        glEnd();
+
+        testOptions.render(); // The text
+        // The buttons
         runTestSuite.render();
         loadTestLevelManual.render();
         loadTestLevelAuto.render();

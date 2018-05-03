@@ -1,6 +1,11 @@
 package com.base.game.gameobject.button;
 
 import com.base.engine.*;
+import org.lwjgl.opengl.GL11;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_FILL;
+import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
 
 public class GameButton extends GameObject {
     private String btnTexture; // The current texture of the button
@@ -63,5 +68,16 @@ public class GameButton extends GameObject {
     {
         super.render();
         label.render();
+
+        glLineWidth(2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glColor4f(0, 0, 1, 0.0f);
+        glBegin(GL11.GL_QUADS);
+            glVertex2f(xPos, yPos);
+            glVertex2f(xPos + width, yPos);
+            glVertex2f(xPos + width, yPos + height);
+            glVertex2f(xPos, yPos + height);
+        glEnd();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 }

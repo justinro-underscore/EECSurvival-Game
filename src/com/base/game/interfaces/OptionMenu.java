@@ -31,7 +31,7 @@ public class OptionMenu extends Interface {
 
         startedAudio = false;
 
-        audioOptions = new TextRenderer("Music Options", 400, 40, true, 2, false, (float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 200));
+        audioOptions = new TextRenderer("Music", 400, 40, true, 2, false, (float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2 + 200));
 
         muteButton = new GameButton((float)(Display.getWidth()/2 - 425), (float)(Display.getHeight()/2 + 100), 400, 80, "Mute", this::pauseMusic);
         unmuteButton = new GameButton((float)(Display.getWidth()/2 + 25), (float)(Display.getHeight()/2 + 100), 400, 80, "Unmute", this::startAudio);
@@ -85,25 +85,7 @@ public class OptionMenu extends Interface {
     private void renderAudioOptions()
     {
         // Outline of a box that holds the test options
-        glLineWidth(4);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glColor4f(0.5f, 0.5f, 0.5f, 0.0f);
-        glBegin(GL11.GL_QUADS);
-            glVertex2f((float)(Display.getWidth()/2 - 465), (float)(Display.getHeight()/2 + 60));
-            glVertex2f((float)(Display.getWidth()/2 + 465), (float)(Display.getHeight()/2 + 60));
-            glVertex2f((float)(Display.getWidth()/2 + 465), (float)(Display.getHeight()/2 + 220));
-            glVertex2f((float)(Display.getWidth()/2 - 465), (float)(Display.getHeight()/2 + 220));
-        glEnd();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        // Covers up the line
-        glColor4f(0.721568627f, 0.717647059f, 0.749019608f, 0.0f);
-        glBegin(GL11.GL_QUADS);
-            glVertex2f((float)(Display.getWidth()/2 - 170), (float)(Display.getHeight()/2 + 200));
-            glVertex2f((float)(Display.getWidth()/2 + 170), (float)(Display.getHeight()/2 + 200));
-            glVertex2f((float)(Display.getWidth()/2 + 170), (float)(Display.getHeight()/2 + 240));
-            glVertex2f((float)(Display.getWidth()/2 - 170), (float)(Display.getHeight()/2 + 240));
-        glEnd();
+        container.render(Display.getWidth()/2 - 500, Display.getHeight()/2 + 45,  1000, 200);
 
         audioOptions.render(); // The text
         // The buttons

@@ -55,13 +55,13 @@ Test Automated will do the same thing as Manual,excpet it just feeds the charact
 ![Alt text][TestAutomated]
 
 
-[LevelOne]: Documentation/UGPics/LevelOne.png
-[LevelTwo]: Documentation/UGPics/LevelTwo.png
-[LevelThree]: Documentation/UGPics/LevelThree.png
-[LevelFour]: Documentation/UGPics/LevelFour.png
-[LevelFive]: Documentation/UGPics/LevelFive.png
-[TestManual]: Documentation/UGPics/TestManual.png
-[TestAutomated]: Documentation/UGPics/TestAutomated.png
-[MainMenu]: Documentation/UGPics/MainMenu.png
+[LevelOne]: UGPics/LevelOne.png
+[LevelTwo]: UGPics/LevelTwo.png
+[LevelThree]: UGPics/LevelThree.png
+[LevelFour]: UGPics/LevelFour.png
+[LevelFive]: UGPics/LevelFive.png
+[TestManual]: UGPics/TestManual.png
+[TestAutomated]: UGPics/TestAutomated.png
+[MainMenu]: UGPics/MainMenu.png
 
 

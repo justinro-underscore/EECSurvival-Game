@@ -15,11 +15,17 @@ public class Empty extends GameObject {
     }
 
     @Override
+    /**
+     * update the empty object
+     */
     public void update() {
 
     }
 
     @Override
+    /**
+     * Render the empty object
+     */
     public void render() {
 
     }

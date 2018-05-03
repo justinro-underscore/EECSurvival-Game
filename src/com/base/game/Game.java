@@ -22,6 +22,9 @@ public class Game {
 
     private static State state = State.MAIN_MENU;
 
+    /**
+     * The overarching game
+     */
     public Game() {
         mainMenu = new MainMenu();
         mainMenu.init("res/assets/parchment.png",640,480);

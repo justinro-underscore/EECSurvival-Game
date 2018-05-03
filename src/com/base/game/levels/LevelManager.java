@@ -37,10 +37,16 @@ public class LevelManager {
         startedAudio = true;
     }
 
+    /**
+     * Pause the level
+     */
     public static void pause() {
         Audio.pauseBuffer(startMusic);
     }
 
+    /**
+     * Resume the level
+     */
     public static void resume() {
         Audio.resumeBuffer(startMusic);
     }

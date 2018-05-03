@@ -66,6 +66,9 @@ public class MainMenu extends Interface {
         testOptions = new TextRenderer("Test Options", 400, 40, true, 2, false, (float)(Display.getWidth()/2 - 200), (float)(Display.getHeight()/2));
     }
 
+    /**
+     * Start the audio
+     */
     public void startAudio() {
         Audio.playBuffer(music);
         Audio.loopBuffer(music);
@@ -136,11 +139,17 @@ public class MainMenu extends Interface {
         loadTestLevelAuto.render();
     }
 
+    /**
+     * reset the main menu
+     */
     private void reset() {
         startedAudio = false;
         Audio.stopBuffer(music);
     }
 
+    /**
+     * Start the game
+     */
     private void start() {
         Game.start();
         reset();

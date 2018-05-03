@@ -63,7 +63,7 @@ public class GameButton extends GameObject {
             new Thread(onPressed).start(); // Run the function
         }
     }
-
+    
     /**
      * Renders the Game button onto the screen
      */

@@ -52,5 +52,10 @@ public abstract class Projectile extends GameObject
     {
         return damage;
     }
+
+    /**
+     * get the boolean boss
+     * @return the boolean boss
+     */
     public boolean getBoss() {return boss;}
 }

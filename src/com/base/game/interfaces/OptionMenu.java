@@ -49,6 +49,9 @@ public class OptionMenu extends Interface {
                 });
     }
 
+    /**
+     * Start the audio
+     */
     public void startAudio() {
         Audio.setMasterGain(100);
 
@@ -111,6 +114,9 @@ public class OptionMenu extends Interface {
         unmuteButton.render();
     }
 
+    /**
+     * Pause the music
+     */
     public void pauseMusic() {
         startedAudio = false;
         Audio.setMasterGain(0);

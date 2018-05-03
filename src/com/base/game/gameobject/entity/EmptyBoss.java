@@ -18,5 +18,8 @@ public class EmptyBoss extends Boss {
     }
 
     @Override
+    /**
+     * attack
+     */
     public void attack() {}
 }

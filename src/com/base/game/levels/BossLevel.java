@@ -37,7 +37,6 @@ public class BossLevel extends Level {
         addObj(boss);
 
         scene = new Scene(scriptPath, player, boss, this);
-        isCutsceneOver = true;
 
         consumableItemDelay = new Delay(16000);
     }

@@ -9,12 +9,18 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
  */
 public class TextRenderer
 {
-    private final Sprite[] ALPHABET = SpriteRetriever.loadSprite("res/alphabet/alphabet.png", 0, 0, 31, 50, 50);
+    private final Sprite[] ALPHABET = SpriteRetriever.loadSprite("res/alphabet/alphabet.png", 0, 0, 46, 50, 50);
     private final int SPACE = 26;
     private final int PERIOD = 27;
     private final int EXCLAMATION = 28;
     private final int QUESTION = 29;
     private final int ERROR = 30;
+    private final int COMMA = 31;
+    private final int APOSTRAPHE = 32;
+    private final int COLON = 33;
+    private final int PLUS = 34;
+    private final int MINUS = 35;
+    private final int DIGIT_START = 36;
 
     private Sprite[][] stringsArr; // The sprites to be rendered, showing text
     private char[] strings; // The chars of the strings array
@@ -95,6 +101,18 @@ public class TextRenderer
                         stringsArr[row][index] = ALPHABET[EXCLAMATION];
                     else if(currChar == '?')
                         stringsArr[row][index] = ALPHABET[QUESTION];
+                    else if(currChar == ',')
+                        stringsArr[row][index] = ALPHABET[COMMA];
+                    else if(currChar == '\'')
+                        stringsArr[row][index] = ALPHABET[APOSTRAPHE];
+                    else if(currChar == ':')
+                        stringsArr[row][index] = ALPHABET[COLON];
+                    else if(currChar == '+')
+                        stringsArr[row][index] = ALPHABET[PLUS];
+                    else if(currChar == '-')
+                        stringsArr[row][index] = ALPHABET[MINUS];
+                    else if(currChar >= '0' && currChar <= '9')
+                        stringsArr[row][index] = ALPHABET[DIGIT_START + Integer.parseInt("" + currChar)];
                     else
                         stringsArr[row][index] = ALPHABET[ERROR];
 

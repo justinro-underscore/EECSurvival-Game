@@ -19,4 +19,5 @@ When you first open the game you will be presented with the main menu. The play 
 During any gameplay you can press the escape key and it will open the pause menu. If you click the mute button and close the pause menu the music will no longer be playing. There is an option to go back to the main menu. WARNING: there is no progress saving feature and you will be required to start over from level 1. If you want to quit the game completely you have to go back to the main menu and then press quit. 
 
 ### Downloading
-We have ported this over to be easily runnable from a jar. You can download it at: https://www.dropbox.com/s/fwehrksmysak06m/EECSurvival_PreAlpha.zip?dl=0
+We have ported this over to be easily runnable from a jar. You can download it at: 
+https://www.dropbox.com/s/lfuz3lu59brwecv/EECSurvival_Alpha.zip?dl=0

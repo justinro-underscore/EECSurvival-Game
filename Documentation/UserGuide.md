@@ -5,6 +5,8 @@ EECSurvival is a bullet hell style game that follows an lowly EECS student withi
 
 Coded and Designed by: Varun Chadha, Justin Roderman, Harrison Luo, Alex Kunz, and Noah Brabec
 
+![Alt text][MainMenu]
+
 ## Controls
 
 The controls for this game are very straightforward. To move up press W, to move left press A, to move right press D, and to move down press S. To shoot you can either tap or hold down the space bar. There is also a sprint feature. To sprint you need to hold down shift and then a movement and the player will move drastically faster, though you will be unable to shoot. To transition between levels, a door will appear at the top of the screen. Simply move into it and you will be taken to the next level. 
@@ -44,17 +46,22 @@ Software Engineering 1. Prepare to get to know 3-4 people better than you wanted
 
 ## Testing 
 
-From the main menu you will be able to see 3 buttons that are outlined with a box that says testing. Test Suite runs the integration and unit test and prints the results of those tests to a log file. Test Manual is a form of acceptance testing where the user has full control of the players actions. Test Automated will do the same thing as Manual,excpet it just feeds the character random inputs and if the game ever crashes in this state the key strokes will be saved into a log file. 
+From the main menu you will be able to see 3 buttons that are outlined with a box that says testing. Test Suite runs the integration and unit test and prints the results of those tests to a log file. Test Manual is a form of acceptance testing where the user has full control of the players actions.
+
+![Alt text][TestManual]
+
+Test Automated will do the same thing as Manual,excpet it just feeds the character random inputs and if the game ever crashes in this state the key strokes will be saved into a log file. 
+
+![Alt text][TestAutomated]
 
 
-
-[LevelOne]: file/path/here.png
-[LevelTwo]: file/path/here.png
-[LevelThree]: file/path/here.png
-[LevelFour]: file/path/here.png
-[LevelFive]: file/path/here.png
-[TestManual]: file/path/here.png
-[TestAutomated]: file/path/here.png
-[MainMenu]: file/path/here.png
+[LevelOne]: Documentation/UGPics/LevelOne.png
+[LevelTwo]: Documentation/UGPics/LevelTwo.png
+[LevelThree]: Documentation/UGPics/LevelThree.png
+[LevelFour]: Documentation/UGPics/LevelFour.png
+[LevelFive]: Documentation/UGPics/LevelFive.png
+[TestManual]: Documentation/UGPics/TestManual.png
+[TestAutomated]: Documentation/UGPics/TestAutomated.png
+[MainMenu]: Documentation/UGPics/MainMenu.png
 
 

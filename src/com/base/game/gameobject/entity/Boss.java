@@ -27,6 +27,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, String image) {
         super(xPos, yPos, width, height, speed, health, attackDamage, true, image);
+
+        standardProjectiles = new ArrayList<>();
+        heatSeekingProjectiles = new ArrayList<>();
     }
 
     /**

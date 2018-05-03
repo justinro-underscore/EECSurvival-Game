@@ -11,6 +11,7 @@ public class Boss368 extends Boss {
     private Delay lRwallAttackDelay;
     private Delay rLwallAttackDelay;
     private Delay burstAttackDelay;
+    private Delay targetAttackDelay;
 
     /**
      * Creates a new Boss168
@@ -34,11 +35,13 @@ public class Boss368 extends Boss {
         lRwallAttackDelay = new Delay(3000);
         rLwallAttackDelay = new Delay(3000);
         burstAttackDelay = new Delay(2000);
+        targetAttackDelay = new Delay(1000);
 
         //Initiates the Attacks from the boss
         lRwallAttackDelay.start();
         rLwallAttackDelay.start();
         burstAttackDelay.start();
+        targetAttackDelay.start();
     }
 
     @Override
@@ -59,6 +62,10 @@ public class Boss368 extends Boss {
                 shootAbility(10,10,10, 3, 10);
             }
             burstAttackDelay.start();
+        }
+        if(targetAttackDelay.isOver()){ // Target attack
+            targetPlayerAbility(10,10, 3, 3);
+            targetAttackDelay.start();
         }
     }
 }

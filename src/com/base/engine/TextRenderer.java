@@ -4,6 +4,9 @@ import com.base.game.utilities.Delay;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
+/**
+ * Text renderer renders a string into a renderable object
+ */
 public class TextRenderer
 {
     private final Sprite[] ALPHABET = SpriteRetriever.loadSprite("res/alphabet/alphabet.png", 0, 0, 31, 50, 50);

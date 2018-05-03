@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Sprite is a renderable object that can be drawn to the display
+ */
 public class Sprite {
     private float a; // Alpha value - deals with transparency (Only works with images)
 
@@ -136,19 +139,4 @@ public class Sprite {
         }
         return false;
     }
-
-    /**
-     * Resets the texture to a different image
-     * @param imgPath The file path to the new texture
-     *
-    public void setTexture(String imgPath) {
-        if (!imgPath.equals("")) // If there is no imgPath, don't create a textureID
-        {
-            try { textureID = TextureLoader.loadTexture(imgPath); } // Load the image
-            catch (IOException e) { e.printStackTrace(); }
-        }
-        else
-            textureID = -1;
-    }
-    */
 }

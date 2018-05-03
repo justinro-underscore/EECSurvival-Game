@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 /**
  * Adapted from https://gamedev.stackexchange.com/questions/53705/how-can-i-make-a-sprite-sheet-based-animation-system
+ * Retrives a sprite from a sprite sheet by calling texture renderer
  */
 public class SpriteRetriever {
 

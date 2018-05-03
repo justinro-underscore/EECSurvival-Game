@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Excerpt from http://www.java-gaming.org/index.php?PHPSESSID=h31a7ct4qqlgrl1fij7857dcv5&topic=25516.0
  * By theagentd
+ * Binds a buffered image to a texture id in openGl
  */
 
 //takes a buffered image and returns an integer that is a textureID

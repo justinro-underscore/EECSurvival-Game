@@ -27,6 +27,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
+     * @param image image of the boss
      */
     public Boss(float xPos, float yPos, int numFrames, int width, int height, float speed, int health, int attackDamage, String image) {
         super(xPos, yPos, numFrames, width, height, speed, health, attackDamage, true, image);
@@ -72,6 +73,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param proWidth Projectile width
      * @param proHeight Projectile height
      * @param numberOfPros Number of standardProjectiles being made
+     * @param speed speed of the bullets
+     * @param damage damage of the bullets
      */
     public void shootAbility(int proWidth, int proHeight, int numberOfPros, float speed, int damage) {
         for (int i = 1; i <= numberOfPros; i++) {
@@ -83,6 +86,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * Shoot at player's current position
      * @param proWidth Projectile width
      * @param proHeight Projectile height
+     * @param speed speed of the bullets
+     * @param damage damage of the bullets
      */
     public void targetPlayerAbility(int proWidth, int proHeight, float speed, int damage) {
         standardProjectiles.add(new StandardProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(Game.game.getCurrLevel().getPlayerX() - (getX() - (proWidth / 2)), Game.game.getCurrLevel().getPlayerY() - (yPos - proHeight)), damage, speed,true));
@@ -92,6 +97,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * Attack using heat seeking bullets
      * @param proWidth Projectile width
      * @param proHeight Projectile height
+     * @param speed speed of the bullets
+     * @param damage damage of the bullets
      */
     public void heatSeekingAbility(int proWidth, int proHeight, float speed, int damage) {
         heatSeekingProjectiles.add(new HeatSeekingProjectile(getX() - (proWidth / 2), yPos - proHeight, proWidth, proHeight, "res/assets/redPen.png", new Vector2f(0, -1), damage, speed,true, 300));
@@ -102,6 +109,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param proWidth Projectile width
      * @param proHeight Projectile height
      * @param numberOfPros Number of standardProjectiles being made
+     * @param speed speed of the bullets
+     * @param damage damage of the bullets
      */
     public void topDownWallOfFireAbility(int proWidth, int proHeight, int numberOfPros, float speed, int damage) {
         for (int i = 1; i <= numberOfPros; i++){
@@ -114,6 +123,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * @param proWidth Projectile width
      * @param proHeight Projectile height
      * @param numberOfPros Number of standardProjectiles being made
+     * @param speed speed of the bullets
+     * @param damage damage of the bullets
      * @param goingRight if true, projectiles going right; if not, they go left
      */
     public void leftOrRightWallOfFireAbility(int proWidth, int proHeight, int numberOfPros, float speed, int damage, boolean goingRight) {
@@ -133,6 +144,8 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * Top down attack with evenly spaced out projectiles
      * @param proWidth Projectile width
      * @param proHeight Projectile height
+     * @param speed speed of the bullets
+     * @param damage damage of the bullets
      */
     public void fourCornersAbility(int proWidth, int proHeight, float speed, int damage) {
         standardProjectiles.add(new StandardProjectile(0, 0, proWidth, proHeight, "res/assets/PaperBall.png", new Vector2f(Display.getWidth() / 2, Display.getHeight() / 2), damage, speed,true));

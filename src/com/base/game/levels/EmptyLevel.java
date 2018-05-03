@@ -9,9 +9,12 @@ public class EmptyLevel extends Level {
     private Boss boss;
 
     /**
-     * Empty Level Creator
-     * @param filePath takes in a file path for the empty level
-
+     * An empty level
+     * @param filePath background image
+     * @param width width of the level
+     * @param height height of the level
+     * @param player the player
+     * @param hasDoor if it has a door
      */
     public EmptyLevel(String filePath, int width, int height, Player player, boolean hasDoor) {
         init(filePath, width, height, player);

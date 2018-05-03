@@ -21,7 +21,7 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 public class TestDriver {
     /**
      * Creates a launcher for each test and logs results
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException throws exception if file not found
      */
     public static void runTests() throws FileNotFoundException {
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()

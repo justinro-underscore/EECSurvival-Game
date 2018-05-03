@@ -244,7 +244,7 @@ public class LevelManager {
 
     /**
      * Checks if levels have been reloaded
-     * @return
+     * @return if the levels have loaded
      */
     public static boolean hasLoadedLevels() {
         return hasLoadedLevels;

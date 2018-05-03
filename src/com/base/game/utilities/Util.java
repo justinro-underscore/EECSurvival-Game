@@ -17,7 +17,7 @@ public class Util {
     }
 
     /**
-     * AusCBloke: https://stackoverflow.com/questions/7961788/math-random-explained?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+     * AusCBloke: https://stackoverflow.com/questions/7961788/math-random-explained?utm_medium=organic utm_source=google_rich_qa utm_campaign=google_rich_qa
      * Output a random value with a range
      * @param min of range
      * @param max of range

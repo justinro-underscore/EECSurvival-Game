@@ -12,7 +12,7 @@ import java.nio.ByteBuffer;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
- * Excerpt from http://www.java-gaming.org/index.php?PHPSESSID=h31a7ct4qqlgrl1fij7857dcv5&topic=25516.0
+ * Excerpt from http://www.java-gaming.org/index.php?PHPSESSID=h31a7ct4qqlgrl1fij7857dcv5 topic=25516.0
  * By theagentd
  * Binds a buffered image to a texture id in openGl
  */
@@ -23,7 +23,7 @@ public class TextureLoader {
      * Generate a texture ID that corresponds to the image taken in
      * @param image the buffered image to be bound to a texture ID
      * @return texture ID that openGL has binded to that image
-     * @throws IOException
+     * @throws IOException throws IOEexception
      */
     public static int loadTexture(BufferedImage image) throws IOException {
         int width = image.getWidth();

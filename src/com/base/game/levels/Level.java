@@ -6,6 +6,7 @@ import com.base.engine.GameObject;
 import com.base.engine.Physics;
 import com.base.engine.Sprite;
 import com.base.game.Game;
+import com.base.game.gameobject.button.GameButton;
 import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.item.ConsumableItem;
@@ -24,6 +25,8 @@ public abstract class Level {
 
     private Animation background;
     private ArrayList<Event> events;
+
+    private GameButton quit;
 
     //List of Game Objects
     protected ArrayList<GameObject> gameObjects;
@@ -61,6 +64,12 @@ public abstract class Level {
         lvlTransition = new LevelTransition();
 
         events = new ArrayList<>();
+
+        quit = new GameButton((float)(Display.getWidth()/2 - 875), (float)(Display.getHeight()/2), 400, 80, "Menu",
+                () -> {
+                    InputHandler.clear();
+                    Game.backToMenu();
+                });
     }
 
     public void addEvent(Event event) {
@@ -103,6 +112,10 @@ public abstract class Level {
 
             toRemove.clear();
         }
+
+        if (LevelManager.isRenderQuit()) {
+            quit.update();
+        }
     }
 
     /**
@@ -122,6 +135,10 @@ public abstract class Level {
                 lvlTransition = null;
                 levelOver = false;
             }
+        }
+
+        if(LevelManager.isRenderQuit()) {
+            quit.render();
         }
     }
 

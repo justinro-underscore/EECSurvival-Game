@@ -13,6 +13,7 @@ public class EmptyPlayer extends Player {
      * @param attackDamage attack damage of the player
      * @param image the characters sprite
      */
+
     public EmptyPlayer(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage,String image) {
         super(xPos, yPos, width, height, speed, health, attackDamage, image);
     }

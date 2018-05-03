@@ -27,7 +27,7 @@ public class HeatSeekingProjectile extends Projectile
      * @param heatSeekingRange range to start heatseeking
      */
     public HeatSeekingProjectile(float xPos, float yPos, int width, int height, String imgPath, Vector2f shootAngle, int damage, float speed, boolean boss, float heatSeekingRange){
-        super(xPos, yPos, width, height, imgPath, shootAngle, damage, speed, boss);
+        super(xPos, yPos, width, height, imgPath, shootAngle, damage, speed, boss,1);
         this.heatSeekingRange = heatSeekingRange;
     }
 

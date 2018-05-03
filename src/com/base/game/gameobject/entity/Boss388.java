@@ -27,7 +27,7 @@ public class Boss388 extends Boss {
      * @param attackDamage how much damage the character deals
      */
     public Boss388(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage);
+        super(xPos, yPos, width, height, speed, health, attackDamage,imgPath);
 
         standardProjectiles = new ArrayList<>(); // Initalizes the list
         heatSeekingProjectiles = new ArrayList<>();
@@ -54,7 +54,7 @@ public class Boss388 extends Boss {
         if(heatSeekingDelay.isOver()){ // Wall attack
             Scene scene = new Scene("res/scripts/minden.bsh", Game.game.getCurrLevel().getPlayer(), Game.game.getCurrLevel().getBoss(), Game.game.getCurrLevel());
             scene.run();
-            heatSeekingAbility(150,150,3, 45);
+            heatSeekingAbility(50,50,3, 45);
             heatSeekingDelay.start();
         }
         if(fourCornersDelay.isOver()){

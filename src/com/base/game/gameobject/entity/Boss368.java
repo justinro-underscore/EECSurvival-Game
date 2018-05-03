@@ -24,7 +24,7 @@ public class Boss368 extends Boss {
      * @param attackDamage how much damage the character deals
      */
     public Boss368(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, imgPath, speed, health, attackDamage);
+        super(xPos, yPos, width, height, speed, health, attackDamage,imgPath);
 
         standardProjectiles = new ArrayList<>(); // Initalizes the list
         heatSeekingProjectiles = new ArrayList<>();

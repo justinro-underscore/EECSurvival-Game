@@ -24,15 +24,15 @@ public class UI extends Interface // TODO Add all UI functionality
 
     /**
      * Create the user interface
-     * @param playerHealth the player's health
-     * @param bossHealth the boss's health
+     * @param playerMaxHealth the player's health
+     * @param bossMaxHealth the boss's health
      */
-    public UI(int playerHealth, int bossHealth)
+    public UI(int playerMaxHealth, int bossMaxHealth)
     {
         playerHealthBar = new Rectangle(10, 10, PLAYER_HEALTH_BAR_WIDTH, 20);
-        playerHealthFactor = (float)PLAYER_HEALTH_BAR_WIDTH / playerHealth;
+        playerHealthFactor = (float)PLAYER_HEALTH_BAR_WIDTH / playerMaxHealth;
         bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
-        bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossHealth;
+        bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossMaxHealth;
 
         digits = new Sprite[10];
 

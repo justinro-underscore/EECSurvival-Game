@@ -21,14 +21,15 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      * Creates a new boss
      * @param xPos x-coordinate of the render
      * @param yPos y-coordinate of the render
+     * @param numFrames number of frames in the animation
      * @param width width
      * @param height height
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, String image) {
-        super(xPos, yPos, width, height, speed, health, attackDamage, true, image);
+    public Boss(float xPos, float yPos, int numFrames, int width, int height, float speed, int health, int attackDamage, String image) {
+        super(xPos, yPos, numFrames, width, height, speed, health, attackDamage, true, image);
       
         deathSfx = Audio.loadSound("res/audio/congratulations.ogg");
       
@@ -161,5 +162,17 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
 
             Game.game.getCurrLevel().levelOver(false); // Level has been won!
         }
+    }
+
+    /**
+     * Check if the UI must be updated (only works for Boss388)
+     * @return whether or not the UI should be updated, or true if not Boss388
+     */
+    public boolean checkForUpdateUI()
+    {
+        if(this instanceof Boss388)
+            return checkForUpdateUI();
+        else
+            return true; // So it will stop checking immediately
     }
 }

@@ -241,5 +241,14 @@ public abstract class Level {
         return player;
     }
 
+    /**
+     * If the level is a boss level, reset the UI
+     */
+    public void resetUI()
+    {
+        if(this instanceof BossLevel)
+            this.resetUI();
+    }
+
     public abstract Boss getBoss();
 }

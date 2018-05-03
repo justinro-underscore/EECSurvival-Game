@@ -16,6 +16,7 @@ public class Boss368 extends Boss {
      * Creates a new Boss168
      * @param xPos x-coordinate of the sprite
      * @param yPos y-coordinate of the sprite
+     * @param numFrames number of frames in the animation
      * @param width width
      * @param height height
      * @param imgPath file path to the image representing the sprite
@@ -23,8 +24,8 @@ public class Boss368 extends Boss {
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Boss368(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, speed, health, attackDamage,imgPath);
+    public Boss368(float xPos, float yPos, int numFrames, int width, int height, String imgPath, float speed, int health, int attackDamage) {
+        super(xPos, yPos, numFrames, width, height, speed, health, attackDamage,imgPath);
 
         standardProjectiles = new ArrayList<>(); // Initalizes the list
         heatSeekingProjectiles = new ArrayList<>();

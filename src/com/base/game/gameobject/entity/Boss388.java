@@ -14,11 +14,13 @@ public class Boss388 extends Boss {
     private Delay fourCornersDelay;
 
     private boolean isInitialAttack;
+    private boolean transformed;
 
     /**
-     * Creates a new Boss168
+     * Creates a new Boss388
      * @param xPos x-coordinate of the sprite
      * @param yPos y-coordinate of the sprite
+     * @param numFrames number of frames in the animation
      * @param width width
      * @param height height
      * @param imgPath file path to the image representing the sprite
@@ -26,8 +28,8 @@ public class Boss388 extends Boss {
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    public Boss388(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, speed, health, attackDamage,imgPath);
+    public Boss388(float xPos, float yPos, int numFrames, int width, int height, String imgPath, float speed, int health, int attackDamage) {
+        super(xPos, yPos, numFrames, width, height, speed, health, attackDamage,imgPath);
 
         standardProjectiles = new ArrayList<>(); // Initalizes the list
         heatSeekingProjectiles = new ArrayList<>();
@@ -40,6 +42,21 @@ public class Boss388 extends Boss {
 
         //Initiates the Attacks from the boss
         fourCornersDelay.start();
+    }
+
+    @Override
+    public void update()
+    {
+        super.update();
+        if(!transformed && stats.getHealth() <= 5)
+        {
+            currAnimation.nextFrame();
+            heatSeekingDelay.start();
+            heatSeekingDelay.end();
+            transformed = true;
+            stats.setMaxHealth(100);
+            stats.setMaxHealth();
+        }
     }
 
     @Override
@@ -61,5 +78,14 @@ public class Boss388 extends Boss {
             fourCornersAbility(15,15, 10, 5);
             fourCornersDelay.start();
         }
+    }
+
+    /**
+     * Check if the UI must be updated
+     * @return whether or not the UI should be updated
+     */
+    public boolean checkForUpdateUI()
+    {
+        return transformed;
     }
 }

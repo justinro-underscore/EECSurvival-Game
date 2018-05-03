@@ -25,14 +25,15 @@ public abstract class Character extends GameObject
      * Abstract constructor for Character
      * @param xPos x-coordinate of the render
      * @param yPos y-coordinate of the render
+     * @param numFrames number of frames in the animation
      * @param width width
      * @param height height
      * @param speed the speed of the character
      * @param health starting health of the character
      * @param attackDamage how much damage the character deals
      */
-    protected Character(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, boolean isBoss,String image) {
-        init(xPos, yPos, 0, 0, 1,isBoss,image,width,height,width,height); // Call super initialize method
+    protected Character(float xPos, float yPos, int numFrames, int width, int height, float speed, int health, int attackDamage, boolean isBoss,String image) {
+        init(xPos, yPos, 0, 0, numFrames,isBoss,image,width,height,width,height); // Call super initialize method
 
         dialogs = new ArrayList<>();
         startDialog = false;
@@ -176,6 +177,15 @@ public abstract class Character extends GameObject
     public int getHealth()
     {
         return stats.getHealth();
+    }
+
+    /**
+     * Returns the character's max health
+     * @return max health of character
+     */
+    public int getMaxHealth()
+    {
+        return stats.getMaxHealth();
     }
 
     /**

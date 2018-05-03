@@ -16,6 +16,7 @@ public class BossLevel extends Level {
     private Boss boss;
     private Scene scene;
     private boolean isCutsceneOver;
+    private boolean shouldCheckForUIUpdate;
 
     private ConsumableItem consumableItem;
     private Delay consumableItemDelay;
@@ -30,12 +31,13 @@ public class BossLevel extends Level {
         init(filePath, width, height, player);
         this.boss = boss;
 
-        ui = new UI(player.getHealth(), boss.getHealth());
+        ui = new UI(player.getMaxHealth(), boss.getMaxHealth());
+        shouldCheckForUIUpdate = true;
 
         addObj(boss);
 
         scene = new Scene(scriptPath, player, boss, this);
-        isCutsceneOver = false;
+        isCutsceneOver = true;
 
         consumableItemDelay = new Delay(16000);
     }
@@ -55,6 +57,12 @@ public class BossLevel extends Level {
             consumableItem = new ConsumableItem(Util.randomWithRange(50, Display.getWidth() - 100), Util.randomWithRange(100, Display.getHeight() - 250), 50, 50, "", 8000, 5);
             addObj(consumableItem);
             consumableItemDelay.start();
+        }
+
+        if(shouldCheckForUIUpdate && boss.checkForUpdateUI())
+        {
+            resetUI();
+            shouldCheckForUIUpdate = false;
         }
 
         super.update();
@@ -85,5 +93,13 @@ public class BossLevel extends Level {
      */
     public Boss getBoss(){
         return boss;
+    }
+
+    /**
+     * Resets the UI of the level
+     */
+    public void resetUI()
+    {
+        ui = new UI(player.getMaxHealth(), boss.getMaxHealth());
     }
 }

@@ -14,7 +14,7 @@ public class EmptyBoss extends Boss {
      * @param attackDamage how much damage the character deals
      */
     public EmptyBoss(float xPos, float yPos, int width, int height, String imgPath, float speed, int health, int attackDamage) {
-        super(xPos, yPos, width, height, speed, health, attackDamage,imgPath);
+        super(xPos, yPos, 1, width, height, speed, health, attackDamage,imgPath);
     }
 
     @Override

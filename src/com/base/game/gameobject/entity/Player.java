@@ -44,7 +44,7 @@ public class Player extends Character {
      * @param attackDamage how much damage the character deals
      */
     public Player(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage,String image) {
-        super(xPos, yPos, width, height, speed, health, attackDamage,false,image); // Call Character superclass's constructor
+        super(xPos, yPos, 1, width, height, speed, health, attackDamage,false,image); // Call Character superclass's constructor
 
         if (this instanceof EmptyPlayer)
             return;

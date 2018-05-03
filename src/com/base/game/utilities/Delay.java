@@ -48,6 +48,14 @@ public class Delay {
     }
 
     /**
+     * Ends the delay
+     */
+    public void end() {
+        if(hasStarted)
+            endTime = Time.getTime();
+    }
+
+    /**
      * Stop the delay
      */
     public void stop() {

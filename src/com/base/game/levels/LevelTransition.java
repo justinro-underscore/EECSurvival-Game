@@ -38,7 +38,7 @@ public class LevelTransition
 
         nextLevelScreen= new Animation(1,0,0,"res/assets/BossDefeated.png",820,484,Display.getWidth(),Display.getHeight());
 
-        gameOverScreen= new Animation(1,0,0,"res/assets/gameOver.png",286,144,Display.getWidth(),Display.getHeight());
+        gameOverScreen= new Animation(1,0,0,"res/assets/gameOver.png",820,484,Display.getWidth(),Display.getHeight());
 
         whiteScreen= new Animation(1,0,0,"res/assets/white.png",50,50,Display.getWidth(),Display.getHeight());
 

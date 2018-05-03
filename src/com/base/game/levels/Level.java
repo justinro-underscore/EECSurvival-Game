@@ -232,7 +232,7 @@ public abstract class Level {
      * Creates a door at the end after defeating the boss.
      */
     public void createDoor() {
-        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 60, 60, "res/assets/door.png",1);
+        Door door = new Door((Display.getWidth() / 2.0f) - 50, Display.getHeight() - 150, 148, 125, "res/assets/ExitDoor.png",1);
 
         addObj(door);
     }

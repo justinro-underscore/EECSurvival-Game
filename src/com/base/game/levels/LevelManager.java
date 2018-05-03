@@ -184,7 +184,7 @@ public class LevelManager {
             startAudio();
 
         if (!loadTestLevel) {
-            player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 80, 80,  4f, 100, 5,"res/SpriteSheets/walkcyclevarious.png");
+            player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 42, 88,  4f, 100, 5,"res/SpriteSheets/walkcyclevarious.png");
 
             EmptyLevel level1 = new EmptyLevel("res/assets/levelBack.png", 500, 500, player, true);
 

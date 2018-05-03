@@ -53,8 +53,6 @@ Software Engineering 1. Prepare to get to know 3-4 people better than you wanted
 From the main menu you will be able to see 3 buttons that are outlined with a box that says testing. Test Suite runs the integration and unit test and prints the results of those tests to a log file. Test Manual is a form of acceptance testing where the user has full control of the players actions.
 Test Automated will do the same thing as Manual,excpet it just feeds the character random inputs and if the game ever crashes in this state the key strokes will be saved into a log file. 
 
-.
-
 ## Konami Code
 This game has a cheat code! To instantly kill the boss (you dirty cheater you) just enter: up up down down.
 

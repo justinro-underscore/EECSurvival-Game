@@ -1,0 +1,6 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("Player: Oh boy! I can't wait to start my EECS career and learn how to code!", 2));
+level.addEvent(boss.createDialogEvent("Gibbons: Ah, the blissfulness, and ignorance, of youth. Welcome to EECS 168.", 2));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

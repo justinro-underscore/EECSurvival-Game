@@ -10,13 +10,17 @@ public class Door extends GameObject {
      * @param width width of the door
      * @param height height of the door
      * @param imgPath file path to the image representing the door
+     * @param frames number of frames of img animation
      */
-    public Door(float xPos, float yPos, int width, int height, String imgPath) {
-        init(xPos, yPos, width, height, imgPath);
+    public Door(float xPos, float yPos, int width, int height, String imgPath, int frames) {
+        init(xPos, yPos, 0, 0, frames,false,"res/assets/ExitDoor.png", width, height, width, height);
     }
 
     /**
      * Empty update
      */
-    public void update() {}
+    public void update()
+    {
+        currAnimation.render(xPos,yPos);
+    }
 }

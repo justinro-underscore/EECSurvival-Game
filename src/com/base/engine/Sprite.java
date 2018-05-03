@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Sprite is a renderable object that can be drawn to the display
+ */
 public class Sprite {
     private float a; // Alpha value - deals with transparency (Only works with images)
 
@@ -15,30 +18,25 @@ public class Sprite {
 
     /**
      * Creates a sprite from parameters
-     * @param width width of the sprite
-     * @param height height of the sprite
-     * @param imgPath file path to the image representing the sprite
+     * @param textureID the texture that will be rendered.
      */
-    public Sprite(int width, int height, String imgPath) {
+    public Sprite(int textureID) {
         a = 1.0f; // Initial value is fully opaque
-        this.width = width;
-        this.height = height;
-
-        if (!imgPath.equals("")) // If there is no imgPath, don't create a textureID
-        {
-            try { textureID = TextureLoader.loadTexture(imgPath); } // Load the image
-            catch (IOException e) { e.printStackTrace(); }
-        }
-        else
-            textureID = -1;
+        //this.width = width;
+        //this.height = height;
+        this.textureID = textureID;
     }
 
     /**
      * Renders the sprite as an image on screen
      * @param xPos x-coordinate of the sprite
      * @param yPos y-coordinate of the sprite TODO IS IT CENTERED?
+     * @param width width of img
+     * @param height height of img
      */
-    public void render(float xPos, float yPos) {
+    public void render(float xPos, float yPos, int width, int height) {
+        this.width=width;
+        this.height=height;
         glPushMatrix(); // Create a new image matrix
         {
             glTranslatef(xPos, yPos, 0); // Translate so it is easier to create the image at a coordinate
@@ -106,11 +104,29 @@ public class Sprite {
     }
 
     /**
+     * Sets the sprites width
+     * @param width the width of the sprite
+     */
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    /**
      * Get the sprite's height
      * @return height
      */
     public int getHeight() {
         return height;
+    }
+
+    /**
+     * Sets the sprites height
+     * @param height the height of the sprite
+     */
+    public void setHeight(int height)
+    {
+        this.height = height;
     }
 
     /**
@@ -124,19 +140,5 @@ public class Sprite {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Resets the texture to a different image
-     * @param imgPath The file path to the new texture
-     */
-    public void setTexture(String imgPath) {
-        if (!imgPath.equals("")) // If there is no imgPath, don't create a textureID
-        {
-            try { textureID = TextureLoader.loadTexture(imgPath); } // Load the image
-            catch (IOException e) { e.printStackTrace(); }
-        }
-        else
-            textureID = -1;
     }
 }

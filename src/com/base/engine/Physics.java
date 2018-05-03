@@ -2,6 +2,10 @@ package com.base.engine;
 
 import java.awt.*;
 
+/**
+ * Physics engine
+ * Checks collisions on various objects
+ */
 public class Physics {
     /**
      * Check if two GameObjects have collided

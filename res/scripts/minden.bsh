@@ -1,0 +1,5 @@
+import com.base.engine.Display;
+
+level.addEvent(boss.createDialogEvent("Player: As much fun as assembly is, twitter seems pretty enticing... ", 2));
+level.addEvent(boss.createDialogEvent("Minden: Are you here?", 3));
+

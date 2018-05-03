@@ -2,12 +2,12 @@ package com.base.engine;
 
 import com.base.game.Game;
 import com.base.game.interfaces.MainMenu;
-import com.base.game.interfaces.PauseMenu;
 import com.base.game.utilities.Time;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import java.io.File;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -18,40 +18,33 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 /**
  * Adapted from LWJGL getting started: https://www.lwjgl.org/guide
+ * Creates a display using openGl and initializes the game
+ * Manages the gameloop
  */
 public class Display {
     // The window handle
     private static long window;
 
-    private MainMenu mainMenu;
-    private PauseMenu pauseMenu;
-
     private static String title;
     private static int width;
     private static int height;
-
-    public enum State {
-        MAIN_MENU, GAME, PAUSE_MENU;
-    }
-
-    private static State state = State.MAIN_MENU;
 
     private InputHandler inputHandler;
 
     /**
      * run the display
-     * @param width the width of the screen
-     * @param height the height of the screen
      * @param name of the game
      */
-    public void run(int width, int height, String name) {
+    public void run(String name) {
         Display.title = name;
-        Display.width = width;
-        Display.height = height;
 
         Time.init();
+        EventQueue.init();
         init();
+        Audio.init();
         gameLoop();
+
+        Audio.cleanUp();
 
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(window);
@@ -68,11 +61,6 @@ public class Display {
     private void initGame() {
         Game.game = new Game();
         inputHandler = new InputHandler();
-
-        mainMenu = new MainMenu();
-        mainMenu.init("./res/parchment.png");
-        pauseMenu = new PauseMenu();
-        pauseMenu.init("./res/bricks.jpg");
     }
 
     /**
@@ -95,6 +83,7 @@ public class Display {
         // Create the window
         GLFWVidMode mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         width = mode.width();
+
         height = mode.height();
 
         window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);
@@ -105,13 +94,6 @@ public class Display {
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            //Pause the game after clicking escape while playing the game
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.GAME )
-                state = State.PAUSE_MENU;
-            //Resume the game after clicking escape to resume the game
-            else if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE && state == State.PAUSE_MENU )
-                start();
-
             inputHandler.invokeKey(window, key, scancode, action, mods);
         });
 
@@ -170,34 +152,21 @@ public class Display {
         glOrtho(0, width, 0, height, 1, -1);
         glMatrixMode(GL_MODELVIEW);
 
-        initGame();
+       initGame();
 
         // Set the clear color
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
+
         while ( !glfwWindowShouldClose(window) ) {
             Time.update();
+            EventQueue.update();
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-            switch (state) {
-                case MAIN_MENU:
-                    mainMenu.update();
-                    mainMenu.render();
-                    break;
-                case GAME:
-                    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-                    Game.game.update();
-                    Game.game.render();
-                    break;
-                case PAUSE_MENU:
-                    pauseMenu.update();
-                    pauseMenu.render();
-                    break;
-            }
+            Game.game.run();
 
             glfwSwapBuffers(window); // swap the color buffers
 
@@ -205,13 +174,6 @@ public class Display {
             // invoked during this call.
             glfwPollEvents();
         }
-    }
-
-    /**
-     * start the game
-     */
-    public static void start() {
-        state = State.GAME;
     }
 
     /**

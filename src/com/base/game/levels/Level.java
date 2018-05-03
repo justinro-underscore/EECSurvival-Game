@@ -1,57 +1,82 @@
 package com.base.game.levels;
 
+import com.base.engine.*;
 import com.base.engine.Display;
 import com.base.engine.GameObject;
 import com.base.engine.Physics;
 import com.base.engine.Sprite;
+import com.base.game.Game;
+import com.base.game.gameobject.button.GameButton;
+import com.base.game.gameobject.entity.Boss;
 import com.base.game.gameobject.entity.Player;
 import com.base.game.gameobject.item.ConsumableItem;
 import com.base.game.gameobject.object.Door;
 import com.base.game.interfaces.UI;
+import com.base.game.scenes.Event;
+import com.base.game.scenes.Scene;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.Callable;
 
 public abstract class Level {
-    private Sprite background;
+
+    private Animation background;
+    private ArrayList<Event> events;
+
+    private GameButton quit;
 
     //List of Game Objects
-    private ArrayList<GameObject> gameObjects;
-    private ArrayList<GameObject> toAdd;
-    private ArrayList<GameObject> toRemove;
-
-    private ConsumableItem consumableItem;
+    protected ArrayList<GameObject> gameObjects;
+    protected ArrayList<GameObject> toAdd;
+    protected ArrayList<GameObject> toRemove;
 
     //The Player
     protected Player player;
     protected UI ui;
-
+    private SpriteRetriever retriever;
     private boolean levelOver;
     private boolean gameOver;
+
+    protected boolean stopSpawningConsumables;
+
     private LevelTransition lvlTransition;
 
     /**
      * Passes the background path with inheritance
      * @param backgroundPath Takes in the path that is available to the user
+     * @param width width of img
+     * @param height height of img
+     * @param player player for level
      */
-    public void init(String backgroundPath) {
+    public void init(String backgroundPath, int width, int height, Player player) {
+        this.player = player;
         gameObjects = new ArrayList<>();
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //Creates a background
-        background = new Sprite(Display.getWidth(), Display.getHeight(), backgroundPath);
+        background = new Animation(1,0,0, backgroundPath,width, height,Display.getWidth(),Display.getHeight());
 
-        //Creates the player and consumable item
-        player = new Player(Display.getWidth() / 2 - 30, Display.getHeight() / 2 - 30, 41, 82, "./res/player.png", 4f, 20, 5);
-        consumableItem = new ConsumableItem(Display.getWidth() - 50,0, 50, 50, "", 5000, 5);
-
-        //Renders the two objects
         addObj(player);
-        addObj(consumableItem);
 
         levelOver = false;
         gameOver = false;
+        stopSpawningConsumables = false;
         lvlTransition = new LevelTransition();
+
+        events = new ArrayList<>();
+
+        quit = new GameButton((float)(Display.getWidth()/2 - 875), (float)(Display.getHeight()/2), 400, 80, "Menu",
+                () -> {
+                    InputHandler.clear();
+                    Game.backToMenu();
+                });
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
     }
 
     /**
@@ -61,12 +86,21 @@ public abstract class Level {
         if (levelOver) {
             return;
         }
-        for (GameObject object : gameObjects) {
-            if (!object.isRemoved())
-                object.update();
-            else
-                toRemove.add(object);
+
+        if (!events.isEmpty()) {
+            events.get(0).exec();
+            if (events.get(0).isOver()) {
+                events.remove(0);
+            }
+        } else {
+            for (GameObject object : gameObjects) {
+                if (!object.isRemoved())
+                    object.update();
+                else
+                    toRemove.add(object);
+            }
         }
+
         if (ui != null) {
             ui.update();
         }
@@ -80,6 +114,10 @@ public abstract class Level {
             gameObjects.removeAll(toRemove);
 
             toRemove.clear();
+        }
+
+        if (LevelManager.isRenderQuit()) {
+            quit.update();
         }
     }
 
@@ -100,6 +138,10 @@ public abstract class Level {
                 lvlTransition = null;
                 levelOver = false;
             }
+        }
+
+        if(LevelManager.isRenderQuit()) {
+            quit.render();
         }
     }
 
@@ -137,6 +179,19 @@ public abstract class Level {
         return player.getY();
     }
 
+    /**
+     * Remove the consumable item if it is present
+     */
+    protected void removeConsumableIfPresent()
+    {
+        for(int i = 0; i < gameObjects.size(); i++)
+        {
+            if(gameObjects.get(i) instanceof ConsumableItem){
+                toRemove.add(gameObjects.get(i));
+                return;
+            }
+        }
+    }
 
     /**
      * Collision Detection
@@ -167,6 +222,8 @@ public abstract class Level {
     {
         levelOver = true;
         gameOver = lose;
+        removeConsumableIfPresent();
+        stopSpawningConsumables = true;
         lvlTransition.init();
     }
 
@@ -186,6 +243,8 @@ public abstract class Level {
             }
         }
         ui = null;
+        stopSpawningConsumables = true;
+        Game.game.getCurrLevel().getPlayer().setMaxHealth();
         createDoor();
     }
 
@@ -193,9 +252,23 @@ public abstract class Level {
      * Creates a door at the end after defeating the boss.
      */
     public void createDoor() {
-        Door door = new Door(Display.getWidth() / 2.0f, Display.getHeight() - 100, 70, 100, "./res/door.png");
+        Door door = new Door((Display.getWidth() / 2.0f) - 50, Display.getHeight() - 150, 148, 125, "res/assets/ExitDoor.png",1);
 
         addObj(door);
     }
 
+    public Player getPlayer(){
+        return player;
+    }
+
+    /**
+     * If the level is a boss level, reset the UI
+     */
+    public void resetUI()
+    {
+        if(this instanceof BossLevel)
+            this.resetUI();
+    }
+
+    public abstract Boss getBoss();
 }

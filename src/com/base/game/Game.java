@@ -1,152 +1,104 @@
 package com.base.game;
 
 import com.base.engine.*;
-import com.base.game.gameobject.entity.Player;
-import com.base.game.gameobject.entity.Boss;
-import com.base.game.gameobject.item.ConsumableItem;
-import com.base.game.interfaces.UI;
-import com.base.game.levels.BossLevel;
-import com.base.game.levels.EmptyLevel;
-import com.base.game.levels.Level;
-import com.base.game.levels.LevelTransition;
+import com.base.game.interfaces.MainMenu;
+import com.base.game.interfaces.OptionMenu;
+import com.base.game.levels.*;
+import com.base.game.utilities.Delay;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.awt.*;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 public class Game {
     public static Game game;
 
-    private ArrayList<Level> levels;
-    private int currLevel;
+    private MainMenu mainMenu;
+    private OptionMenu pauseMenu;
+
+    private static LevelManager levelManager;
+
+    public enum State {
+        MAIN_MENU, GAME, PAUSE_MENU
+    }
+
+    private static State state = State.MAIN_MENU;
 
     /**
-     * Add the levels to the game
+     * The overarching game
      */
     public Game() {
-        currLevel = 0;
-        levels = new ArrayList();
+        mainMenu = new MainMenu();
+        mainMenu.init("res/assets/parchment.png",640,480);
+        pauseMenu = new OptionMenu();
+        pauseMenu.init("res/assets/optionsScreen.png", 640,480);
+        levelManager = new LevelManager();
 
-        try {
-            Clip bSound = AudioSystem.getClip();
-            File audio = new File("./res/audio/Fighting_is_not_an_option.wav");
-            bSound.open(AudioSystem.getAudioInputStream(audio.toURI().toURL()));
-            bSound.start();
-            bSound.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
+        EventQueue.registerCallback(new Event("Keyboard", Integer.toString(GLFW_KEY_ESCAPE), false),
+                () -> {
+                    if (InputHandler.isKeyDown(GLFW_KEY_ESCAPE))
+                        return;
+
+                    if (state == State.GAME) {
+                        state = State.PAUSE_MENU;
+                        LevelManager.pause();
+                    } else if (state == State.PAUSE_MENU) {
+                        LevelManager.resume();
+                        start();
+                    }
+                });
+    }
+
+    /**
+     * Runs and manages game states
+     */
+    public void run() {
+        switch (state) {
+            case MAIN_MENU:
+                mainMenu.update();
+                mainMenu.render();
+                break;
+            case GAME:
+                if (!LevelManager.hasLoadedLevels()) {
+                    levelManager.loadLevels();
+                }
+
+                levelManager.update();
+                levelManager.render();
+                break;
+            case PAUSE_MENU:
+                pauseMenu.update();
+                pauseMenu.render();
+                break;
         }
-        EmptyLevel level1 = new EmptyLevel("./res/levelBack.png", true);
-      
-        Boss boss = new Boss(Display.getWidth() / 2 - 35, Display.getHeight() - 150, 70, 70, "", 3f,60, 8);
-        BossLevel level2 = new BossLevel("./res/bossBack.png", boss);
-
-        EmptyLevel endGame = new EmptyLevel("./res/thankYouForWatching.png", false);
-
-        levels.add(level1);
-        levels.add(level2);
-        levels.add(endGame);
     }
 
     /**
-     * Get the current level
-     * @return the current level
+     * Returns current level of game
+     * @return current level
      */
-    private Level getCurrLevel() {
-        return levels.get(currLevel);
+    public Level getCurrLevel() {
+        return levelManager.getCurrLevel();
     }
 
     /**
-     * Update the game
+     * Returns the levelManager for manipulation
+     * @return levelManager
      */
-    public void update() {
-        levels.get(currLevel).update();
+    public LevelManager getLevelManager() {
+        return levelManager;
     }
 
     /**
-     * Render the game
+     * start the game
      */
-    public void render() {
-        levels.get(currLevel).render();
+    public static void start() {
+        state = State.GAME;
     }
 
     /**
-     * Add an object to the game
-     * @param obj the object to be added
+     * Changes game state to main menu
      */
-    public void addObj(GameObject obj) {
-        getCurrLevel().addObj(obj);
-    }
-
-    /**
-     * End the level
-     */
-    public void endLevel() {
-        getCurrLevel().endLevel();
-    }
-
-    /**
-     * Get objects close to the object passed in
-     * @param object the object to search around
-     * @param range the range around the current object to search for close objects
-     * @return return all of the objects close to the parameter object
-     */
-    public ArrayList<GameObject> getCloseObjects(GameObject object, float range) {
-        return getCurrLevel().getCloseObjects(object, range);
-    }
-
-    /**
-     * End the level
-     * @param lose true if the player lose
-     */
-    public void levelOver(boolean lose) {
-        getCurrLevel().levelOver(lose);
-    }
-
-    /**
-     * Get the player's x-value
-     * @return the player's x-value
-     */
-    public float getPlayerX() {
-        return getCurrLevel().getPlayerX();
-    }
-
-    /**
-     * Get the player's y-value
-     * @return the player's y-value
-     */
-    public float getPlayerY() {
-        return getCurrLevel().getPlayerY();
-    }
-
-    /**
-     * Get the health of the specified player
-     * @param isPlayer the specific player
-     * @return the player's health
-     */
-    public int getHealth(boolean isPlayer)
-    {
-        return getCurrLevel().getHealth(isPlayer);
-    }
-
-    /**
-     * Executes the cheat code
-     * Can be changed to create different cheats
-     */
-    public void executeCheat()
-    {
-        if(currLevel == 1) // Only works if you are on the second level
-            ((BossLevel)levels.get(1)).killBoss();
-    }
-
-    /**
-     * Increment the level
-     */
-    public void nextLevel() {
-        if (currLevel < levels.size() - 1)
-            currLevel++;
+    public static void backToMenu() {
+        LevelManager.reLoadLevels();
+        state = State.MAIN_MENU;
     }
 }

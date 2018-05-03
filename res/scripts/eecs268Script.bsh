@@ -1,0 +1,7 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("Player: Well that wasn't so bad, and now I get to learn some cool data structures!", 2));
+level.addEvent(boss.createDialogEvent("Gibbons: Well I don't know if you will think they are cool soon. Welcome to EECS 268, where it is like 168, but way faster and everything", 2));
+level.addEvent(boss.createDialogEvent("hurts more.", 2));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

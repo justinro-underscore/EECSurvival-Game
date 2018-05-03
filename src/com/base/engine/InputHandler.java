@@ -8,6 +8,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 /**
  * Adapted from LWJGL 3 tutorial: https://tutorialedge.net/java/lwjgl3/lwjgl-3-keyboard-input-handler-tutorial/
+ * Handles the input from the user (mouse and keyboard)
  */
 public class InputHandler {
     private static boolean[] keys = new boolean[65536];
@@ -18,10 +19,20 @@ public class InputHandler {
     private static double mouseXPos = 0;
     private static double mouseYPos = 0;
 
+    /**
+     * Callback for keyPress
+     * @param window window to detect
+     * @param key key that was detected
+     * @param scancode scandcode of key
+     * @param action action of key (pressed/released)
+     * @param mods mods of the key
+     */
     public void invokeKey(long window, int key, int scancode, int action, int mods) {
         if (key == -1) {
             return;
         }
+
+        EventQueue.invokeCallback(new Event("Keyboard", Integer.toString(key), false));
         keys[key] = action != GLFW_RELEASE;
     }
 
@@ -62,7 +73,14 @@ public class InputHandler {
         }
         return false;
     }
-    
+
+    /**
+     * Callback function for when mouse action is detected
+     * @param window current window to detect events from
+     * @param button button detected
+     * @param action action of button (pressed/released)
+     * @param mods mods of button
+     */
     public void invokeMouseButton(long window, int button, int action, int mods) {
         if (button != GLFW_MOUSE_BUTTON_1)
             return;
@@ -110,5 +128,49 @@ public class InputHandler {
      */
     public static Vector2f getMousePos() {
         return new Vector2f((float) mouseXPos, (float) mouseYPos);
+    }
+
+    /**
+     * forces a key down
+     * @param keyCode key to be pressed
+     */
+    public static void forceKeyDown(int keyCode) {
+        keys[keyCode] = true;
+    }
+
+    /**
+     * forces a key to be released
+     * @param keyCode key ot be released
+     */
+    public static void forceKeyRelease(int keyCode) {
+        keys[keyCode] = false;
+    }
+
+    /**
+     * forces a mouse click
+     */
+    public static void forceMouseDown() {
+        isMousePressed = true;
+        isMouseReleased = false;
+    }
+
+    /**
+     * forces mouse release
+     */
+    public static void forceMouseReleased() {
+        isMousePressed = false;
+        isMouseReleased = true;
+    }
+
+    /**
+     * clears all keys and mouse values
+     */
+    public static void clear() {
+        for (int i = 0; i < keys.length; i++) {
+            keys[i] = false;
+        }
+
+        isMousePressed = false;
+        isMouseReleased = false;
     }
 }

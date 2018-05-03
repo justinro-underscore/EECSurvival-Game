@@ -1,0 +1,7 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("Player: Lord almighty that was rough. I don't know if I like C++ anymore. But now I get to learn the intricacies of embedded systems!", 2));
+level.addEvent(boss.createDialogEvent("Minden: If you didn't like C++ because of all those pesky objects and classes, then you'll love C! Let's go have fun.", 2));
+level.addEvent(player.createDialogEvent("Player: No the objects and classes were cool, it was more the pointers I didn't like...but yeah, C sounds cool...", 2));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

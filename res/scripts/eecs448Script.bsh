@@ -1,0 +1,6 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("Player: At last, I get to choose my own projects!", 2));
+level.addEvent(boss.createDialogEvent("Bardas: Hold your horses! Only after we assign you one and have you finish someone else's!", 2));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

@@ -1,0 +1,7 @@
+import com.base.engine.Display;
+
+level.addEvent(player.createWalkEvent(100, 100));
+level.addEvent(player.createDialogEvent("Player: Finally! I have been eager to learn some new programming languages.", 2));
+level.addEvent(boss.createDialogEvent("Kline: Well in EECS 368, you learn about one worthless, scum of the earth language, and one language that descended from the heavens. One ", 2));
+level.addEvent(boss.createDialogEvent("rhymes with havaScript, and Haskell descended from the heavens.", 2));
+level.addEvent(player.createWalkEvent(Display.getWidth() / 2, 20));

@@ -7,4 +7,6 @@ com.base.game.gameobject.object
 com.base.game.gameobject.projectile
 com.base.game.interfaces
 com.base.game.levels
+com.base.game.scenes
 com.base.game.utilities
+com.test

@@ -11,3 +11,5 @@
 	- http://www.opengameart.org
 * Our randomWithRange function is from AusCBloke on stackoverflow
 	- https://stackoverflow.com/questions/7961788/math-random-explained?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+* Our test launcher was influenced by this
+	- https://junit.org/junit5/docs/current/user-guide/#advanced-topics

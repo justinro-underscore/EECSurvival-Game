@@ -19,4 +19,12 @@ public class EmptyLevel extends Level {
         if (hasDoor)
             createDoor();
     }
+
+    /**
+     * Don't get the boss, this is an emptyLevel
+     * @return null
+     */
+    public Boss getBoss(){
+        return null;
+    }
 }

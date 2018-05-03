@@ -115,6 +115,9 @@ public abstract class Character extends GameObject
                     if(stats.getHealth() + ((ConsumableItem) obj).getAddedHealth() <= stats.getMaxHealth()){
                         gainHealth(((ConsumableItem) obj).getAddedHealth()); // Gain specified amount of health from consumable
                     }
+                    else{
+                        stats.setHealth(stats.getMaxHealth());
+                    }
                     obj.remove(); // Delete the consumable
                 }
                 else if(obj.getBoss()==false && this.getBoss()==false){
@@ -155,6 +158,11 @@ public abstract class Character extends GameObject
         stats.setHealth(stats.getHealth() + healthGain);
         //TODO: add checking for max health
     }
+
+    /**
+     * Set the character's health to the max health
+     */
+    public void setMaxHealth() { stats.setMaxHealth(); }
 
     /**
      * Returns the character's health

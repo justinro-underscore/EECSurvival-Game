@@ -128,6 +128,11 @@ public class TestLevel extends Level {
     }
 
     @Override
+    public Boss getBoss() {
+        return null;
+    }
+
+    @Override
     public int getHealth(boolean isPlayer) {
         if (isPlayer)
             return player.getHealth();

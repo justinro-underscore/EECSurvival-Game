@@ -78,7 +78,7 @@ public class UI extends Interface // TODO Add all UI functionality
             playerHealthDigits[0].setAlpha(1.0f);
         }
         else
-            playerHealthDigits[0].setAlpha(1.0f);
+            playerHealthDigits[0].setAlpha(0.0f);
 
         if((playerHealth / 100 != 0) || (playerHealth / 10 != 0))
         {
@@ -188,7 +188,7 @@ public class UI extends Interface // TODO Add all UI functionality
 //        glEnd();
 
         // Shows the player health digits
-      for(int i = 1; i < 3; i++)
+      for(int i = 0; i < 3; i++)
         {
             playerHealthDigits[i].render(playerHealthBar.x + PLAYER_HEALTH_BAR_WIDTH + (25 * i), playerHealthBar.y,25,25);
         }

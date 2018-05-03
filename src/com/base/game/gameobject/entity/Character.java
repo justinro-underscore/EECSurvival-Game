@@ -45,9 +45,7 @@ public abstract class Character extends GameObject
 
     @Override
     /**
-     * Render Function
-     *
-     * @return The sprite sheet in the form of a buffered image.
+     * Renders the character
      */
     public void render() {
         super.render();
@@ -56,6 +54,9 @@ public abstract class Character extends GameObject
             getCurrDialog().render();
     }
 
+    /**
+     * Updates the dialog box when text is appearing
+     */
     public void updateDialog() {
         if (!startDialog)
             return;
@@ -67,22 +68,42 @@ public abstract class Character extends GameObject
         getCurrDialog().update();
     }
 
+    /**
+     * sets the start dialog flag to true
+     */
     public void startDialog() {
         startDialog = true;
     }
 
+    /**
+     * Sets the start dialog flag to false
+     */
     public void stopDialog() {
         startDialog = false;
     }
 
+    /**
+     * Allows us to add a new dialog to a character
+     * @param dialog The script of what is going to be said
+     */
     public void addDialog(Dialog dialog) {
         dialogs.add(dialog);
     }
 
+    /**
+     * Gets the dialog we are currently on
+     * @return the current dialog
+     */
     public Dialog getCurrDialog() {
         return dialogs.get(0);
     }
 
+    /**
+     * Creates a new dialog event for a character
+     * @param content The content of the dialog
+     * @param fontSize The size of the font
+     * @return A dialog event
+     */
     public Event createDialogEvent(String content, int fontSize) {
         Callable<Boolean> callable;
         Dialog dialog = new Dialog(content, fontSize);

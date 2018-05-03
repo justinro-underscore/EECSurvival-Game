@@ -45,6 +45,9 @@ public class Boss388 extends Boss {
     }
 
     @Override
+    /**
+     * Updates the boss
+     */
     public void update()
     {
         super.update();

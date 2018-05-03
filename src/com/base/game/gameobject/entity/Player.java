@@ -143,6 +143,11 @@ public class Player extends Character {
         enterCheatCode();
     }
 
+    /**
+     * has the player move
+     * @param x which way in the x direction
+     * @param y which way in the y direction
+     */
     private void move(int x, int y) {
         if (walkDelay.isOver()) {
             Audio.playBuffer(walkSfx);
@@ -154,6 +159,12 @@ public class Player extends Character {
     }
 
 
+    /**
+     * Check whether I can move to the desired location or not
+     * @param x which way in the x direction
+     * @param y which way in the y direction
+     * @return if we can move there or not
+     */
     public boolean moveTo(float x, float y) {
         if (Math.ceil(Math.abs(xPos - x)) <= 10 && Math.ceil(Math.abs(yPos - y)) <= 10) {
             return true;

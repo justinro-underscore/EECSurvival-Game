@@ -6,6 +6,7 @@ import com.base.engine.Sprite;
 import com.base.engine.SpriteRetriever;
 
 public abstract class Interface {
+    protected final Sprite container = SpriteRetriever.loadSprite("res/assets/container.png", 0, 0, 1, 1320, 300)[0];
     private Animation background;
     /**
      * Initialize the interface

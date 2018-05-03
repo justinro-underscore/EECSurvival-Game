@@ -18,11 +18,13 @@ public class LevelManager {
     private static boolean loadTestLevel = false;
     private static boolean isTestLevelAutomated = false;
     private static boolean hasLoadedLevels;
+    private static boolean renderQuit;
 
     /**
      * Add the levels to the game
      */
     public LevelManager() {
+        renderQuit = false;
         startedAudio = false;
         startMusic = Audio.loadSound("res/audio/Fighting_is_not_an_option.ogg");
         levels = new ArrayList();
@@ -154,6 +156,10 @@ public class LevelManager {
             currLevel++;
         }
 
+        if (currLevel == levels.size() - 1) {
+            renderQuit = true;
+        }
+
         resume();
     }
 
@@ -178,6 +184,7 @@ public class LevelManager {
      */
     public void loadLevels() {
         currLevel = 0;
+        renderQuit = false;
         levels.clear();
 
         if (!Audio.isMuted())
@@ -218,6 +225,14 @@ public class LevelManager {
         }
 
         hasLoadedLevels = true;
+    }
+
+    /**
+     * Returns true if final level
+     * @return returns true if time to render quit button
+     */
+    public static boolean isRenderQuit() {
+        return renderQuit;
     }
 
     /**

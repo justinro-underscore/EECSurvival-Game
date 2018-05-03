@@ -4,24 +4,22 @@ import com.base.engine.*;
 import com.base.game.Game;
 import com.base.game.gameobject.object.Door;
 import com.base.game.gameobject.projectile.StandardProjectile;
-import com.base.game.scenes.Dialog;
+import com.base.game.levels.LevelManager;
 import com.base.game.scenes.Event;
 import com.base.game.utilities.Delay;
-import com.base.game.utilities.Time;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
 
 public class Player extends Character {
     private Delay attackDelay; // Delay between attacks
+    private Delay walkDelay;
     private int konami;
     private int fireSfx;
+    private int walkSfx;
+    private int deathSfx;
+
     private float speedFactor;
 
     private int startHealth;
@@ -55,7 +53,13 @@ public class Player extends Character {
         startY = yPos;
         startHealth = health;
 
-        fireSfx = Audio.loadSound("res/audio/fire.ogg");
+        fireSfx = Audio.loadSound("res/audio/laser_shooting_sfx.ogg");
+        walkSfx = Audio.loadSound("res/audio/walk_sfx.ogg");
+        deathSfx = Audio.loadSound("res/audio/wilhelm_scream.ogg");
+
+        walkDelay = new Delay(500);
+        walkDelay.restart();
+
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
 
@@ -140,6 +144,11 @@ public class Player extends Character {
     }
 
     private void move(int x, int y) {
+        if (walkDelay.isOver()) {
+            Audio.playBuffer(walkSfx);
+            walkDelay.start();
+        }
+
         xPos += x * stats.getSpeed() * speedFactor;
         yPos += y * stats.getSpeed() * speedFactor;
     }
@@ -270,6 +279,8 @@ public class Player extends Character {
     protected void checkDeath() {
         if (stats.getIsDead()) // If the player is dead...
         {
+            LevelManager.pause();
+            Audio.playBuffer(deathSfx);
             Game.game.getCurrLevel().levelOver(true); // Run levelOver
         }
     }

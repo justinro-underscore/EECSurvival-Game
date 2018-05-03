@@ -4,16 +4,18 @@ import com.base.engine.*;
 import com.base.game.Game;
 import com.base.game.gameobject.projectile.HeatSeekingProjectile;
 import com.base.game.gameobject.projectile.StandardProjectile;
+import com.base.game.levels.LevelManager;
 import com.base.game.utilities.Delay;
 
 import java.util.ArrayList;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class Boss extends Character { // TODO Make this class abstract, and extend new bosses
 
     protected ArrayList<StandardProjectile> standardProjectiles; // List of standardProjectiles
     protected ArrayList<HeatSeekingProjectile> heatSeekingProjectiles; // List of heatSeekingProjectiles
+
+    private int burstSfx;
+    private int deathSfx;
 
     /**
      * Creates a new boss
@@ -27,7 +29,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
      */
     public Boss(float xPos, float yPos, int width, int height, float speed, int health, int attackDamage, String image) {
         super(xPos, yPos, width, height, speed, health, attackDamage, true, image);
-
+      
+        deathSfx = Audio.loadSound("res/audio/congratulations.ogg");
+      
         standardProjectiles = new ArrayList<>();
         heatSeekingProjectiles = new ArrayList<>();
     }
@@ -60,8 +64,7 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     /**
      * Runs the attack pattern
      */
-    public void attack() {
-    }
+    public void attack() {}
 
     /**
      * Burst attack
@@ -153,6 +156,9 @@ public class Boss extends Character { // TODO Make this class abstract, and exte
     {
         if(stats.getIsDead())
         {
+            LevelManager.pause();
+            Audio.playBuffer(deathSfx);
+
             Game.game.getCurrLevel().levelOver(false); // Level has been won!
         }
     }

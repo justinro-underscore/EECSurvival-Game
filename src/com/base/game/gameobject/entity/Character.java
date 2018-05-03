@@ -43,6 +43,11 @@ public abstract class Character extends GameObject
     }
 
     @Override
+    /**
+     * Render Function
+     *
+     * @return The sprite sheet in the form of a buffered image.
+     */
     public void render() {
         super.render();
 

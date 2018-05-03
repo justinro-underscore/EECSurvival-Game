@@ -201,6 +201,7 @@ public class LevelManager {
 
 
 
+
             EmptyLevel endGame = new EmptyLevel("res/assets/diploma.png",1056, 816, player, false);
 
 

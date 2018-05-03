@@ -34,6 +34,8 @@ public class SpriteRetriever {
         try {
             for (int i = 0; i < theframes; i++) {
                 frames[i] = new Sprite(TextureLoader.loadTexture(spriteSheet.getSubimage( x+i * TILE_WIDTH,  y, TILE_WIDTH, TILE_HEIGHT)));
+                //Wow this was the hardest thing to do.
+                //Takes each of the frames and what it does it gets each of the subimage of the spritesheet, and loades it into the frames.
             }
         }
         catch (IOException e)

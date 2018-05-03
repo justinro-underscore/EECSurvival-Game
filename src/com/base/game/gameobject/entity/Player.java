@@ -63,13 +63,13 @@ public class Player extends Character {
         attackDelay = new Delay(500); // Time (in milliseconds) between attacks
         attackDelay.restart(); // Run this method so we can immediately fire
 
-        idle = new Animation(1,64,118,"res/SpriteSheets/walkcyclevarious.png",64,59,80,80);
+        idle = new Animation(1,64,118,"res/SpriteSheets/walkcyclevarious.png",64,52,80,80);
 
         //Initialize all of the animations
-        walkDown = new Animation(3,384,118,"res/SpriteSheets/walkcyclevarious.png",64,59,80,80);
-        walkLeft = new Animation(3,576,118,"res/SpriteSheets/walkcyclevarious.png",64,59,80,80);
-        walkRight = new Animation(3,192,118,"res/SpriteSheets/walkcyclevarious.png",64,59,80,80);
-        walkUp = new Animation(3,0,118,"res/SpriteSheets/walkcyclevarious.png",64,59,80,80);
+        walkDown = new Animation(3,388,118,"res/SpriteSheets/walkcyclevarious.png",64,52,80,80);
+        walkLeft = new Animation(3,576,118,"res/SpriteSheets/walkcyclevarious.png",64,52,80,80);
+        walkRight = new Animation(3,196,118,"res/SpriteSheets/walkcyclevarious.png",64,52,80,80);
+        walkUp = new Animation(3,0,118,"res/SpriteSheets/walkcyclevarious.png",64,52,80,80);
 
         currAnimation = idle;
         speedFactor = 1.0f;

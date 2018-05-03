@@ -48,6 +48,8 @@ Test Automated will do the same thing as Manual,excpet it just feeds the charact
 
 ![Alt text][TestAutomated]
 
+## Konami Code
+This game has a cheat code! To instantly kill the boss (you dirty cheater you) just enter: up up down down.
 
 [LevelOne]: UGPics/LevelOne.png
 [LevelTwo]: UGPics/LevelTwo.png

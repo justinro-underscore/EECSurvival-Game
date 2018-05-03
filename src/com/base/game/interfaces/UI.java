@@ -45,15 +45,16 @@ public class UI extends Interface
         bossHealthBar = new Rectangle(20, Display.getHeight() - 60, BOSS_HEALTH_BAR_WIDTH, 40);
         bossHealthFactor = (float)BOSS_HEALTH_BAR_WIDTH / bossMaxHealth;
 
-        digits = new Sprite[10];
+        digits = new Sprite[11];
 
         // Populate the digits array with pictures of the digits
-        theDigit = new Animation(10, 0,0,"res/digits/digits.png",50,50,25,25);
+        theDigit = new Animation(11, 0,0,"res/digits/digits.png",50,50,25,25);
         for(int i = 0; i < 10; i++)
         {
             digits[i] = theDigit.getCurrentFrame();
             theDigit.nextFrame();
         }
+        digits[10] = theDigit.getCurrentFrame(); // The 10th frame is just an empty sprite
 
         playerHealthDigits = new Sprite[3];
         // Initialize player's health to nothing using the default index
@@ -83,22 +84,8 @@ public class UI extends Interface
      */
     private void setPlayerHealthDigits(int playerHealth)
     {
-        if(playerHealth / 100 != 0)
-        {
-            playerHealthDigits[0] = digits[playerHealth / 100]; // If the player's health is not a multiple of 100, don't show
-            playerHealthDigits[0].setAlpha(1.0f);
-        }
-        else
-            playerHealthDigits[0].setAlpha(0.0f);
-
-        if((playerHealth / 100 != 0) || (playerHealth / 10 != 0))
-        {
-            playerHealthDigits[1] = digits[(playerHealth % 100) / 10];
-            playerHealthDigits[1].setAlpha(1.0f);
-        }
-        else
-            playerHealthDigits[1].setAlpha(0.0f);
-
+        playerHealthDigits[0] = digits[playerHealth / 100 != 0 ? playerHealth / 100 : 10]; // If the player's health is not a multiple of 100, don't show
+        playerHealthDigits[1] = digits[(playerHealth / 100 != 0) || (playerHealth / 10 != 0) ? (playerHealth % 100) / 10 : 10];
         playerHealthDigits[2] = digits[playerHealth % 10];
     }
 
